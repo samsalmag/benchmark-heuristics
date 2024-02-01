@@ -1,0 +1,148 @@
+import "copyrightAndOthers.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/impl/primitive"
+
+fileName(primitive) ::= "Abstract<primitive.name>Iterable"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.primitive;
+
+<if(!primitive.booleanPrimitive)>import java.util.Arrays;
+
+<endif>
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.Lazy<name>Iterable;
+import org.eclipse.collections.api.bag.primitive.Mutable<name>Bag;
+import org.eclipse.collections.api.factory.primitive.<name>Bags;
+import org.eclipse.collections.api.factory.primitive.<name>Lists;
+import org.eclipse.collections.api.factory.primitive.<name>Sets;
+import org.eclipse.collections.api.list.primitive.Mutable<name>List;
+import org.eclipse.collections.api.set.primitive.Mutable<name>Set;
+import org.eclipse.collections.impl.lazy.primitive.Lazy<name>IterableAdapter;
+
+/**
+ * This file was automatically generated from template file abstractPrimitiveIterable.stg.
+ * @since 6.0
+ */
+public abstract class Abstract<name>Iterable implements <name>Iterable
+{
+    @Override
+    public String toString()
+    {
+        return this.makeString("[", ", ", "]");
+    }
+
+    <(arithmeticMethods.(type))()>
+
+    @Override
+    public Mutable<name>List toList()
+    {
+        return <name>Lists.mutable.withAll(this);
+    }
+
+    @Override
+    public Mutable<name>Set toSet()
+    {
+        return <name>Sets.mutable.withAll(this);
+    }
+
+    @Override
+    public Mutable<name>Bag toBag()
+    {
+        return <name>Bags.mutable.withAll(this);
+    }
+}
+
+>>
+
+arithmeticMethods ::= [
+    "boolean": "noMethods",
+    "default": "allMethods"
+    ]
+
+allMethods() ::= <<
+@Override
+public <type> minIfEmpty(<type> defaultValue)
+{
+    if (this.isEmpty())
+    {
+        return defaultValue;
+    }
+    return this.min();
+}
+
+@Override
+public <type> maxIfEmpty(<type> defaultValue)
+{
+    if (this.isEmpty())
+    {
+        return defaultValue;
+    }
+    return this.max();
+}
+
+@Override
+public double average()
+{
+    if (this.isEmpty())
+    {
+        throw new ArithmeticException();
+    }
+    return (double) this.sum() / (double) this.size();
+}
+
+@Override
+public double median()
+{
+    if (this.isEmpty())
+    {
+        throw new ArithmeticException();
+    }
+    <type>[] sortedArray = this.toSortedArray();
+    int middleIndex = sortedArray.length >\> 1;
+    if (sortedArray.length > 1 && (sortedArray.length & 1) == 0)
+    {
+        <type> first = sortedArray[middleIndex];
+        <type> second = sortedArray[middleIndex - 1];
+        return ((double) first + (double) second) / 2.0;
+    }
+    return (double) sortedArray[middleIndex];
+}
+
+@Override
+public <type>[] toSortedArray()
+{
+    <type>[] array = this.toArray();
+    Arrays.sort(array);
+    return array;
+}
+
+@Override
+public Mutable<name>List toSortedList()
+{
+    return this.toList().sortThis();
+}
+
+@Override
+public Lazy<name>Iterable asLazy()
+{
+    return new Lazy<name>IterableAdapter(this);
+}
+>>
+
+noMethods() ::= <<
+@Override
+public Lazy<name>Iterable asLazy()
+{
+    return new Lazy<name>IterableAdapter(this);
+}
+>>

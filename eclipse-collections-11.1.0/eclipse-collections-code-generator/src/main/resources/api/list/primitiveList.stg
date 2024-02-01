@@ -1,0 +1,226 @@
+import "copyrightAndOthers.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveAPI.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/api/list/primitive"
+
+fileName(primitive) ::= "<primitive.name>List"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.list.primitive;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.block.function.primitive.<name>IntToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>IntPredicate;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name><name>Procedure;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.list.ListIterable;
+import org.eclipse.collections.api.ordered.primitive.Reversible<name>Iterable;
+import org.eclipse.collections.api.tuple.primitive.<name><name>Pair;
+import org.eclipse.collections.api.tuple.primitive.<name>ObjectPair;
+
+<if(primitive.specializedStream)>
+import java.util.Spliterator;
+import java.util.stream.StreamSupport;
+import java.util.stream.<name>Stream;
+<endif>
+import java.util.Objects;
+
+/**
+ * This file was automatically generated from template file primitiveList.stg.
+ *
+ * @since 3.0.
+ */
+public interface <name>List extends Reversible<name>Iterable
+{
+    <type> get(int index);
+
+    <(arithmeticMethods.(type))(name, type)>
+    int lastIndexOf(<type> value);
+
+    <sharedAPI(fileName(primitive), name)>
+
+    /**
+     * @since 9.0.
+     */
+    @Override
+    default <name>List tap(<name>Procedure procedure)
+    {
+        this.forEach(procedure);
+        return this;
+    }
+
+    /**
+     * This method iterates over two CharList instances of the same size together using the specified CharCharProcedure.
+     *
+     * @since 11.1
+     */
+    default void forEachInBoth(<name>List other, <name><name>Procedure procedure)
+    {
+        Objects.requireNonNull(other);
+        if (this.size() == other.size())
+        {
+            this.forEachWithIndex((each, index) -> procedure.value(each, other.get(index)));
+        }
+        else
+        {
+            throw new IllegalArgumentException("Attempt to call forEachInBoth with two <name>List instances of different sizes :"
+                    + this.size()
+                    + ':'
+                    + other.size());
+        }
+    }
+
+    /**
+     * Returns a new <name>List including all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    @Override
+    default <name>List selectWithIndex(<name>IntPredicate predicate)
+    {
+        int[] index = {0};
+        return this.select(each -> predicate.accept(each, index[0]++));
+    }
+
+    /**
+     * Returns a new <name>List excluding all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    @Override
+    default <name>List rejectWithIndex(<name>IntPredicate predicate)
+    {
+        int[] index = {0};
+        return this.reject(each -> predicate.accept(each, index[0]++));
+    }
+
+    @Override
+    \<V> ListIterable\<V> collect(<name>ToObjectFunction\<? extends V> function);
+
+    /**
+     * Returns a new ListIterable using results obtained by applying the specified function to each element
+     * and its corresponding index.
+     *
+     * @since 9.1.
+     */
+    @Override
+    default \<V> ListIterable\<V> collectWithIndex(<name>IntToObjectFunction\<? extends V> function)
+    {
+        int[] index = {0};
+        return this.collect(each -> function.value(each, index[0]++));
+    }
+
+    /**
+     * Follows the same general contract as {@link java.util.List#equals(Object)}.
+     */
+    @Override
+    boolean equals(Object o);
+
+    /**
+     * Follows the same general contract as {@link java.util.List#hashCode()}.
+     */
+    @Override
+    int hashCode();
+
+    /**
+     * Returns an immutable copy of this list. If the list is immutable, it returns itself.
+     */
+    Immutable<name>List toImmutable();
+
+    /**
+     * @since 6.0.
+     */
+    @Override
+    <name>List distinct();
+
+    /**
+     * @since 5.0.
+     */
+    @Override
+    <name>List toReversed();
+
+    /**
+     * @see java.util.List#subList(int fromIndex, int toIndex)
+     * @since 5.0.
+     */
+    <name>List subList(int fromIndex, int toIndex);
+
+    /**
+     * Returns a {@code ListIterable} formed from this {@code <name>List} and another {@code <name>List} by
+     * combining corresponding elements in pairs. If one of the two {@code <name>List}s is longer than the other, its
+     * remaining elements are ignored.
+     *
+     * @since 9.1.
+     */
+    default ListIterable\<<name><name>Pair> zip<name>(<name>Iterable iterable)
+    {
+        throw new UnsupportedOperationException("Default method to prevent breaking backwards compatibility");
+    }
+
+    /**
+     * Returns a {@code ListIterable} formed from this {@code <name>List} and a {@code ListIterable} by
+     * combining corresponding elements in pairs. If one of the two Lists is longer than the other, its
+     * remaining elements are ignored.
+     *
+     * @since 9.1.
+     */
+    default \<T> ListIterable\<<name>ObjectPair\<T\>> zip(Iterable\<T> iterable)
+    {
+        throw new UnsupportedOperationException("Default method to prevent breaking backwards compatibility");
+    }
+<if(primitive.specializedStream)>
+
+    /**
+     * @since 10.0
+     */
+    Spliterator.Of<name> spliterator();
+
+    /**
+     * @since 10.0
+     */
+    default <name>Stream primitiveStream()
+    {
+        return StreamSupport.<type>Stream(this.spliterator(), false);
+    }
+
+    /**
+     * @since 10.0
+     */
+    default <name>Stream primitiveParallelStream()
+    {
+        return StreamSupport.<type>Stream(this.spliterator(), true);
+    }
+<endif>
+}
+
+>>
+arithmeticMethods ::= [
+"byte": "allMethods",
+"short": "allMethods",
+"char": "allMethods",
+"int": "allMethods",
+"long": "allMethods",
+"float": "allMethods",
+"double": "allMethods",
+"boolean": "noMethods"
+]
+
+allMethods(name, type) ::=<<
+<wideType.(type)> dotProduct(<name>List list);
+
+int binarySearch(<type> value);
+
+>>
+
+noMethods(name, type) ::= ""

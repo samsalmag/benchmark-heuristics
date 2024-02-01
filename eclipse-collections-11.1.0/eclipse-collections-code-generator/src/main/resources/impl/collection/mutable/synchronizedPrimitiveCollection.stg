@@ -1,0 +1,69 @@
+import "copyrightAndOthers.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/impl/collection/mutable/primitive"
+
+fileName(primitive) ::= "Synchronized<primitive.name>Collection"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.collection.mutable.primitive;
+
+import org.eclipse.collections.api.collection.primitive.Mutable<name>Collection;
+import org.eclipse.collections.impl.bag.mutable.primitive.<name>HashBag;
+
+/**
+ * This file was automatically generated from template file synchronizedPrimitiveCollection.stg.
+ *
+ * @since 4.0.
+ */
+public class Synchronized<name>Collection
+        extends AbstractSynchronized<name>Collection
+{
+    private static final long serialVersionUID = 1L;
+
+    protected Synchronized<name>Collection(Mutable<name>Collection collection)
+    {
+        this(collection, null);
+    }
+
+    protected Synchronized<name>Collection(Mutable<name>Collection collection, Object newLock)
+    {
+        super(collection, newLock);
+    }
+
+    /**
+     * This method will take a Mutable<name>Collection and wrap it directly in a Synchronized<name>Collection.
+     */
+    public static Synchronized<name>Collection of(Mutable<name>Collection collection)
+    {
+        return new Synchronized<name>Collection(collection);
+    }
+
+    /**
+     * This method will take a Mutable<name>Collection and wrap it directly in a Synchronized<name>Collection.
+     * Additionally, a developer specifies which lock to use with the collection.
+     */
+    public static Synchronized<name>Collection of(Mutable<name>Collection collection, Object lock)
+    {
+        return new Synchronized<name>Collection(collection, lock);
+    }
+
+    /**
+     * @since 9.2.
+     */
+    @Override
+    public Mutable<name>Collection newEmpty()
+    {
+        return new <name>HashBag();
+    }
+}
+
+>>

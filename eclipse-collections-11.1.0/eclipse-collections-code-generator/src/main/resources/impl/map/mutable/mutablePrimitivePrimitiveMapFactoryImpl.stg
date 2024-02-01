@@ -1,0 +1,143 @@
+import "copyrightAndOthers.stg"
+
+hasTwoPrimitives() ::= "true"
+
+skipBooleanKeys() ::= "true"
+
+targetPath() ::= "org/eclipse/collections/impl/map/mutable/primitive"
+
+fileName(primitive1, primitive2, sameTwoPrimitives) ::= "Mutable<primitive1.name><primitive2.name>MapFactoryImpl"
+
+class(primitive1, primitive2, sameTwoPrimitives) ::= <<
+<body(primitive1.type, primitive2.type, primitive1.name, primitive2.name)>
+>>
+
+body(type1, type2, name1, name2) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.map.mutable.primitive;
+
+import org.eclipse.collections.api.block.function.primitive.<name1>Function;
+<if(!sameTwoPrimitives)>import org.eclipse.collections.api.block.function.primitive.<name2>Function;<endif>
+import org.eclipse.collections.api.factory.map.primitive.Mutable<name1><name2>MapFactory;
+import org.eclipse.collections.impl.factory.primitive.<name1><name2>Maps;
+import org.eclipse.collections.api.map.primitive.Mutable<name1><name2>Map;
+import org.eclipse.collections.api.map.primitive.<name1><name2>Map;
+import org.eclipse.collections.impl.utility.Iterate;
+
+/**
+ * Mutable<name1><name2>MapFactoryImpl is a factory implementation which creates instances of type {@link Mutable<name1><name2>Map}.
+ * This file was automatically generated from template file mutablePrimitivePrimitiveMapFactoryImpl.stg.
+ *
+ * @since 6.0.
+ */
+public class Mutable<name1><name2>MapFactoryImpl implements Mutable<name1><name2>MapFactory
+{
+    public static final Mutable<name1><name2>MapFactory INSTANCE = new Mutable<name1><name2>MapFactoryImpl();
+
+    @Override
+    public Mutable<name1><name2>Map empty()
+    {
+        return new <name1><name2>HashMap(0);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map of()
+    {
+        return this.empty();
+    }
+
+    @Override
+    public Mutable<name1><name2>Map with()
+    {
+        return this.empty();
+    }
+
+    @Override
+    public Mutable<name1><name2>Map with(<type1> key, <type2> value)
+    {
+        return <name1><name2>HashMap.newWithKeysValues(key, value);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map of(<type1> key, <type2> value)
+    {
+        return this.with(key, value);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map of(<type1> key1, <type2> value1, <type1> key2, <type2> value2)
+    {
+        return this.with(key1, value1, key2, value2);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map with(<type1> key1, <type2> value1, <type1> key2, <type2> value2)
+    {
+        return <name1><name2>HashMap.newWithKeysValues(key1, value1, key2, value2);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map of(<type1> key1, <type2> value1, <type1> key2, <type2> value2, <type1> key3, <type2> value3)
+    {
+        return this.with(key1, value1, key2, value2, key3, value3);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map with(<type1> key1, <type2> value1, <type1> key2, <type2> value2, <type1> key3, <type2> value3)
+    {
+        return <name1><name2>HashMap.newWithKeysValues(key1, value1, key2, value2, key3, value3);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map of(
+            <type1> key1, <type2> value1, <type1> key2, <type2> value2, <type1> key3, <type2> value3, <type1> key4, <type2> value4)
+    {
+        return this.with(key1, value1, key2, value2, key3, value3, key4, value4);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map with(
+            <type1> key1, <type2> value1, <type1> key2, <type2> value2, <type1> key3, <type2> value3, <type1> key4, <type2> value4)
+    {
+        return <name1><name2>HashMap.newWithKeysValues(key1, value1, key2, value2, key3, value3, key4, value4);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map ofInitialCapacity(int capacity)
+    {
+        return this.withInitialCapacity(capacity);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map withInitialCapacity(int capacity)
+    {
+        return new <name1><name2>HashMap(capacity);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map ofAll(<name1><name2>Map map)
+    {
+        return this.withAll(map);
+    }
+
+    @Override
+    public Mutable<name1><name2>Map withAll(<name1><name2>Map map)
+    {
+        if (map.isEmpty())
+        {
+            return this.empty();
+        }
+        return new <name1><name2>HashMap(map);
+    }
+
+    @Override
+    public \<T> Mutable<name1><name2>Map from(Iterable\<T> iterable, <name1>Function\<? super T> keyFunction, <name2>Function\<? super T> valueFunction)
+    {
+        Mutable<name1><name2>Map map = <name1><name2>Maps.mutable.empty();
+        Iterate.forEach(iterable, each -> map.put(keyFunction.<type1>ValueOf(each), valueFunction.<type2>ValueOf(each)));
+        return map;
+    }
+}
+
+>>

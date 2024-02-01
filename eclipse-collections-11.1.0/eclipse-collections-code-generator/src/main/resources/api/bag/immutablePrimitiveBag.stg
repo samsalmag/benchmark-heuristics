@@ -1,0 +1,102 @@
+import "copyrightAndOthers.stg"
+import "primitiveAPI.stg"
+
+targetPath() ::= "org/eclipse/collections/api/bag/primitive"
+
+fileName(primitive) ::= "Immutable<primitive.name>Bag"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.bag.primitive;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.bag.ImmutableBag;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+<if(!primitive.intPrimitive)>import org.eclipse.collections.api.block.predicate.primitive.IntPredicate;<endif>
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.collection.primitive.Immutable<name>Collection;
+import org.eclipse.collections.api.list.ImmutableList;
+import org.eclipse.collections.api.tuple.primitive.<name>IntPair;
+import org.eclipse.collections.api.set.primitive.Immutable<name>Set;
+
+/**
+ * This file was automatically generated from template file immutablePrimitiveBag.stg.
+ *
+ * @since 3.0.
+ */
+public interface Immutable<name>Bag extends Immutable<name>Collection, <name>Bag
+{
+    <sharedAPI(fileName(primitive), name)>
+
+    /**
+     * @since 9.0.
+     */
+    @Override
+    default Immutable<name>Bag tap(<name>Procedure procedure)
+    {
+        this.forEach(procedure);
+        return this;
+    }
+
+    /**
+     * Returns all elements of the bag that have a number of occurrences that satisfy the predicate.
+     *
+     * @since 8.0
+     */
+    @Override
+    Immutable<name>Bag selectByOccurrences(IntPredicate predicate);
+
+    /**
+     * Returns all elements of the bag that have more than one occurrence.
+     *
+     * @since 9.2
+     */
+    @Override
+    default Immutable<name>Bag selectDuplicates()
+    {
+        return this.selectByOccurrences(occurrences -> occurrences > 1);
+    }
+
+    /**
+     * Returns all elements of the bag that have exactly one occurrence.
+     *
+     * @since 9.2
+     */
+    @Override
+    Immutable<name>Set selectUnique();
+
+    /**
+     * Returns the {@code count} most frequently occurring items.
+     *
+     * In the event of a tie, all of the items with the number of occurrences that match the occurrences of the last
+     * item will be returned.
+     *
+     * @since 8.0
+     */
+    @Override
+    ImmutableList\<<name>IntPair> topOccurrences(int count);
+
+    /**
+     * Returns the {@code count} least frequently occurring items.
+     *
+     * In the event of a tie, all of the items with the number of occurrences that match the occurrences of the last
+     * item will be returned.
+     *
+     * @since 8.0
+     */
+    @Override
+    ImmutableList\<<name>IntPair> bottomOccurrences(int count);
+
+    @Override
+    \<V> ImmutableBag\<V> collect(<name>ToObjectFunction\<? extends V> function);
+
+    <immutableAPI(fileName(primitive), type, name)>
+}
+
+>>

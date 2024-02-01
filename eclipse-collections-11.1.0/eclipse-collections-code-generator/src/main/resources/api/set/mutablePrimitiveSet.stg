@@ -1,0 +1,137 @@
+import "copyrightAndOthers.stg"
+import "primitiveAPI.stg"
+
+targetPath() ::= "org/eclipse/collections/api/set/primitive"
+
+fileName(primitive) ::= "Mutable<primitive.name>Set"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.set.primitive;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.collection.primitive.Mutable<name>Collection;
+import org.eclipse.collections.api.set.MutableSet;
+
+/**
+ * This file was automatically generated from template file mutablePrimitiveSet.stg.
+ *
+ * @since 3.0.
+ */
+public interface Mutable<name>Set extends Mutable<name>Collection, <name>Set
+{
+    <sharedAPI(fileName(primitive), name)>
+
+    /**
+     * @since 9.0.
+     */
+    @Override
+    default Mutable<name>Set tap(<name>Procedure procedure)
+    {
+        this.forEach(procedure);
+        return this;
+    }
+
+    @Override
+    \<V> MutableSet\<V> collect(<name>ToObjectFunction\<? extends V> function);
+
+    <mutableAPI(fileName(primitive), type, name)>
+
+    @Override
+    Mutable<name>Set asUnmodifiable();
+
+    @Override
+    Mutable<name>Set asSynchronized();
+
+    /**
+     * Returns a frozen copy of this set. A frozen copy is the same thing as an immutable copy without safe-publish guarantees.
+     */
+    @Override
+    <name>Set freeze();
+
+    /**
+     * Returns an immutable copy of this set.
+     */
+    @Override
+    Immutable<name>Set toImmutable();
+
+    /**
+     * Creates a new empty mutable version of the same Set type.
+     *
+     * @since 9.2.
+     */
+    default Mutable<name>Set newEmpty()
+    {
+        throw new UnsupportedOperationException("Implement in concrete classes.");
+    }
+
+    /**
+     * @since 11.0.
+     */
+    @Override
+    default Mutable<name>Set union(<name>Set set)
+    {
+        if (this.size() > set.size())
+        {
+            return this.toSet().withAll(set);
+        }
+        else
+        {
+            return set.toSet().withAll(this);
+        }
+    }
+
+    /**
+     * Returns the set of all objects that are members of both {@code this} and {@code set}. The intersection of
+     * [1, 2, 3] and [2, 3, 4] is the set [2, 3].
+     *
+     * @since 11.0.
+     */
+    @Override
+    default Mutable<name>Set intersect(<name>Set set)
+    {
+        if (this.size() \< set.size())
+        {
+            return this.select(set::contains);
+        }
+        else
+        {
+            return set.select(this::contains, this.newEmpty());
+        }
+    }
+
+    /**
+     * Returns the set of all members of {@code this} that are not members of {@code set}. The difference of
+     * [1, 2, 3] and [2, 3, 4] is [1].
+     *
+     * @since 11.0.
+     */
+    @Override
+    default Mutable<name>Set difference(<name>Set set)
+    {
+        return this.reject(set::contains);
+    }
+
+    /**
+     * Returns the set of all objects that are a member of exactly one of {@code this} and {@code set} (elements which
+     * are in one of the sets, but not in both). For instance, for the sets [1, 2, 3] and [2, 3, 4], the symmetric
+     * difference set is [1, 4] . It is the set difference of the union and the intersection.
+     *
+     * @since 11.0.
+     */
+    @Override
+    default Mutable<name>Set symmetricDifference(<name>Set set)
+    {
+        return set.reject(this::contains, this.difference(set));
+    }
+}
+
+>>

@@ -1,0 +1,90 @@
+import "copyrightAndOthers.stg"
+import "primitiveAPI.stg"
+
+targetPath() ::= "org/eclipse/collections/api/stack/primitive"
+
+fileName(primitive) ::= "Immutable<primitive.name>Stack"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.stack.primitive;
+
+import org.eclipse.collections.api.block.function.primitive.<name>IntToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>IntPredicate;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.stack.ImmutableStack;
+
+/**
+ * This file was automatically generated from template file immutablePrimitiveStack.stg.
+ *
+ * @since 3.0.
+ */
+public interface Immutable<name>Stack extends <name>Stack
+{
+    /**
+     * @since 9.0.
+     */
+    @Override
+    default Immutable<name>Stack tap(<name>Procedure procedure)
+    {
+        this.forEach(procedure);
+        return this;
+    }
+
+    Immutable<name>Stack push(<type> item);
+
+    Immutable<name>Stack pop();
+
+    Immutable<name>Stack pop(int count);
+
+    <sharedAPI(fileName(primitive), name)>
+
+    @Override
+    \<V> ImmutableStack\<V> collect(<name>ToObjectFunction\<? extends V> function);
+
+    /**
+     * Returns a new Immutable<name>Stack including all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    @Override
+    default Immutable<name>Stack selectWithIndex(<name>IntPredicate predicate)
+    {
+        int[] index = {0};
+        return this.select(each -> predicate.accept(each, index[0]++));
+    }
+
+    /**
+     * Returns a new Immutable<name>Stack excluding all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    @Override
+    default Immutable<name>Stack rejectWithIndex(<name>IntPredicate predicate)
+    {
+        int[] index = {0};
+        return this.reject(each -> predicate.accept(each, index[0]++));
+    }
+
+    /**
+     * Returns a new ImmutableStack using results obtained by applying the specified function to each element
+     * and its corresponding index.
+     *
+     * @since 9.1.
+     */
+    @Override
+    default \<V> ImmutableStack\<V> collectWithIndex(<name>IntToObjectFunction\<? extends V> function)
+    {
+        int[] index = {0};
+        return this.collect(each -> function.value(each, index[0]++));
+    }
+}
+
+>>

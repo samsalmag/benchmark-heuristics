@@ -1,0 +1,263 @@
+import "copyrightAndOthers.stg"
+import "primitiveAPI.stg"
+
+targetPath() ::= "org/eclipse/collections/api/list/primitive"
+
+fileName(primitive) ::= "Mutable<primitive.name>List"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.list.primitive;
+
+<(auxiliaryImports.(type))(type)>
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.block.function.primitive.<name>IntToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>IntPredicate;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.collection.primitive.Mutable<name>Collection;
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.api.tuple.primitive.<name><name>Pair;
+import org.eclipse.collections.api.tuple.primitive.<name>ObjectPair;
+
+/**
+ * This file was automatically generated from template file mutablePrimitiveList.stg.
+ *
+ * @since 3.0.
+ */
+public interface Mutable<name>List extends Mutable<name>Collection, <name>List
+{
+    void addAtIndex(int index, <type> element);
+
+    boolean addAllAtIndex(int index, <type>... source);
+
+    boolean addAllAtIndex(int index, <name>Iterable source);
+
+    <type> removeAtIndex(int index);
+
+    <type> set(int index, <type> element);
+
+    default void swap(int index1, int index2)
+    {
+        <type> value = this.get(index1);
+        this.set(index1, this.get(index2));
+        this.set(index2, value);
+    }
+
+    <sharedAPI(fileName(primitive), name)>
+
+    <mutableAPI(fileName(primitive), type, name)>
+
+    /**
+     * @since 9.0.
+     */
+    @Override
+    default Mutable<name>List tap(<name>Procedure procedure)
+    {
+        this.forEach(procedure);
+        return this;
+    }
+
+    /**
+     * Returns a new Mutable<name>List including all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    @Override
+    default Mutable<name>List selectWithIndex(<name>IntPredicate predicate)
+    {
+        int[] index = {0};
+        return this.select(each -> predicate.accept(each, index[0]++));
+    }
+
+    /**
+     * Returns a new Mutable<name>List excluding all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    @Override
+    default Mutable<name>List rejectWithIndex(<name>IntPredicate predicate)
+    {
+        int[] index = {0};
+        return this.reject(each -> predicate.accept(each, index[0]++));
+    }
+
+    \<V> MutableList\<V> collect(<name>ToObjectFunction\<? extends V> function);
+
+    /**
+     * Returns a new MutableList using results obtained by applying the specified function to each element
+     * and its corresponding index.
+     *
+     * @since 9.1.
+     */
+    @Override
+    default \<V> MutableList\<V> collectWithIndex(<name>IntToObjectFunction\<? extends V> function)
+    {
+        int[] index = {0};
+        return this.collect(each -> function.value(each, index[0]++));
+    }
+
+    Mutable<name>List reverseThis();
+
+    @Override
+    Mutable<name>List toReversed();
+
+    /**
+     * @since 6.0.
+     */
+    @Override
+    Mutable<name>List distinct();
+
+    <(arithmeticMethods.(type))(type)>
+    @Override
+    Mutable<name>List asUnmodifiable();
+
+    @Override
+    Mutable<name>List asSynchronized();
+
+    /**
+     * Returns an immutable copy of this list.
+     */
+    @Override
+    Immutable<name>List toImmutable();
+
+    @Override
+    Mutable<name>List subList(int fromIndex, int toIndex);
+
+    /**
+     * Returns a {@code MutableList} formed from this {@code Mutable<name>List} and another {@code <name>List} by
+     * combining corresponding elements in pairs. If one of the two {@code <name>List}s is longer than the other, its
+     * remaining elements are ignored.
+     *
+     * @since 9.1.
+     */
+    default MutableList\<<name><name>Pair> zip<name>(<name>Iterable iterable)
+    {
+        throw new UnsupportedOperationException("Default method to prevent breaking backwards compatibility");
+    }
+
+    /**
+     * Returns a {@code MutableList} formed from this {@code Mutable<name>List} and a {@code ListIterable} by
+     * combining corresponding elements in pairs. If one of the two Lists is longer than the other, its
+     * remaining elements are ignored.
+     *
+     * @since 9.1.
+     */
+    default \<T> MutableList\<<name>ObjectPair\<T\>> zip(Iterable\<T> list)
+    {
+        throw new UnsupportedOperationException("Default method to prevent breaking backwards compatibility");
+    }
+
+    /**
+     * Creates a new empty mutable version of the same List type.
+     *
+     * @since 9.2.
+     */
+    default Mutable<name>List newEmpty()
+    {
+        throw new UnsupportedOperationException("Implement in concrete classes.");
+    }
+}
+
+>>
+
+arithmeticMethods ::= [
+    "byte": "allMethods",
+    "short": "allMethods",
+    "char": "allMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "allMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+]
+
+allMethods(type) ::= <<
+/**
+ * Sorts this list mutating its contents and returns the same mutable list (this).
+ */
+Mutable<name>List sortThis();
+
+/**
+ * Sorts the internal data structure of this list and returns the list itself as a convenience.
+ */
+default Mutable<name>List sortThis(<name>Comparator comparator)
+{
+    throw new UnsupportedOperationException("sortThis(<name>Comparator comparator) is not supported on " + this.getClass());
+}
+
+/**
+ * Sorts the internal data structure of this list based on the natural order of the key returned by {@code
+ * function}.
+ */
+default \<T> Mutable<name>List sortThisBy(<name>ToObjectFunction\<T> function)
+{
+    return sortThisBy(function, (Comparator\<? super T>) Comparator.naturalOrder());
+}
+
+/**
+ * Sorts the internal data structure of this list based on the key returned by {@code
+ * function} using the provided {@code comparator}.
+ */
+default \<T> Mutable<name>List sortThisBy(<name>ToObjectFunction\<T> function, Comparator\<? super T> comparator)
+{
+    return this.sortThis((i1, i2) -> comparator.compare(function.valueOf(i1), function.valueOf(i2)));
+}
+
+/**
+ * Randomly permutes this list mutating its contents and returns the same list (this).
+ *
+ * Uses {@code java.util.Random} as the source of randomness.
+ */
+default Mutable<name>List shuffleThis()
+{
+    return this.shuffleThis(new Random());
+}
+
+/**
+ * Randomly permutes this list mutating its contents and returns the same list (this).
+ *
+ * Implements the Fisher-Yates shuffle algorithm using the provided source of randomness.
+ */
+default Mutable<name>List shuffleThis(Random rnd)
+{
+    for (int j = this.size() - 1; j > 0; j--)
+    {
+        int k = rnd.nextInt(j + 1);
+        <type> selected = this.get(j);
+        this.set(j, this.get(k));
+        this.set(k, selected);
+    }
+
+    return this;
+}
+
+>>
+
+noMethods(type) ::= ""
+
+auxiliaryImports ::= [
+    "byte": "allAuxiliaryImports",
+    "short": "allAuxiliaryImports",
+    "char": "allAuxiliaryImports",
+    "int": "allAuxiliaryImports",
+    "long": "allAuxiliaryImports",
+    "float": "allAuxiliaryImports",
+    "double": "allAuxiliaryImports",
+    "boolean": "noAuxiliaryImports"
+]
+
+allAuxiliaryImports(type) ::= <<
+import java.util.Comparator;
+import java.util.Random;
+import org.eclipse.collections.api.block.comparator.primitive.<name>Comparator;
+
+>>
+
+noAuxiliaryImports(type) ::= ""

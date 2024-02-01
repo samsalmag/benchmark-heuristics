@@ -1,0 +1,62 @@
+import "copyright.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+skipBoolean() ::= "true"
+
+isTest() ::= "true"
+
+targetPath() ::= "org/eclipse/collections/impl/map/mutable/primitive"
+
+fileName(primitive) ::= "Object<primitive.name>HashMapValuesTest"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name, primitive.wrapperName)>
+>>
+
+body(type, name, wrapperName) ::= <<
+<copyright()>
+
+package org.eclipse.collections.impl.map.mutable.primitive;
+
+import org.eclipse.collections.api.map.primitive.MutableObject<name>Map;
+
+/**
+ * JUnit test for {@link Object<name>HashMap#values()}.
+ * This file was automatically generated from template file objectPrimitiveHashMapValuesTest.stg.
+ */
+public class Object<name>HashMapValuesTest extends Object<name>HashMapValuesTestCase
+{
+    @Override
+    public Object<name>HashMap\<String> newMapWithKeysValues(String key1, <type> value1)
+    {
+        return Object<name>HashMap.newWithKeysValues(key1, value1);
+    }
+
+    @Override
+    public Object<name>HashMap\<String> newMapWithKeysValues(String key1, <type> value1, String key2, <type> value2)
+    {
+        return Object<name>HashMap.newWithKeysValues(key1, value1, key2, value2);
+    }
+
+    @Override
+    public Object<name>HashMap\<String> newMapWithKeysValues(String key1, <type> value1, String key2, <type> value2, String key3, <type> value3)
+    {
+        return Object<name>HashMap.newWithKeysValues(key1, value1, key2, value2, key3, value3);
+    }
+
+    @Override
+    public Object<name>HashMap\<String> newMapWithKeysValues(String key1, <type> value1, String key2, <type> value2, String key3, <type> value3, String key4, <type> value4)
+    {
+        return Object<name>HashMap.newWithKeysValues(key1, value1, key2, value2, key3, value3, key4, value4);
+    }
+
+    @Override
+    public MutableObject<name>Map\<String> newEmptyMap()
+    {
+        return Object<name>HashMap.newMap();
+    }
+}
+
+>>

@@ -1,0 +1,267 @@
+import "copyright.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/impl/stack/immutable/primitive"
+
+fileName(primitive) ::= "Immutable<primitive.name>ArrayStack"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyright()>
+
+package org.eclipse.collections.impl.stack.immutable.primitive;
+
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.Serializable;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+<if(!primitive.booleanPrimitive)>import org.eclipse.collections.api.list.primitive.Mutable<name>List;<endif>
+import org.eclipse.collections.api.stack.ImmutableStack;
+import org.eclipse.collections.api.stack.primitive.<name>Stack;
+import org.eclipse.collections.api.stack.primitive.Immutable<name>Stack;
+import org.eclipse.collections.impl.block.procedure.checked.primitive.Checked<name>Procedure;
+import org.eclipse.collections.impl.factory.Stacks;
+import org.eclipse.collections.impl.factory.primitive.<name>Stacks;
+import org.eclipse.collections.impl.list.mutable.primitive.<name>ArrayList;
+import org.eclipse.collections.impl.stack.mutable.primitive.<name>ArrayStack;
+import org.eclipse.collections.impl.stack.primitive.Abstract<name>Stack;
+
+/**
+ * Immutable<name>ArrayStack is the non-modifiable equivalent of {@link <name>ArrayStack}.
+ * This file was automatically generated from template file immutablePrimitiveArrayStack.stg.
+ *
+ * @since 4.0.
+ */
+final class Immutable<name>ArrayStack extends Abstract<name>Stack
+        implements Immutable<name>Stack, Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private final <name>ArrayList delegate;
+
+    private Immutable<name>ArrayStack(<type>[] newElements)
+    {
+        this.checkOptimizedSize(newElements.length);
+        this.delegate = new <name>ArrayList(newElements);
+    }
+
+    private Immutable<name>ArrayStack(<name>ArrayList newElements)
+    {
+        this.checkOptimizedSize(newElements.size());
+        this.delegate = newElements;
+    }
+
+    private void checkOptimizedSize(int length)
+    {
+        if (length \<= 1)
+        {
+            throw new IllegalArgumentException("Use <name>Stacks.immutable.with() to instantiate an optimized collection");
+        }
+    }
+
+    public static Immutable<name>ArrayStack newStack(<name>Iterable iterable)
+    {
+        return new Immutable<name>ArrayStack(iterable.toArray());
+    }
+
+    public static Immutable<name>ArrayStack newStackWith(<type>... elements)
+    {
+        <type>[] newArray = new <type>[elements.length];
+        System.arraycopy(elements, 0, newArray, 0, elements.length);
+        return new Immutable<name>ArrayStack(newArray);
+    }
+
+    public static Immutable<name>ArrayStack newStackFromTopToBottom(<type>... items)
+    {
+        return new Immutable<name>ArrayStack(<name>ArrayList.newListWith(items).reverseThis());
+    }
+
+    public static Immutable<name>ArrayStack newStackFromTopToBottom(<name>Iterable items)
+    {
+        return new Immutable<name>ArrayStack(<name>ArrayList.newList(items).reverseThis());
+    }
+
+    @Override
+    protected <name>ArrayList getDelegate()
+    {
+        return this.delegate;
+    }
+
+    @Override
+    public Immutable<name>Stack push(<type> item)
+    {
+        <name>ArrayList newDelegate = <name>ArrayList.newList(this.delegate);
+        newDelegate.add(item);
+        return new Immutable<name>ArrayStack(newDelegate);
+    }
+
+    @Override
+    public Immutable<name>Stack pop()
+    {
+        <name>ArrayList newDelegate = <name>ArrayList.newList(this.delegate);
+        newDelegate.removeAtIndex(this.delegate.size() - 1);
+        return <name>Stacks.immutable.with(newDelegate.toArray());
+    }
+
+    @Override
+    public Immutable<name>Stack pop(int count)
+    {
+        this.checkNegativeCount(count);
+        if (count == 0)
+        {
+            return this;
+        }
+        this.checkSizeLessThanCount(count);
+        <name>ArrayList newDelegate = <name>ArrayList.newList(this.delegate);
+        while (count > 0)
+        {
+            newDelegate.removeAtIndex(newDelegate.size() - 1);
+            count--;
+        }
+        return <name>Stacks.immutable.with(newDelegate.toArray());
+    }
+
+    private void checkNegativeCount(int count)
+    {
+        if (count \< 0)
+        {
+            throw new IllegalArgumentException("Count must be positive but was " + count);
+        }
+    }
+
+    @Override
+    public Immutable<name>Stack select(<name>Predicate predicate)
+    {
+        return <name>Stacks.immutable.withAllReversed(this.delegate.toReversed().select(predicate));
+    }
+
+    @Override
+    public Immutable<name>Stack reject(<name>Predicate predicate)
+    {
+        return <name>Stacks.immutable.withAllReversed(this.delegate.toReversed().reject(predicate));
+    }
+
+    @Override
+    public \<V> ImmutableStack\<V> collect(<name>ToObjectFunction\<? extends V> function)
+    {
+        return Stacks.immutable.withAllReversed(this.delegate.asReversed().collect(function));
+    }
+
+    @Override
+    public Immutable<name>Stack toImmutable()
+    {
+        return this;
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean notEmpty()
+    {
+        return true;
+    }
+
+    <(arithmeticMethods.(type))(type)>
+    private Object writeReplace()
+    {
+        return new Immutable<name>StackSerializationProxy(this);
+    }
+
+    private static class Immutable<name>StackSerializationProxy implements Externalizable
+    {
+        private static final long serialVersionUID = 1L;
+
+        private <name>Stack stack;
+
+        public Immutable<name>StackSerializationProxy()
+        {
+            // Empty constructor for Externalizable class
+        }
+
+        protected Immutable<name>StackSerializationProxy(<name>Stack stack)
+        {
+            this.stack = stack;
+        }
+
+        @Override
+        public void writeExternal(final ObjectOutput out) throws IOException
+        {
+            out.writeInt(this.stack.size());
+            try
+            {
+                this.stack.forEach(new Checked<name>Procedure()
+                {
+                    @Override
+                    public void safeValue(<type> item) throws IOException
+                    {
+                        out.write<name>(item);
+                    }
+                });
+            }
+            catch (RuntimeException e)
+            {
+                if (e.getCause() instanceof IOException)
+                {
+                    throw (IOException) e.getCause();
+                }
+                throw e;
+            }
+        }
+
+        @Override
+        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
+        {
+            int size = in.readInt();
+            <name>ArrayList deserializedDelegate = new <name>ArrayList(size);
+
+            for (int i = 0; i \< size; i++)
+            {
+                deserializedDelegate.add(in.read<name>());
+            }
+
+            this.stack = Immutable<name>ArrayStack.newStackFromTopToBottom(deserializedDelegate);
+        }
+
+        protected Object readResolve()
+        {
+            return this.stack;
+        }
+    }
+}
+
+>>
+
+arithmeticMethods ::= [
+    "byte": "allMethods",
+    "short": "allMethods",
+    "char": "allMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "allMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+    ]
+
+allMethods(type) ::= <<
+@Override
+public Mutable<name>List toSortedList()
+{
+    return <name>ArrayList.newList(this).sortThis();
+}
+
+>>
+
+noMethods(type) ::= ""

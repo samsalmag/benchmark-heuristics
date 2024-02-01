@@ -1,0 +1,113 @@
+import "copyrightAndOthers.stg"
+import "primitiveAPI.stg"
+
+targetPath() ::= "org/eclipse/collections/api/collection/primitive"
+
+fileName(primitive) ::= "Mutable<primitive.name>Collection"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name, primitive)>
+>>
+
+body(type, name, primitive) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.collection.primitive;
+
+import java.util.Collection;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.iterator.Mutable<name>Iterator;
+import org.eclipse.collections.api.collection.MutableCollection;
+
+/**
+ * This file was automatically generated from template file mutablePrimitiveCollection.stg.
+ *
+ * @since 3.0.
+ */
+public interface Mutable<name>Collection extends <name>Iterable
+{
+    @Override
+    Mutable<name>Iterator <type>Iterator();
+
+    boolean add(<type> element);
+
+    boolean addAll(<type>... source);
+
+    boolean addAll(<name>Iterable source);
+
+    boolean remove(<type> value);
+
+    boolean removeAll(<name>Iterable source);
+
+    boolean removeAll(<type>... source);
+
+    /**
+     * @since 9.1
+     */
+    default boolean removeIf(<name>Predicate predicate)
+    {
+        boolean changed = false;
+        Mutable<name>Iterator iterator = this.<type>Iterator();
+        while (iterator.hasNext())
+        {
+            if (predicate.accept(iterator.next()))
+            {
+                iterator.remove();
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+    /**
+     * @see Collection#retainAll(Collection)
+     * @since 5.0
+     */
+    boolean retainAll(<name>Iterable elements);
+
+    /**
+     * @see Collection#retainAll(Collection)
+     * @since 5.0
+     */
+    boolean retainAll(<type>... source);
+
+    void clear();
+
+    <sharedAPI(fileName(primitive), name)>
+
+    \<V> MutableCollection\<V> collect(<name>ToObjectFunction\<? extends V> function);
+
+    <mutableAPINoOverride(fileName(primitive), type, name)>
+
+    Mutable<name>Collection asUnmodifiable();
+
+    Mutable<name>Collection asSynchronized();
+
+    Immutable<name>Collection toImmutable();
+
+    /**
+     * @since 9.0.
+     */
+    @Override
+    default Mutable<name>Collection tap(<name>Procedure procedure)
+    {
+        this.forEach(procedure);
+        return this;
+    }
+
+    /**
+     * Creates a new empty mutable version of the same collection type.
+
+     * @since 9.2.
+     */
+    default Mutable<name>Collection newEmpty()
+    {
+        throw new UnsupportedOperationException("Implement in concrete classes.");
+    }
+}
+
+>>

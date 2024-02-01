@@ -1,0 +1,579 @@
+import "copyrightAndOthers.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/impl/map/mutable/primitive"
+
+fileName(primitive) ::= "UnmodifiableObject<primitive.name>Map"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.map.mutable.primitive;
+
+import java.util.Collections;
+import java.io.Serializable;
+import java.util.Set;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.Lazy<name>Iterable;
+import org.eclipse.collections.api.LazyIterable;
+import org.eclipse.collections.api.RichIterable;
+import org.eclipse.collections.api.bag.primitive.Mutable<name>Bag;
+import org.eclipse.collections.api.block.function.primitive.<name>Function;
+import org.eclipse.collections.api.block.function.primitive.<name>Function0;
+import org.eclipse.collections.api.block.function.primitive.<name>To<name>Function;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Object<name>To<name>Function;
+import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.predicate.primitive.Object<name>Predicate;
+import org.eclipse.collections.api.block.procedure.Procedure;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.block.procedure.primitive.Object<name>Procedure;
+import org.eclipse.collections.api.collection.MutableCollection;
+import org.eclipse.collections.api.collection.primitive.Mutable<name>Collection;
+import org.eclipse.collections.api.iterator.Mutable<name>Iterator;
+import org.eclipse.collections.api.list.primitive.Mutable<name>List;
+import org.eclipse.collections.api.map.primitive.ImmutableObject<name>Map;
+import org.eclipse.collections.api.map.primitive.MutableObject<name>Map;
+<if(!primitive.booleanPrimitive)>import org.eclipse.collections.api.map.primitive.Mutable<name>ObjectMap;<endif>
+import org.eclipse.collections.api.map.primitive.Object<name>Map;
+import org.eclipse.collections.api.set.primitive.Mutable<name>Set;
+import org.eclipse.collections.api.tuple.primitive.Object<name>Pair;
+import org.eclipse.collections.impl.collection.mutable.primitive.Unmodifiable<name>Collection;
+import org.eclipse.collections.impl.factory.primitive.Object<name>Maps;
+import org.eclipse.collections.impl.iterator.Unmodifiable<name>Iterator;
+
+/**
+ * This file was automatically generated from template file unmodifiableObjectPrimitiveMap.stg.
+ *
+ * @since 3.2
+ */
+public class UnmodifiableObject<name>Map\<K>
+        implements MutableObject<name>Map\<K>, Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private final MutableObject<name>Map\<K> map;
+
+    public UnmodifiableObject<name>Map(MutableObject<name>Map\<K> map)
+    {
+        if (map == null)
+        {
+            throw new IllegalArgumentException("Cannot create a UnmodifiableObject<name>Map on a null map");
+        }
+
+        this.map = map;
+    }
+
+    private boolean isAbsent(<type> result, K key)
+    {
+        return result == Object<name>HashMap.EMPTY_VALUE && !this.containsKey(key);
+    }
+
+    private <type> getIfAbsentThrow(K key)
+    {
+        <type> result = this.map.get(key);
+        if (this.isAbsent(result, key))
+        {
+            throw new UnsupportedOperationException("Cannot add to an " + this.getClass().getSimpleName());
+        }
+        return result;
+    }
+
+    @Override
+    public <type> getAndPut(K key, <type> defaultValue, <type> putValue)
+    {
+        throw new UnsupportedOperationException("Cannot call getAndPut() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void clear()
+    {
+        throw new UnsupportedOperationException("Cannot call clear() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void put(K key, <type> value)
+    {
+        throw new UnsupportedOperationException("Cannot call put() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void putPair(Object<name>Pair\<K> keyValuePair)
+    {
+        throw new UnsupportedOperationException("Cannot call putPair() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void putAll(Object<name>Map\<? extends K> map)
+    {
+        throw new UnsupportedOperationException("Cannot call putAll() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void updateValues(Object<name>To<name>Function\<? super K> function)
+    {
+        throw new UnsupportedOperationException("Cannot call updateValue() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void removeKey(K key)
+    {
+        throw new UnsupportedOperationException("Cannot call removeKey() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void remove(Object key)
+    {
+        throw new UnsupportedOperationException("Cannot call remove() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public <type> removeKeyIfAbsent(K key, <type> value)
+    {
+        throw new UnsupportedOperationException("Cannot call removeKeyIfAbsent() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public <type> getIfAbsentPut(K key, <type> value)
+    {
+        return this.getIfAbsentThrow(key);
+    }
+
+    @Override
+    public <type> getIfAbsentPut(K key, <name>Function0 function)
+    {
+        return this.getIfAbsentThrow(key);
+    }
+
+    @Override
+    public <type> getIfAbsentPutWithKey(K key, <name>Function\<? super K> function)
+    {
+        return this.getIfAbsentThrow(key);
+    }
+
+    @Override
+    public \<P> <type> getIfAbsentPutWith(K key, <name>Function\<? super P> function, P parameter)
+    {
+        return this.getIfAbsentThrow(key);
+    }
+
+    @Override
+    public <type> updateValue(K key, <type> initialValueIfAbsent, <name>To<name>Function function)
+    {
+        throw new UnsupportedOperationException("Cannot call updateValue() on " + this.getClass().getSimpleName());
+    }
+
+    public <type> addToValue(K key, <type> toBeAdded)
+    {
+        throw new UnsupportedOperationException("Cannot call addToValue() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public <type> get(Object key)
+    {
+        return this.map.get(key);
+    }
+
+    @Override
+    public <type> getOrThrow(Object key)
+    {
+        return this.map.getOrThrow(key);
+    }
+
+    @Override
+    public <type> getIfAbsent(Object key, <type> ifAbsent)
+    {
+        return this.map.getIfAbsent(key, ifAbsent);
+    }
+
+    @Override
+    public boolean containsKey(Object key)
+    {
+        return this.map.containsKey(key);
+    }
+
+    @Override
+    public boolean containsValue(<type> value)
+    {
+        return this.map.containsValue(value);
+    }
+
+    @Override
+    public void forEachValue(<name>Procedure procedure)
+    {
+        this.map.forEachValue(procedure);
+    }
+
+    @Override
+    public void forEachKey(Procedure\<? super K> procedure)
+    {
+        this.map.forEachKey(procedure);
+    }
+
+    @Override
+    public void forEachKeyValue(Object<name>Procedure\<? super K> procedure)
+    {
+        this.map.forEachKeyValue(procedure);
+    }
+
+    @Override
+    public MutableObject<name>Map\<K> select(Object<name>Predicate\<? super K> predicate)
+    {
+        return this.map.select(predicate);
+    }
+
+    @Override
+    public MutableObject<name>Map\<K> reject(Object<name>Predicate\<? super K> predicate)
+    {
+        return this.map.reject(predicate);
+    }
+
+    @Override
+    public Mutable<name>Iterator <type>Iterator()
+    {
+        return new Unmodifiable<name>Iterator(this.map.<type>Iterator());
+    }
+
+    /**
+     * @since 7.0.
+     */
+    @Override
+    public void each(<name>Procedure procedure)
+    {
+        this.map.forEach(procedure);
+    }
+
+    @Override
+    public int count(<name>Predicate predicate)
+    {
+        return this.map.count(predicate);
+    }
+
+    @Override
+    public boolean anySatisfy(<name>Predicate predicate)
+    {
+        return this.map.anySatisfy(predicate);
+    }
+
+    @Override
+    public boolean allSatisfy(<name>Predicate predicate)
+    {
+        return this.map.allSatisfy(predicate);
+    }
+
+    @Override
+    public boolean noneSatisfy(<name>Predicate predicate)
+    {
+        return this.map.noneSatisfy(predicate);
+    }
+
+    @Override
+    public Mutable<name>Collection select(<name>Predicate predicate)
+    {
+        return this.map.select(predicate);
+    }
+
+    @Override
+    public Mutable<name>Collection reject(<name>Predicate predicate)
+    {
+        return this.map.reject(predicate);
+    }
+
+    @Override
+    public <type> detectIfNone(<name>Predicate predicate, <type> ifNone)
+    {
+        return this.map.detectIfNone(predicate, ifNone);
+    }
+
+    @Override
+    public \<V1> MutableCollection\<V1> collect(<name>ToObjectFunction\<? extends V1> function)
+    {
+        return this.map.collect(function);
+    }
+
+    <(arithmeticMethods.(type))(name, type)>
+    @Override
+    public <type>[] toArray()
+    {
+        return this.map.toArray();
+    }
+
+    @Override
+    public <type>[] toArray(<type>[] target)
+    {
+        return this.map.toArray(target);
+    }
+
+    @Override
+    public boolean contains(<type> value)
+    {
+        return this.map.contains(value);
+    }
+
+    @Override
+    public boolean containsAll(<type>... source)
+    {
+        return this.map.containsAll(source);
+    }
+
+    @Override
+    public boolean containsAll(<name>Iterable source)
+    {
+        return this.map.containsAll(source);
+    }
+
+    @Override
+    public Mutable<name>List toList()
+    {
+        return this.map.toList();
+    }
+
+    @Override
+    public Mutable<name>Set toSet()
+    {
+        return this.map.toSet();
+    }
+
+    @Override
+    public Mutable<name>Bag toBag()
+    {
+        return this.map.toBag();
+    }
+
+    @Override
+    public Lazy<name>Iterable asLazy()
+    {
+        return this.map.asLazy();
+    }
+
+    @Override
+    public MutableObject<name>Map\<K> withKeyValue(K key, <type> value)
+    {
+        throw new UnsupportedOperationException("Cannot call withKeyValue() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public MutableObject<name>Map\<K> withoutKey(K key)
+    {
+        throw new UnsupportedOperationException("Cannot call withoutKey() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public MutableObject<name>Map\<K> withoutAllKeys(Iterable\<? extends K> keys)
+    {
+        throw new UnsupportedOperationException("Cannot call withoutAllKeys() on " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public MutableObject<name>Map\<K> asUnmodifiable()
+    {
+        return this;
+    }
+
+    @Override
+    public MutableObject<name>Map\<K> asSynchronized()
+    {
+        return new SynchronizedObject<name>Map\<>(this);
+    }
+
+    @Override
+    public ImmutableObject<name>Map\<K> toImmutable()
+    {
+        return Object<name>Maps.immutable.withAll(this);
+    }
+
+    @Override
+    public int size()
+    {
+        return this.map.size();
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return this.map.isEmpty();
+    }
+
+    @Override
+    public boolean notEmpty()
+    {
+        return this.map.notEmpty();
+    }
+
+    @Override
+    public Set\<K> keySet()
+    {
+        return Collections.unmodifiableSet(this.map.keySet());
+    }
+
+    @Override
+    public Mutable<name>Collection values()
+    {
+        return Unmodifiable<name>Collection.of(this.map.values());
+    }
+
+    @Override
+    public LazyIterable\<K> keysView()
+    {
+        return this.map.keysView();
+    }
+
+    @Override
+    public RichIterable\<Object<name>Pair\<K>\> keyValuesView()
+    {
+        return this.map.keyValuesView();
+    }
+
+    <if(!primitive.booleanPrimitive)>
+    @Override
+    public Mutable<name>ObjectMap\<K> flipUniqueValues()
+    {
+        return this.map.flipUniqueValues().asUnmodifiable();
+    }
+    <endif>
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return this.map.equals(obj);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return this.map.hashCode();
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.map.toString();
+    }
+
+    @Override
+    public String makeString()
+    {
+        return this.map.makeString();
+    }
+
+    @Override
+    public String makeString(String separator)
+    {
+        return this.map.makeString(separator);
+    }
+
+    @Override
+    public String makeString(String start, String separator, String end)
+    {
+        return this.map.makeString(start, separator, end);
+    }
+
+    @Override
+    public void appendString(Appendable appendable)
+    {
+        this.map.appendString(appendable);
+    }
+
+    @Override
+    public void appendString(Appendable appendable, String separator)
+    {
+        this.map.appendString(appendable, separator);
+    }
+
+    @Override
+    public void appendString(Appendable appendable, String start, String separator, String end)
+    {
+        this.map.appendString(appendable, start, separator, end);
+    }
+
+    @Override
+    public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
+    {
+        return this.map.injectInto(injectedValue, function);
+    }
+
+    @Override
+    public RichIterable\<<name>Iterable> chunk(int size)
+    {
+        return this.map.chunk(size);
+    }
+}
+
+>>
+
+arithmeticMethods ::= [
+    "byte": "allMethods",
+    "short": "allMethods",
+    "char": "allMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "allMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+    ]
+
+allMethods(name, type) ::=<<
+@Override
+public <wideType.(type)> sum()
+{
+    return this.map.sum();
+}
+
+@Override
+public <type> max()
+{
+    return this.map.max();
+}
+
+@Override
+public <type> maxIfEmpty(<type> defaultValue)
+{
+    return this.map.maxIfEmpty(defaultValue);
+}
+
+@Override
+public <type> min()
+{
+    return this.map.min();
+}
+
+@Override
+public <type> minIfEmpty(<type> defaultValue)
+{
+    return this.map.minIfEmpty(defaultValue);
+}
+
+@Override
+public double average()
+{
+    return this.map.average();
+}
+
+@Override
+public double median()
+{
+    return this.map.median();
+}
+
+@Override
+public <type>[] toSortedArray()
+{
+    return this.map.toSortedArray();
+}
+
+@Override
+public Mutable<name>List toSortedList()
+{
+    return this.map.toSortedList();
+}
+
+>>
+
+noMethods(name, type) ::= ""

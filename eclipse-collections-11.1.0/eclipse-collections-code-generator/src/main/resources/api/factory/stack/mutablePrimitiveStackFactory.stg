@@ -1,0 +1,115 @@
+import "copyrightAndOthers.stg"
+
+targetPath() ::= "org/eclipse/collections/api/factory/stack/primitive"
+
+fileName(primitive) ::= "Mutable<primitive.name>StackFactory"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name, primitive.wrapperName)>
+>>
+
+body(type, name, wrapperName) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.factory.stack.primitive;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.stack.primitive.Mutable<name>Stack;
+<(wideStreamImport.(type))>
+
+/**
+ * A factory which creates instances of type {@link Mutable<name>Stack}.
+ * This file was automatically generated from template file mutablePrimitiveStackFactory.stg.
+ *
+ * @since 6.0.
+ */
+public interface Mutable<name>StackFactory
+{
+    Mutable<name>Stack empty();
+
+    /**
+     * Same as {@link #empty()}.
+     */
+    Mutable<name>Stack of();
+
+    /**
+     * Same as {@link #empty()}.
+     */
+    Mutable<name>Stack with();
+
+    /**
+     * Same as {@link #with(<type>[])}.
+     */
+    Mutable<name>Stack of(<type>... items);
+
+    Mutable<name>Stack with(<type>... items);
+
+    /**
+     * Same as {@link #withAll(<name>Iterable)}.
+     */
+    Mutable<name>Stack ofAll(<name>Iterable items);
+
+    Mutable<name>Stack withAll(<name>Iterable items);
+
+    /**
+     * Same as {@link #withAll(Iterable)}.
+     */
+    Mutable<name>Stack ofAll(Iterable\<<wrapperName>\> iterable);
+
+    Mutable<name>Stack withAll(Iterable\<<wrapperName>\> iterable);
+
+    /**
+     * Same as {@link #withAllReversed(<name>Iterable)}.
+     */
+    Mutable<name>Stack ofAllReversed(<name>Iterable items);
+
+    Mutable<name>Stack withAllReversed(<name>Iterable items);
+    <(streamMethods.(type))()>
+}
+
+>>
+
+streamMethods ::= [
+    "byte": "noMethods",
+    "short": "noMethods",
+    "char": "noMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "noMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+    ]
+
+allMethods() ::= <<
+
+/**
+ * @since 9.0
+ */
+Mutable<name>Stack ofAll(<(wideStream.(type))> items);
+
+/**
+ * @since 9.0
+ */
+Mutable<name>Stack withAll(<(wideStream.(type))> items);
+>>
+
+noMethods() ::= ""
+
+wideStream ::= [
+    "int": "IntStream",
+    "long": "LongStream",
+    "double": "DoubleStream",
+    default: "no matching wide type"
+]
+
+wideStreamImport ::= [
+    "boolean": "",
+    "byte": "",
+    "short": "",
+    "char": "",
+    "int": "import java.util.stream.IntStream;",
+    "long": "import java.util.stream.LongStream;",
+    "float": "",
+    "double": "import java.util.stream.DoubleStream;",
+    default: "no matching wide type"
+]
