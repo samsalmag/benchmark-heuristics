@@ -1,5 +1,0 @@
-import "copyrightOf.stg"
-
-copyrightAndOthers() ::= <<
-<copyrightOf("Goldman Sachs and others")>
->>

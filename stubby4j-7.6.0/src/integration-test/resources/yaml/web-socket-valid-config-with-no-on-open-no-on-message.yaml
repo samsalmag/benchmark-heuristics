@@ -1,6 +1,0 @@
-- web-socket:
-    description: this is a web-socket config
-    url: /items/furniture
-    sub-protocols: echo, mamba, zumba
-
-
