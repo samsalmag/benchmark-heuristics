@@ -1,0 +1,40 @@
+import "copyright.stg"
+
+targetPath() ::= "org/eclipse/collections/api/block/predicate/primitive"
+
+fileName(primitive) ::= "<primitive.name>Predicate"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name, primitive.wrapperName)>
+>>
+
+body(type, name, wrapperName) ::= <<
+<copyright()>
+
+package org.eclipse.collections.api.block.predicate.primitive;
+
+import java.io.Serializable;
+
+/**
+ * <name>Predicate is a primitive Predicate which may be used to reduce the overhead
+ * of autoboxing <wrapperName> objects in places where primitive <type>s could be used.
+ * This file was automatically generated from template file primitivePredicate.stg.
+ *
+ * @since 3.0.
+ */
+@FunctionalInterface
+public interface <name>Predicate
+        extends <if(primitive.specializedStream)>java.util.function.<name>Predicate, <endif>Serializable
+{
+    boolean accept(<type> value);
+<if(primitive.specializedStream)>
+
+    @Override
+    default boolean test(<type> value)
+    {
+        return this.accept(value);
+    }
+<endif>
+}
+
+>>

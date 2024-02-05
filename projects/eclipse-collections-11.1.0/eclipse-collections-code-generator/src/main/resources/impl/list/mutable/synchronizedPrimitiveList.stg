@@ -1,0 +1,589 @@
+import "copyrightAndOthers.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/impl/list/mutable/primitive"
+
+fileName(primitive) ::= "Synchronized<primitive.name>List"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.list.mutable.primitive;
+
+import java.util.Collection;
+<if(!primitive.booleanPrimitive)>
+import java.util.Comparator;
+import java.util.Random;
+<endif>
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.Lazy<name>Iterable;
+<if(!primitive.booleanPrimitive)>import org.eclipse.collections.api.block.comparator.primitive.<name>Comparator;<endif>
+import org.eclipse.collections.api.block.function.primitive.<name>IntToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Object<name>IntToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>IntPredicate;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name><name>Procedure;
+<if(!primitive.intPrimitive)>import org.eclipse.collections.api.block.procedure.primitive.<name>IntProcedure;<endif>
+import org.eclipse.collections.api.collection.primitive.Mutable<name>Collection;
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.api.list.primitive.<name>List;
+import org.eclipse.collections.api.list.primitive.Immutable<name>List;
+import org.eclipse.collections.api.list.primitive.Mutable<name>List;
+import org.eclipse.collections.api.tuple.primitive.<name><name>Pair;
+import org.eclipse.collections.api.tuple.primitive.<name>ObjectPair;
+import org.eclipse.collections.impl.collection.mutable.primitive.AbstractSynchronized<name>Collection;
+import org.eclipse.collections.impl.factory.primitive.<name>Lists;
+import org.eclipse.collections.impl.lazy.primitive.Lazy<name>IterableAdapter;
+import org.eclipse.collections.impl.lazy.primitive.Reverse<name>Iterable;
+<if(primitive.specializedStream)>
+import java.util.Spliterator;<endif>
+
+
+/**
+ * A synchronized view of a {@link Mutable<name>List}. It is imperative that the user manually synchronize on the on the
+ * collection when iterating over it using an iterator or stream.
+ * \<p>
+ * This file was automatically generated from template file synchronizedPrimitiveList.stg.
+ *
+ * @see Mutable<name>List#asSynchronized()
+ * @see MutableList#asSynchronized()
+ * @since 3.1.
+ */
+public class Synchronized<name>List
+        extends AbstractSynchronized<name>Collection
+        implements Mutable<name>List
+{
+    private static final long serialVersionUID = 1L;
+
+    public Synchronized<name>List(Mutable<name>List list)
+    {
+        super(list);
+    }
+
+    public Synchronized<name>List(Mutable<name>List list, Object newLock)
+    {
+        super(list, newLock);
+    }
+
+    private Mutable<name>List getMutable<name>List()
+    {
+        return (Mutable<name>List) this.get<name>Collection();
+    }
+
+    @Override
+    public <type> get(int index)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().get(index);
+        }
+    }
+
+    @Override
+    public <type> getFirst()
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().getFirst();
+        }
+    }
+
+    @Override
+    public <type> getLast()
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().getLast();
+        }
+    }
+
+    @Override
+    public int indexOf(<type> value)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().indexOf(value);
+        }
+    }
+
+    @Override
+    public int lastIndexOf(<type> value)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().lastIndexOf(value);
+        }
+    }
+
+    @Override
+    public void addAtIndex(int index, <type> element)
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().addAtIndex(index, element);
+        }
+    }
+
+    @Override
+    public boolean addAllAtIndex(int index, <type>... source)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().addAllAtIndex(index, source);
+        }
+    }
+
+    @Override
+    public boolean addAllAtIndex(int index, <name>Iterable source)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().addAllAtIndex(index, source);
+        }
+    }
+
+    @Override
+    public <type> removeAtIndex(int index)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().removeAtIndex(index);
+        }
+    }
+
+    @Override
+    public <type> set(int index, <type> element)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().set(index, element);
+        }
+    }
+
+    @Override
+    public Synchronized<name>List with(<type> element)
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().add(element);
+        }
+        return this;
+    }
+
+    @Override
+    public Synchronized<name>List without(<type> element)
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().remove(element);
+        }
+        return this;
+    }
+
+    @Override
+    public Synchronized<name>List withAll(<name>Iterable elements)
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().addAll(elements.toArray());
+        }
+        return this;
+    }
+
+    @Override
+    public Synchronized<name>List withoutAll(<name>Iterable elements)
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().removeAll(elements);
+        }
+        return this;
+    }
+
+    @Override
+    public Mutable<name>List select(<name>Predicate predicate)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().select(predicate);
+        }
+    }
+
+    @Override
+    public Mutable<name>List reject(<name>Predicate predicate)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().reject(predicate);
+        }
+    }
+
+    @Override
+    public \<V> MutableList\<V> collect(<name>ToObjectFunction\<? extends V> function)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().collect(function);
+        }
+    }
+
+    <(arithmeticMethods.(type))(name, type)>
+    @Override
+    public boolean equals(Object otherList)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().equals(otherList);
+        }
+    }
+
+    @Override
+    public int hashCode()
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().hashCode();
+        }
+    }
+
+    @Override
+    public Lazy<name>Iterable asLazy()
+    {
+        synchronized (this.getLock())
+        {
+            return new Lazy<name>IterableAdapter(this);
+        }
+    }
+
+    @Override
+    public Mutable<name>List asUnmodifiable()
+    {
+        synchronized (this.getLock())
+        {
+            return new Unmodifiable<name>List(this);
+        }
+    }
+
+    @Override
+    public Mutable<name>List asSynchronized()
+    {
+        return this;
+    }
+
+    @Override
+    public Immutable<name>List toImmutable()
+    {
+        synchronized (this.getLock())
+        {
+            int size = this.size();
+            if (size == 0)
+            {
+                return <name>Lists.immutable.with();
+            }
+            if (size == 1)
+            {
+                return <name>Lists.immutable.with(this.getFirst());
+            }
+            return <name>Lists.immutable.with(this.toArray());
+        }
+    }
+
+    /**
+     * @since 9.2.
+     */
+    public Mutable<name>List newEmpty()
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().newEmpty();
+        }
+    }
+
+    @Override
+    public Mutable<name>List reverseThis()
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().reverseThis();
+        }
+        return this;
+    }
+
+    @Override
+    public Mutable<name>List toReversed()
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().toReversed();
+        }
+    }
+
+    @Override
+    public Lazy<name>Iterable asReversed()
+    {
+        return Reverse<name>Iterable.adapt(this);
+    }
+
+    @Override
+    public void forEachInBoth(<name>List other, <name><name>Procedure procedure)
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().forEachInBoth(other, procedure);
+        }
+    }
+
+    @Override
+    public void forEachWithIndex(<name>IntProcedure procedure)
+    {
+        synchronized (this.getLock())
+        {
+            this.getMutable<name>List().forEachWithIndex(procedure);
+        }
+    }
+
+    @Override
+    public \<T> T injectIntoWithIndex(T injectedValue, Object<name>IntToObjectFunction\<? super T, ? extends T> function)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().injectIntoWithIndex(injectedValue, function);
+        }
+    }
+
+    /**
+     * @since 6.0.
+     */
+    @Override
+    public Mutable<name>List distinct()
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().distinct();
+        }
+    }
+
+    @Override
+    public Mutable<name>List subList(int fromIndex, int toIndex)
+    {
+        throw new UnsupportedOperationException("subList not yet implemented!");
+    }
+
+    /**
+     * @since 9.1.
+     */
+    public MutableList\<<name><name>Pair> zip<name>(<name>Iterable iterable)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().zip<name>(iterable);
+        }
+    }
+
+    /**
+     * @since 9.1.
+     */
+    public \<T> MutableList\<<name>ObjectPair\<T\>> zip(Iterable\<T> iterable)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().zip(iterable);
+        }
+    }
+
+    /**
+     * Returns a new Mutable<name>List including all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    public Mutable<name>List selectWithIndex(<name>IntPredicate predicate)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().selectWithIndex(predicate);
+        }
+    }
+
+    /**
+     * Returns a new Mutable<name>Collection including all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    public \<R extends Mutable<name>Collection> R selectWithIndex(<name>IntPredicate predicate, R target)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().selectWithIndex(predicate, target);
+        }
+    }
+
+    /**
+     * Returns a new Mutable<name>List excluding all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    public Mutable<name>List rejectWithIndex(<name>IntPredicate predicate)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().rejectWithIndex(predicate);
+        }
+    }
+
+    /**
+     * Returns a new Mutable<name>Collection excluding all elements with corresponding indexes matching the specified predicate.
+     *
+     * @since 11.1.
+     */
+    public \<R extends Mutable<name>Collection> R rejectWithIndex(<name>IntPredicate predicate, R target)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().rejectWithIndex(predicate, target);
+        }
+    }
+
+    /**
+     * Returns a new MutableList using results obtained by applying the specified function to each element
+     * and its corresponding index.
+     *
+     * @since 9.1.
+     */
+    @Override
+    public \<V> MutableList\<V> collectWithIndex(<name>IntToObjectFunction\<? extends V> function)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().collectWithIndex(function);
+        }
+    }
+
+    /**
+     * Adds elements to the target Collection using results obtained by applying the specified function to each element
+     * and its corresponding index.
+     *
+     * @since 9.1.
+     */
+    public \<V, R extends Collection\<V\>> R collectWithIndex(<name>IntToObjectFunction\<? extends V> function, R target)
+    {
+        synchronized (this.getLock())
+        {
+            return this.getMutable<name>List().collectWithIndex(function, target);
+        }
+    }
+<if(primitive.specializedStream)>
+
+    /**
+    * This function needs to be synchronized manually
+    */
+    @Override
+    public Spliterator.Of<name> spliterator()
+    {
+        return this.getMutable<name>List().spliterator();
+    }
+<endif>
+}
+
+>>
+
+arithmeticMethods ::= [
+    "byte": "allMethods",
+    "short": "allMethods",
+    "char": "allMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "allMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+    ]
+
+allMethods(name, type) ::=<<
+@Override
+public Mutable<name>List sortThis()
+{
+    synchronized (this.getLock())
+    {
+        this.getMutable<name>List().sortThis();
+    }
+    return this;
+}
+
+@Override
+public Mutable<name>List sortThis(<name>Comparator comparator)
+{
+    synchronized (this.getLock())
+    {
+        this.getMutable<name>List().sortThis(comparator);
+    }
+    return this;
+}
+
+@Override
+public \<T> Mutable<name>List sortThisBy(<name>ToObjectFunction\<T> function)
+{
+    synchronized (this.getLock())
+    {
+        this.getMutable<name>List().sortThisBy(function);
+    }
+    return this;
+}
+
+@Override
+public \<T> Mutable<name>List sortThisBy(<name>ToObjectFunction\<T> function, Comparator\<? super T> comparator)
+{
+    synchronized (this.getLock())
+    {
+        this.getMutable<name>List().sortThisBy(function, comparator);
+    }
+    return this;
+}
+
+@Override
+public Mutable<name>List shuffleThis()
+{
+    synchronized (this.getLock())
+    {
+        this.getMutable<name>List().shuffleThis();
+    }
+    return this;
+}
+
+@Override
+public Mutable<name>List shuffleThis(Random rnd)
+{
+    synchronized (this.getLock())
+    {
+        this.getMutable<name>List().shuffleThis(rnd);
+    }
+    return this;
+}
+
+@Override
+public int binarySearch(<type> value)
+{
+    synchronized (this.getLock())
+    {
+        return this.getMutable<name>List().binarySearch(value);
+    }
+}
+
+@Override
+public <wideType.(type)> dotProduct(<name>List list)
+{
+    synchronized (this.getLock())
+    {
+        return this.getMutable<name>List().dotProduct(list);
+    }
+}
+
+>>
+
+noMethods(name, type) ::= ""

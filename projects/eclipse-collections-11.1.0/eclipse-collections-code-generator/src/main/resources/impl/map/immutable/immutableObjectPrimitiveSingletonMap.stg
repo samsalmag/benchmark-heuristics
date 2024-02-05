@@ -1,0 +1,555 @@
+import "copyright.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/impl/map/immutable/primitive"
+
+fileName(primitive) ::= "ImmutableObject<primitive.name>SingletonMap"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyright()>
+
+package org.eclipse.collections.impl.map.immutable.primitive;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Set;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.Lazy<name>Iterable;
+import org.eclipse.collections.api.LazyIterable;
+import org.eclipse.collections.api.RichIterable;
+import org.eclipse.collections.api.bag.primitive.Mutable<name>Bag;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.predicate.primitive.Object<name>Predicate;
+import org.eclipse.collections.api.block.procedure.Procedure;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.block.procedure.primitive.Object<name>Procedure;
+import org.eclipse.collections.api.collection.ImmutableCollection;
+import org.eclipse.collections.api.collection.primitive.Immutable<name>Collection;
+import org.eclipse.collections.api.collection.primitive.Mutable<name>Collection;
+import org.eclipse.collections.api.iterator.<name>Iterator;
+import org.eclipse.collections.api.list.primitive.Mutable<name>List;
+import org.eclipse.collections.api.map.primitive.ImmutableObject<name>Map;
+<if(!primitive.booleanPrimitive)>import org.eclipse.collections.api.map.primitive.Immutable<name>ObjectMap;<endif>
+import org.eclipse.collections.api.map.primitive.Object<name>Map;
+import org.eclipse.collections.api.set.primitive.Mutable<name>Set;
+import org.eclipse.collections.api.tuple.primitive.Object<name>Pair;
+import org.eclipse.collections.impl.bag.mutable.primitive.<name>HashBag;
+import org.eclipse.collections.impl.collection.mutable.primitive.Unmodifiable<name>Collection;
+import org.eclipse.collections.impl.factory.Lists;
+import org.eclipse.collections.impl.factory.Sets;
+import org.eclipse.collections.impl.factory.primitive.<name>Lists;
+import org.eclipse.collections.impl.factory.primitive.Object<name>Maps;
+<if(!primitive.booleanPrimitive)>import org.eclipse.collections.impl.factory.primitive.<name>ObjectMaps;<endif>
+import org.eclipse.collections.impl.iterator.Unmodifiable<name>Iterator;
+import org.eclipse.collections.impl.lazy.primitive.Lazy<name>IterableAdapter;
+import org.eclipse.collections.impl.list.mutable.primitive.<name>ArrayList;
+import org.eclipse.collections.impl.map.mutable.primitive.Object<name>HashMap;
+import org.eclipse.collections.impl.set.mutable.primitive.<name>HashSet;
+import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples;
+
+/**
+ * ImmutableObject<name>SingletonMap is an optimization for {@link ImmutableObject<name>Map} of size 1.
+ * This file was automatically generated from template file immutableObjectPrimitiveSingletonMap.stg.
+ *
+ * @since 4.0.
+ */
+final class ImmutableObject<name>SingletonMap\<K> extends AbstractImmutableObject<name>Map\<K> implements Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private static final <type> EMPTY_VALUE = <zero.(type)>;
+    private final K key1;
+    private final <type> value1;
+
+    ImmutableObject<name>SingletonMap(K key1, <type> value1)
+    {
+        this.key1 = key1;
+        this.value1 = value1;
+    }
+
+    @Override
+    public <name>Iterator <type>Iterator()
+    {
+        return new Unmodifiable<name>Iterator(Object<name>HashMap.newWithKeysValues(this.key1, this.value1).<type>Iterator());
+    }
+
+    @Override
+    public void forEach(<name>Procedure procedure)
+    {
+        this.each(procedure);
+    }
+
+    /**
+     * @since 7.0.
+     */
+    @Override
+    public void each(<name>Procedure procedure)
+    {
+        procedure.value(this.value1);
+    }
+
+    @Override
+    public int count(<name>Predicate predicate)
+    {
+        return predicate.accept(this.value1) ? 1 : 0;
+    }
+
+    @Override
+    public boolean anySatisfy(<name>Predicate predicate)
+    {
+        return predicate.accept(this.value1);
+    }
+
+    @Override
+    public boolean allSatisfy(<name>Predicate predicate)
+    {
+        return predicate.accept(this.value1);
+    }
+
+    @Override
+    public boolean noneSatisfy(<name>Predicate predicate)
+    {
+        return !predicate.accept(this.value1);
+    }
+
+    @Override
+    public Immutable<name>Collection select(<name>Predicate predicate)
+    {
+        return predicate.accept(this.value1) ? <name>Lists.immutable.with(this.value1) : <name>Lists.immutable.with();
+    }
+
+    @Override
+    public Immutable<name>Collection reject(<name>Predicate predicate)
+    {
+        return predicate.accept(this.value1) ? <name>Lists.immutable.with() : <name>Lists.immutable.with(this.value1);
+    }
+
+    @Override
+    public <type> detectIfNone(<name>Predicate predicate, <type> ifNone)
+    {
+        return predicate.accept(this.value1) ? this.value1 : ifNone;
+    }
+
+    @Override
+    public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
+    {
+        return function.valueOf(injectedValue, this.value1);
+    }
+
+    @Override
+    public RichIterable\<<name>Iterable> chunk(int size)
+    {
+        if (size \<= 0)
+        {
+            throw new IllegalArgumentException("Size for groups must be positive but was: " + size);
+        }
+        return Lists.immutable.with(<name>Lists.immutable.with(this.value1));
+    }
+
+    @Override
+    public \<V> ImmutableCollection\<V> collect(<name>ToObjectFunction\<? extends V> function)
+    {
+        return Lists.immutable.of(function.valueOf(this.value1));
+    }
+
+    <(arithmeticMethods.(type))()>
+    @Override
+    public <type>[] toArray()
+    {
+        return new <type>[]{this.value1};
+    }
+
+    @Override
+    public <type>[] toArray(<type>[] target)
+    {
+        if (target.length \< 1)
+        {
+            target = new <type>[]{this.value1};
+        }
+        else
+        {
+            target[0] = this.value1;
+        }
+        return target;
+    }
+
+    @Override
+    public boolean contains(<type> value)
+    {
+        return <(equals.(type))("this.value1", "value")>;
+    }
+
+    @Override
+    public boolean containsAll(<type>... source)
+    {
+        for (<type> value : source)
+        {
+            if (<(notEquals.(type))("this.value1", "value")>)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean containsAll(<name>Iterable source)
+    {
+        for (<name>Iterator iterator = source.<type>Iterator(); iterator.hasNext(); )
+        {
+            if (<(notEquals.(type))("this.value1", "iterator.next()")>)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public Mutable<name>List toList()
+    {
+        return <name>ArrayList.newListWith(this.value1);
+    }
+
+    @Override
+    public Mutable<name>Set toSet()
+    {
+        return <name>HashSet.newSetWith(this.value1);
+    }
+
+    @Override
+    public Mutable<name>Bag toBag()
+    {
+        return <name>HashBag.newBagWith(this.value1);
+    }
+
+    @Override
+    public Lazy<name>Iterable asLazy()
+    {
+        return new Lazy<name>IterableAdapter(this);
+    }
+
+    @Override
+    public ImmutableObject<name>Map\<K> newWithKeyValue(K key, <type> value)
+    {
+        return Object<name>Maps.immutable.withAll(Object<name>HashMap.newWithKeysValues(this.key1, this.value1, key, value));
+    }
+
+    @Override
+    public ImmutableObject<name>Map\<K> newWithoutKey(K key)
+    {
+        return nullSafeEquals(this.key1, key) ? (ImmutableObject<name>Map\<K>) ImmutableObject<name>EmptyMap.INSTANCE : this;
+    }
+
+    private static boolean nullSafeEquals(Object value, Object other)
+    {
+        if (value == null)
+        {
+            if (other == null)
+            {
+                return true;
+            }
+        }
+        else if (other == value || value.equals(other))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public ImmutableObject<name>Map\<K> newWithoutAllKeys(Iterable\<? extends K> keys)
+    {
+        Object<name>HashMap\<K> map = new Object<name>HashMap\<K>(this);
+        for (K key : keys)
+        {
+            map.removeKey(key);
+        }
+        return map.toImmutable();
+    }
+
+    @Override
+    public <type> get(Object key)
+    {
+        return this.getIfAbsent(key, EMPTY_VALUE);
+    }
+
+    @Override
+    public <type> getOrThrow(Object key)
+    {
+        if (nullSafeEquals(this.key1, key))
+        {
+            return this.value1;
+        }
+        throw new IllegalStateException("Key " + key + " not present.");
+    }
+
+    @Override
+    public <type> getIfAbsent(Object key, <type> ifAbsent)
+    {
+        return nullSafeEquals(this.key1, key) ? this.value1 : ifAbsent;
+    }
+
+    @Override
+    public boolean containsKey(Object key)
+    {
+        return nullSafeEquals(this.key1, key);
+    }
+
+    @Override
+    public boolean containsValue(<type> value)
+    {
+        return <(equals.(type))("this.value1", "value")>;
+    }
+
+    @Override
+    public void forEachValue(<name>Procedure procedure)
+    {
+        procedure.value(this.value1);
+    }
+
+    @Override
+    public void forEachKey(Procedure\<? super K> procedure)
+    {
+        procedure.value(this.key1);
+    }
+
+    @Override
+    public void forEachKeyValue(Object<name>Procedure\<? super K> object<name>Procedure)
+    {
+        object<name>Procedure.value(this.key1, this.value1);
+    }
+
+    @Override
+    public ImmutableObject<name>Map\<K> select(Object<name>Predicate\<? super K> object<name>Predicate)
+    {
+        return object<name>Predicate.accept(this.key1, this.value1) ? Object<name>HashMap.newWithKeysValues(this.key1, this.value1).toImmutable()
+                : (ImmutableObject<name>Map\<K>) ImmutableObject<name>EmptyMap.INSTANCE;
+    }
+
+    @Override
+    public ImmutableObject<name>Map\<K> reject(Object<name>Predicate\<? super K> object<name>Predicate)
+    {
+        return object<name>Predicate.accept(this.key1, this.value1) ? (ImmutableObject<name>Map\<K>) ImmutableObject<name>EmptyMap.INSTANCE
+                : Object<name>HashMap.newWithKeysValues(this.key1, this.value1).toImmutable();
+    }
+
+    @Override
+    public ImmutableObject<name>Map\<K> toImmutable()
+    {
+        return this;
+    }
+
+    @Override
+    public int size()
+    {
+        return 1;
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean notEmpty()
+    {
+        return true;
+    }
+
+    @Override
+    public Set\<K> keySet()
+    {
+        return Sets.immutable.of(this.key1).castToSet();
+    }
+
+    @Override
+    public Mutable<name>Collection values()
+    {
+        return Unmodifiable<name>Collection.of(<name>ArrayList.newListWith(this.value1));
+    }
+
+    @Override
+    public LazyIterable\<K> keysView()
+    {
+        return Lists.immutable.of(this.key1).asLazy();
+    }
+
+    @Override
+    public RichIterable\<Object<name>Pair\<K>\> keyValuesView()
+    {
+        return Lists.immutable.of(PrimitiveTuples.pair(this.key1, this.value1)).asLazy();
+    }
+
+    <if(!primitive.booleanPrimitive)>
+    @Override
+    public Immutable<name>ObjectMap\<K> flipUniqueValues()
+    {
+        return <name>ObjectMaps.immutable.with(this.value1, this.key1);
+    }
+    <endif>
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this)
+        {
+            return true;
+        }
+        if (!(obj instanceof Object<name>Map))
+        {
+            return false;
+        }
+        Object<name>Map\<K> map = (Object<name>Map\<K>) obj;
+        if (map.size() != 1)
+        {
+            return false;
+        }
+        return map.containsKey(this.key1) && <(equals.(type))("this.value1", "map.getOrThrow(this.key1)")>;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return (this.key1 == null ? 0 : this.key1.hashCode()) ^ <(hashCode.(type))("this.value1")>;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "{" + this.key1 + "=" + this.value1 + "}";
+    }
+
+    @Override
+    public String makeString()
+    {
+        return this.makeString(", ");
+    }
+
+    @Override
+    public String makeString(String separator)
+    {
+        return this.makeString("", separator, "");
+    }
+
+    @Override
+    public String makeString(String start, String separator, String end)
+    {
+        Appendable stringBuilder = new StringBuilder();
+        this.appendString(stringBuilder, start, separator, end);
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public void appendString(Appendable appendable)
+    {
+        this.appendString(appendable, ", ");
+    }
+
+    @Override
+    public void appendString(Appendable appendable, String separator)
+    {
+        this.appendString(appendable, "", separator, "");
+    }
+
+    @Override
+    public void appendString(Appendable appendable, String start, String separator, String end)
+    {
+        try
+        {
+            appendable.append(start);
+            appendable.append(String.valueOf(this.value1));
+            appendable.append(end);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Object writeReplace()
+    {
+        return new ImmutableObject<name>MapSerializationProxy\<K>(this);
+    }
+}
+
+>>
+
+arithmeticMethods ::= [
+    "byte": "allMethods",
+    "short": "allMethods",
+    "char": "allMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "allMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+    ]
+
+allMethods() ::= <<
+@Override
+public <wideType.(type)> sum()
+{
+    return this.value1;
+}
+
+@Override
+public <type> min()
+{
+    return this.value1;
+}
+
+@Override
+public <type> max()
+{
+    return this.value1;
+}
+
+@Override
+public <type> maxIfEmpty(<type> defaultValue)
+{
+    return this.value1;
+}
+
+@Override
+public <type> minIfEmpty(<type> defaultValue)
+{
+    return this.value1;
+}
+
+@Override
+public double average()
+{
+    return this.value1;
+}
+
+@Override
+public double median()
+{
+    return this.value1;
+}
+
+@Override
+public <type>[] toSortedArray()
+{
+    return new <type>[]{this.value1};
+}
+
+@Override
+public Mutable<name>List toSortedList()
+{
+    return <name>ArrayList.newListWith(this.value1);
+}
+
+>>
+
+noMethods() ::= ""

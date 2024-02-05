@@ -1,0 +1,580 @@
+import "copyrightAndOthers.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+hasTwoPrimitives() ::= "true"
+
+skipBooleanKeys() ::= "true"
+
+targetPath() ::= "org/eclipse/collections/impl/map/immutable/primitive"
+
+fileName(primitive1, primitive2, sameTwoPrimitives) ::= "Immutable<primitive1.name><primitive2.name>HashMap"
+
+class(primitive1, primitive2, sameTwoPrimitives) ::= <<
+<body(primitive1.type, primitive2.type, primitive1.name, primitive2.name)>
+>>
+
+body(type1, type2, name1, name2) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.map.immutable.primitive;
+
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.Serializable;
+
+import org.eclipse.collections.api.<name1>Iterable;
+<if(!sameTwoPrimitives)>import org.eclipse.collections.api.<name2>Iterable;<endif>
+import org.eclipse.collections.api.Lazy<name1>Iterable;
+<if(!sameTwoPrimitives)>import org.eclipse.collections.api.Lazy<name2>Iterable;<endif>
+import org.eclipse.collections.api.RichIterable;
+import org.eclipse.collections.api.bag.ImmutableBag;
+import org.eclipse.collections.api.bag.MutableBag;
+import org.eclipse.collections.api.bag.primitive.Mutable<name2>Bag;
+import org.eclipse.collections.api.bag.primitive.Immutable<name2>Bag;
+import org.eclipse.collections.api.block.function.primitive.<name2>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Object<name2>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name1><name2>Predicate;
+import org.eclipse.collections.api.block.predicate.primitive.<name2>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name1><name2>Procedure;
+<if(!sameTwoPrimitives)>import org.eclipse.collections.api.block.procedure.primitive.<name1>Procedure;<endif>
+import org.eclipse.collections.api.block.procedure.primitive.<name2>Procedure;
+import org.eclipse.collections.api.collection.primitive.Mutable<name2>Collection;
+import org.eclipse.collections.api.iterator.<name1>Iterator;
+<if(!sameTwoPrimitives)>import org.eclipse.collections.api.iterator.<name2>Iterator;<endif>
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.impl.factory.Lists;
+import org.eclipse.collections.api.list.primitive.Mutable<name2>List;
+import org.eclipse.collections.api.map.primitive.<name1><name2>Map;
+<if(!primitive2.booleanPrimitive)>import org.eclipse.collections.impl.factory.primitive.<name2><name1>Maps;<endif>
+import org.eclipse.collections.api.map.primitive.Immutable<name1><name2>Map;
+<if(!primitive2.booleanPrimitive)><if(!sameTwoPrimitives)>import org.eclipse.collections.api.map.primitive.Immutable<name2><name1>Map;<endif><endif>
+import org.eclipse.collections.api.map.primitive.Mutable<name1><name2>Map;
+<if(!primitive2.booleanPrimitive)><if(!sameTwoPrimitives)>import org.eclipse.collections.api.map.primitive.Mutable<name2><name1>Map;<endif><endif>
+import org.eclipse.collections.api.set.primitive.Mutable<name1>Set;
+<if(!sameTwoPrimitives)>import org.eclipse.collections.api.set.primitive.Mutable<name2>Set;<endif>
+import org.eclipse.collections.api.tuple.primitive.<name1><name2>Pair;
+import org.eclipse.collections.impl.block.procedure.checked.primitive.Checked<name1><name2>Procedure;
+import org.eclipse.collections.impl.collection.mutable.primitive.Unmodifiable<name2>Collection;
+import org.eclipse.collections.impl.factory.primitive.<name2>Bags;
+import org.eclipse.collections.impl.iterator.Unmodifiable<name2>Iterator;
+import org.eclipse.collections.impl.map.mutable.primitive.<name1><name2>HashMap;
+import org.eclipse.collections.impl.set.mutable.primitive.Unmodifiable<name1>Set;
+
+/**
+ * Immutable<name1><name2>HashMap is the non-modifiable equivalent of {@link <name1><name2>HashMap}.
+ * This file was automatically generated from template file immutablePrimitivePrimitiveHashMap.stg.
+ *
+ * @since 4.0.
+ */
+final class Immutable<name1><name2>HashMap implements Immutable<name1><name2>Map, Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private final Mutable<name1><name2>Map delegate;
+
+    Immutable<name1><name2>HashMap(<name1><name2>Map delegate)
+    {
+        this.delegate = new <name1><name2>HashMap(delegate);
+    }
+
+    @Override
+    public <type2> get(<type1> key)
+    {
+        return this.delegate.get(key);
+    }
+
+    @Override
+    public <type2> getIfAbsent(<type1> key, <type2> ifAbsent)
+    {
+        return this.delegate.getIfAbsent(key, ifAbsent);
+    }
+
+    @Override
+    public <type2> getOrThrow(<type1> key)
+    {
+        return this.delegate.getOrThrow(key);
+    }
+
+    @Override
+    public boolean containsKey(<type1> key)
+    {
+        return this.delegate.containsKey(key);
+    }
+
+    @Override
+    public boolean containsValue(<type2> value)
+    {
+        return this.delegate.containsValue(value);
+    }
+
+    @Override
+    public void forEachValue(<name2>Procedure procedure)
+    {
+        this.delegate.forEachValue(procedure);
+    }
+
+    @Override
+    public void forEachKey(<name1>Procedure procedure)
+    {
+        this.delegate.forEachKey(procedure);
+    }
+
+    @Override
+    public void forEachKeyValue(<name1><name2>Procedure procedure)
+    {
+        this.delegate.forEachKeyValue(procedure);
+    }
+
+    @Override
+    public Lazy<name1>Iterable keysView()
+    {
+        return this.delegate.keysView();
+    }
+
+    @Override
+    public RichIterable\<<name1><name2>Pair> keyValuesView()
+    {
+        return this.delegate.keyValuesView();
+    }
+
+    <if(!primitive2.booleanPrimitive)>
+    @Override
+    public Immutable<name2><name1>Map flipUniqueValues()
+    {
+        Mutable<name2><name1>Map result = <name2><name1>Maps.mutable.empty();
+        this.forEachKeyValue((key, value) ->
+        {
+            if (result.containsKey(value))
+            {
+                throw new IllegalStateException("Duplicate value: " + value + " found at key: " + result.get(value) + " and key: " + key);
+            }
+            result.put(value, key);
+        });
+        return result.toImmutable();
+    }
+    <endif>
+
+    @Override
+    public Immutable<name1><name2>Map select(<name1><name2>Predicate predicate)
+    {
+        return this.delegate.select(predicate).toImmutable();
+    }
+
+    @Override
+    public Immutable<name1><name2>Map reject(<name1><name2>Predicate predicate)
+    {
+        return this.delegate.reject(predicate).toImmutable();
+    }
+
+    @Override
+    public \<T> T injectInto(T injectedValue, Object<name2>ToObjectFunction\<? super T, ? extends T> function)
+    {
+        return this.delegate.injectInto(injectedValue, function);
+    }
+
+    @Override
+    public RichIterable\<<name2>Iterable> chunk(int size)
+    {
+        if (size \<= 0)
+        {
+            throw new IllegalArgumentException("Size for groups must be positive but was: " + size);
+        }
+        MutableList\<<name2>Iterable> result = Lists.mutable.empty();
+        if (this.notEmpty())
+        {
+            <name2>Iterator iterator = this.delegate.<type2>Iterator();
+            while (iterator.hasNext())
+            {
+                Mutable<name2>Bag batch = <name2>Bags.mutable.empty();
+                for (int i = 0; i \< size && iterator.hasNext(); i++)
+                {
+                    batch.add(iterator.next());
+                }
+                result.add(batch.toImmutable());
+            }
+        }
+        return result.toImmutable();
+    }
+
+    @Override
+    public Immutable<name1><name2>Map toImmutable()
+    {
+        return this;
+    }
+
+    @Override
+    public <name2>Iterator <type2>Iterator()
+    {
+        return new Unmodifiable<name2>Iterator(this.delegate.<type2>Iterator());
+    }
+
+    /**
+     * @since 7.0.
+     */
+    @Override
+    public void each(<name2>Procedure procedure)
+    {
+        this.delegate.forEach(procedure);
+    }
+
+    @Override
+    public int count(<name2>Predicate predicate)
+    {
+        return this.delegate.count(predicate);
+    }
+
+    @Override
+    public boolean anySatisfy(<name2>Predicate predicate)
+    {
+        return this.delegate.anySatisfy(predicate);
+    }
+
+    @Override
+    public boolean allSatisfy(<name2>Predicate predicate)
+    {
+        return this.delegate.allSatisfy(predicate);
+    }
+
+    @Override
+    public boolean noneSatisfy(<name2>Predicate predicate)
+    {
+        return this.delegate.noneSatisfy(predicate);
+    }
+
+    @Override
+    public Immutable<name2>Bag select(<name2>Predicate predicate)
+    {
+        return this.delegate.select(predicate).toImmutable();
+    }
+
+    @Override
+    public Immutable<name2>Bag reject(<name2>Predicate predicate)
+    {
+        return this.delegate.reject(predicate).toImmutable();
+    }
+
+    @Override
+    public \<V> ImmutableBag\<V> collect(<name2>ToObjectFunction\<? extends V> function)
+    {
+        MutableBag\<V> bag = this.delegate.collect(function);
+        return bag.toImmutable();
+    }
+
+    @Override
+    public <type2> detectIfNone(<name2>Predicate predicate, <type2> ifNone)
+    {
+        return this.delegate.detectIfNone(predicate, ifNone);
+    }
+
+    <(arithmeticMethods.(type2))()>
+    @Override
+    public <type2>[] toArray()
+    {
+        return this.delegate.toArray();
+    }
+
+    @Override
+    public <type2>[] toArray(<type2>[] target)
+    {
+        return this.delegate.toArray(target);
+    }
+
+    @Override
+    public boolean contains(<type2> value)
+    {
+        return this.delegate.contains(value);
+    }
+
+    @Override
+    public boolean containsAll(<type2>... source)
+    {
+        return this.delegate.containsAll(source);
+    }
+
+    @Override
+    public boolean containsAll(<name2>Iterable source)
+    {
+        return this.delegate.containsAll(source);
+    }
+
+    @Override
+    public Mutable<name2>List toList()
+    {
+        return this.delegate.toList();
+    }
+
+    @Override
+    public Mutable<name2>Set toSet()
+    {
+        return this.delegate.toSet();
+    }
+
+    @Override
+    public Mutable<name2>Bag toBag()
+    {
+        return this.delegate.toBag();
+    }
+
+    @Override
+    public Lazy<name2>Iterable asLazy()
+    {
+        return this.delegate.asLazy();
+    }
+
+    @Override
+    public Immutable<name1><name2>Map newWithKeyValue(<type1> key, <type2> value)
+    {
+        Mutable<name1><name2>Map map = new <name1><name2>HashMap(this.size() + 1);
+        map.putAll(this);
+        map.put(key, value);
+        return map.toImmutable();
+    }
+
+    @Override
+    public Immutable<name1><name2>Map newWithoutKey(<type1> key)
+    {
+        Mutable<name1><name2>Map map = new <name1><name2>HashMap(this.size());
+        map.putAll(this);
+        map.removeKey(key);
+        return map.toImmutable();
+    }
+
+    @Override
+    public Immutable<name1><name2>Map newWithoutAllKeys(<name1>Iterable keys)
+    {
+        Mutable<name1><name2>Map map = new <name1><name2>HashMap(this.size());
+        map.putAll(this);
+        <name1>Iterator iterator = keys.<type1>Iterator();
+        while (iterator.hasNext())
+        {
+            map.removeKey(iterator.next());
+        }
+        return map.toImmutable();
+    }
+
+    @Override
+    public int size()
+    {
+        return this.delegate.size();
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return this.delegate.isEmpty();
+    }
+
+    @Override
+    public boolean notEmpty()
+    {
+        return this.delegate.notEmpty();
+    }
+
+    @Override
+    public String makeString()
+    {
+        return this.delegate.makeString();
+    }
+
+    @Override
+    public String makeString(String separator)
+    {
+        return this.delegate.makeString(separator);
+    }
+
+    @Override
+    public String makeString(String start, String separator, String end)
+    {
+        return this.delegate.makeString(start, separator, end);
+    }
+
+    @Override
+    public void appendString(Appendable appendable)
+    {
+        this.delegate.appendString(appendable);
+    }
+
+    @Override
+    public void appendString(Appendable appendable, String separator)
+    {
+        this.delegate.appendString(appendable, separator);
+    }
+
+    @Override
+    public void appendString(Appendable appendable, String start, String separator, String end)
+    {
+        this.delegate.appendString(appendable, start, separator, end);
+    }
+
+    @Override
+    public Mutable<name1>Set keySet()
+    {
+        return Unmodifiable<name1>Set.of(this.delegate.keySet());
+    }
+
+    @Override
+    public Mutable<name2>Collection values()
+    {
+        return Unmodifiable<name2>Collection.of(this.delegate.values());
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return this.delegate.equals(obj);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return this.delegate.hashCode();
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.delegate.toString();
+    }
+
+    private Object writeReplace()
+    {
+        return new Immutable<name1><name2>MapSerializationProxy(this);
+    }
+
+    protected static class Immutable<name1><name2>MapSerializationProxy implements Externalizable
+    {
+        private static final long serialVersionUID = 1L;
+
+        private <name1><name2>Map map;
+
+        public Immutable<name1><name2>MapSerializationProxy()
+        {
+            // Empty constructor for Externalizable class
+        }
+
+        protected Immutable<name1><name2>MapSerializationProxy(<name1><name2>Map map)
+        {
+            this.map = map;
+        }
+
+        @Override
+        public void writeExternal(final ObjectOutput out) throws IOException
+        {
+            out.writeInt(this.map.size());
+            try
+            {
+                this.map.forEachKeyValue(new Checked<name1><name2>Procedure()
+                {
+                    @Override
+                    public void safeValue(<type1> key, <type2> value) throws IOException
+                    {
+                        out.write<name1>(key);
+                        out.write<name2>(value);
+                    }
+                });
+            }
+            catch (RuntimeException e)
+            {
+                if (e.getCause() instanceof IOException)
+                {
+                    throw (IOException) e.getCause();
+                }
+                throw e;
+            }
+        }
+
+        @Override
+        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
+        {
+            int size = in.readInt();
+            Mutable<name1><name2>Map deserializedMap = new <name1><name2>HashMap();
+
+            for (int i = 0; i \< size; i++)
+            {
+                deserializedMap.put(in.read<name1>(), in.read<name2>());
+            }
+
+            this.map = deserializedMap;
+        }
+
+        protected Object readResolve()
+        {
+            return this.map.toImmutable();
+        }
+    }
+}
+
+>>
+
+arithmeticMethods ::= [
+    "byte": "allMethods",
+    "short": "allMethods",
+    "char": "allMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "allMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+    ]
+
+allMethods() ::= <<
+@Override
+public <wideType.(type2)> sum()
+{
+    return this.delegate.sum();
+}
+
+@Override
+public <type2> max()
+{
+    return this.delegate.max();
+}
+
+@Override
+public <type2> maxIfEmpty(<type2> defaultValue)
+{
+    return this.delegate.maxIfEmpty(defaultValue);
+}
+
+@Override
+public <type2> min()
+{
+    return this.delegate.min();
+}
+
+@Override
+public <type2> minIfEmpty(<type2> defaultValue)
+{
+    return this.delegate.minIfEmpty(defaultValue);
+}
+
+@Override
+public double average()
+{
+    return this.delegate.average();
+}
+
+@Override
+public double median()
+{
+    return this.delegate.median();
+}
+
+@Override
+public <type2>[] toSortedArray()
+{
+    return this.delegate.toSortedArray();
+}
+
+@Override
+public Mutable<name2>List toSortedList()
+{
+    return this.delegate.toSortedList();
+}
+
+>>
+
+noMethods() ::= ""

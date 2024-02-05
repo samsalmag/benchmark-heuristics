@@ -1,0 +1,48 @@
+import "copyrightAndOthers.stg"
+import "primitiveAPI.stg"
+
+targetPath() ::= "org/eclipse/collections/api/collection/primitive"
+
+fileName(primitive) ::= "Immutable<primitive.name>Collection"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.api.collection.primitive;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
+import org.eclipse.collections.api.collection.ImmutableCollection;
+
+/**
+ * This file was automatically generated from template file immutablePrimitiveCollection.stg.
+ *
+ * @since 3.0.
+ */
+public interface Immutable<name>Collection extends <name>Iterable
+{
+    @Override
+    \<V> ImmutableCollection\<V> collect(<name>ToObjectFunction\<? extends V> function);
+
+    /**
+     * @since 9.0.
+     */
+    @Override
+    default Immutable<name>Collection tap(<name>Procedure procedure)
+    {
+        this.forEach(procedure);
+        return this;
+    }
+
+    <sharedAPI(fileName(primitive), name)>
+
+    <immutableAPINoOverride(fileName(primitive), type, name)>
+}
+
+>>

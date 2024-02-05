@@ -1,0 +1,270 @@
+import "copyrightAndOthers.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+targetPath() ::= "org/eclipse/collections/impl/stack/mutable/primitive"
+
+fileName(primitive) ::= "<primitive.name>ArrayStack"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name)>
+>>
+
+body(type, name) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.stack.mutable.primitive;
+
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+import org.eclipse.collections.api.<name>Iterable;
+import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
+import org.eclipse.collections.api.iterator.<name>Iterator;
+import org.eclipse.collections.api.list.primitive.<name>List;
+import org.eclipse.collections.api.list.primitive.Mutable<name>List;
+import org.eclipse.collections.api.stack.MutableStack;
+import org.eclipse.collections.api.stack.primitive.<name>Stack;
+import org.eclipse.collections.api.stack.primitive.Immutable<name>Stack;
+import org.eclipse.collections.api.stack.primitive.Mutable<name>Stack;
+import org.eclipse.collections.impl.factory.primitive.<name>Stacks;
+import org.eclipse.collections.impl.list.mutable.primitive.<name>ArrayList;
+import org.eclipse.collections.impl.stack.primitive.Abstract<name>Stack;
+import org.eclipse.collections.impl.stack.mutable.ArrayStack;
+
+/**
+ * <name>ArrayStack is similar to {@link ArrayStack}, and is memory-optimized for <type> primitives.
+ * This file was automatically generated from template file primitiveArrayStack.stg.
+ */
+public class <name>ArrayStack extends Abstract<name>Stack
+        implements Mutable<name>Stack, Externalizable
+{
+    private static final long serialVersionUID = 1L;
+
+    private transient <name>ArrayList delegate;
+
+    public <name>ArrayStack()
+    {
+        this.delegate = new <name>ArrayList();
+    }
+
+    private <name>ArrayStack(int size)
+    {
+        this.delegate = new <name>ArrayList(size);
+    }
+
+    private <name>ArrayStack(<type>... items)
+    {
+        this.delegate = new <name>ArrayList(items);
+    }
+
+    public static <name>ArrayStack newStackFromTopToBottom(<type>... items)
+    {
+        <name>ArrayStack stack = new <name>ArrayStack(items.length);
+        for (int i = items.length - 1; i >= 0; i--)
+        {
+            stack.push(items[i]);
+        }
+        return stack;
+    }
+
+    public static <name>ArrayStack newStackWith(<type>... items)
+    {
+        return new <name>ArrayStack(items);
+    }
+
+    public static <name>ArrayStack newStack(<name>Iterable items)
+    {
+        <name>ArrayStack stack = new <name>ArrayStack(items.size());
+        stack.delegate = <name>ArrayList.newList(items);
+        return stack;
+    }
+
+    public static <name>ArrayStack newStackFromTopToBottom(<name>Iterable items)
+    {
+        <name>ArrayStack stack = new <name>ArrayStack(items.size());
+        stack.delegate = <name>ArrayList.newList(items).reverseThis();
+        return stack;
+    }
+
+    @Override
+    protected <name>ArrayList getDelegate()
+    {
+        return this.delegate;
+    }
+
+    @Override
+    public void push(<type> item)
+    {
+        this.delegate.add(item);
+    }
+
+    @Override
+    public <type> pop()
+    {
+        this.checkEmptyStack();
+        return this.delegate.removeAtIndex(this.delegate.size() - 1);
+    }
+
+    @Override
+    public <name>List pop(int count)
+    {
+        this.checkPositiveValueForCount(count);
+        this.checkSizeLessThanCount(count);
+        if (count == 0)
+        {
+            return new <name>ArrayList(0);
+        }
+        Mutable<name>List subList = new <name>ArrayList(count);
+        while (count > 0)
+        {
+            subList.add(this.pop());
+            count--;
+        }
+        return subList;
+    }
+
+    @Override
+    public Mutable<name>Stack select(<name>Predicate predicate)
+    {
+        return newStackFromTopToBottom(this.delegate.asReversed().select(predicate));
+    }
+
+    @Override
+    public Mutable<name>Stack reject(<name>Predicate predicate)
+    {
+        return newStackFromTopToBottom(this.delegate.asReversed().reject(predicate));
+    }
+
+    @Override
+    public \<V> MutableStack\<V> collect(<name>ToObjectFunction\<? extends V> function)
+    {
+        return ArrayStack.newStackFromTopToBottom(this.delegate.asReversed().collect(function));
+    }
+
+    @Override
+    public void clear()
+    {
+        this.delegate.clear();
+    }
+
+<(sortMethods.(type))()>
+    @Override
+    public Mutable<name>Stack asUnmodifiable()
+    {
+        return new Unmodifiable<name>Stack(this);
+    }
+
+    @Override
+    public Mutable<name>Stack asSynchronized()
+    {
+        return new Synchronized<name>Stack(this);
+    }
+
+    @Override
+    public Immutable<name>Stack toImmutable()
+    {
+        return <name>Stacks.immutable.withAll(this.delegate);
+    }
+
+    /**
+     * Creates a new empty <name>ArrayStack.
+     *
+     * @since 9.2.
+     */
+    @Override
+    public <name>ArrayStack newEmpty()
+    {
+        return new <name>ArrayStack();
+    }
+
+    @Override
+    public boolean equals(Object otherStack)
+    {
+        if (otherStack == this)
+        {
+            return true;
+        }
+        if (!(otherStack instanceof <name>Stack))
+        {
+            return false;
+        }
+        <name>Stack stack = (<name>Stack) otherStack;
+        if (this.size() != stack.size())
+        {
+            return false;
+        }
+        for (int i = 0; i \< this.size(); i++)
+        {
+            if (<(notEquals.(type))("this.peekAt(i)", "stack.peekAt(i)")>)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hashCode = 1;
+        for (int i = this.size() - 1; i >= 0; i--)
+        {
+            <type> item = this.delegate.get(i);
+            hashCode = 31 * hashCode + <(hashCode.(type))("item")>;
+        }
+        return hashCode;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException
+    {
+        out.writeInt(this.size());
+        <name>Iterator iterator = this.delegate.asReversed().<type>Iterator();
+        while (iterator.hasNext())
+        {
+            <type> each = iterator.next();
+            out.write<name>(each);
+        }
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException
+    {
+        int size = in.readInt();
+        <type>[] array = new <type>[size];
+        for (int i = size - 1; i >= 0; i--)
+        {
+            array[i] = in.read<name>();
+        }
+        this.delegate = <name>ArrayList.newListWith(array);
+    }
+}
+
+>>
+
+sortMethods ::= [
+    "byte": "allMethods",
+    "short": "allMethods",
+    "char": "allMethods",
+    "int": "allMethods",
+    "long": "allMethods",
+    "float": "allMethods",
+    "double": "allMethods",
+    "boolean": "noMethods"
+    ]
+
+allMethods() ::= <<
+    @Override
+    public Mutable<name>List toSortedList()
+    {
+        return <name>ArrayList.newList(this).sortThis();
+    }
+
+>>
+
+noMethods() ::= ""

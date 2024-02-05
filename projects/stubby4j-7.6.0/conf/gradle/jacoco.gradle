@@ -1,0 +1,32 @@
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+def getMainExcludes() {
+    return fileTree(dir: "build/classes/java/main").filter({ file ->
+        !file.name.contains('Main') && !file.name.contains('$1') && !file.name.contains('$2')
+    })
+}
+
+jacocoTestCoverageVerification {
+    classDirectories.setFrom(getMainExcludes())
+}
+
+jacocoTestReport {
+    // tests are required to run before generating the report
+    dependsOn test, integrationTest, functionalTest
+    executionData.from = fileTree(buildDir).include("/jacoco/*.exec")
+    reports {
+        csv.required = false
+
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.file("${buildDir}/reports/jacoco/xml/jacocoCoverage.xml")
+
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir("${buildDir}/reports/jacoco/html")
+
+    }
+
+    classDirectories.setFrom(getMainExcludes())
+}
+

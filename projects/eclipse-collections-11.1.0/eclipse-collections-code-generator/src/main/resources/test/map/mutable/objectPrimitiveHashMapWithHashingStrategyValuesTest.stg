@@ -1,0 +1,77 @@
+import "copyright.stg"
+import "primitiveEquals.stg"
+import "primitiveHashCode.stg"
+import "primitiveLiteral.stg"
+
+skipBoolean() ::= "true"
+
+isTest() ::= "true"
+
+targetPath() ::= "org/eclipse/collections/impl/map/mutable/primitive"
+
+fileName(primitive) ::= "Object<primitive.name>HashMapWithHashingStrategyValuesTest"
+
+class(primitive) ::= <<
+<body(primitive.type, primitive.name, primitive.wrapperName)>
+>>
+
+body(type, name, wrapperName) ::= <<
+<copyright()>
+
+package org.eclipse.collections.impl.map.mutable.primitive;
+
+import org.eclipse.collections.api.block.HashingStrategy;
+import org.eclipse.collections.api.map.primitive.MutableObject<name>Map;
+import org.eclipse.collections.impl.block.factory.HashingStrategies;
+
+/**
+ * JUnit test for {@link Object<name>HashMapWithHashingStrategyWithHashingStrategy#values()}.
+ * This file was automatically generated from template file objectPrimitiveHashMapWithHashingStrategyValuesTest.stg.
+ */
+public class Object<name>HashMapWithHashingStrategyValuesTest extends Object<name>HashMapValuesTestCase
+{
+    private static final HashingStrategy\<String> STRING_HASHING_STRATEGY = HashingStrategies.nullSafeHashingStrategy(new HashingStrategy\<String>()
+        {
+            public int computeHashCode(String object)
+            {
+                return object.hashCode();
+            }
+
+            public boolean equals(String object1, String object2)
+            {
+                return object1.equals(object2);
+            }
+        });
+
+    @Override
+    public MutableObject<name>Map\<String> newMapWithKeysValues(String key1, <type> value1)
+    {
+        return Object<name>HashMapWithHashingStrategy.newWithKeysValues(STRING_HASHING_STRATEGY, key1, value1);
+    }
+
+    @Override
+    public MutableObject<name>Map\<String> newMapWithKeysValues(String key1, <type> value1, String key2, <type> value2)
+    {
+        return Object<name>HashMapWithHashingStrategy.newWithKeysValues(STRING_HASHING_STRATEGY, key1, value1, key2, value2);
+    }
+
+    @Override
+    public MutableObject<name>Map\<String> newMapWithKeysValues(String key1, <type> value1, String key2, <type> value2, String key3, <type> value3)
+    {
+        return Object<name>HashMapWithHashingStrategy.newWithKeysValues(STRING_HASHING_STRATEGY, key1, value1, key2, value2, key3, value3);
+    }
+
+    @Override
+    public MutableObject<name>Map\<String> newMapWithKeysValues(String key1, <type> value1, String key2, <type> value2, String key3, <type> value3, String key4, <type> value4)
+    {
+        return Object<name>HashMapWithHashingStrategy.newWithKeysValues(STRING_HASHING_STRATEGY, key1, value1, key2, value2, key3, value3, key4, value4);
+    }
+
+    @Override
+    public MutableObject<name>Map\<String> newEmptyMap()
+    {
+        return Object<name>HashMapWithHashingStrategy.newMap(STRING_HASHING_STRATEGY);
+    }
+}
+
+>>

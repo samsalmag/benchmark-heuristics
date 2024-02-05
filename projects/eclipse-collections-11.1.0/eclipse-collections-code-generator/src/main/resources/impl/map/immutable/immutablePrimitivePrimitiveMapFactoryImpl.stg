@@ -1,0 +1,99 @@
+import "copyrightAndOthers.stg"
+
+hasTwoPrimitives() ::= "true"
+
+skipBooleanKeys() ::= "true"
+
+targetPath() ::= "org/eclipse/collections/impl/map/immutable/primitive"
+
+fileName(primitive1, primitive2, sameTwoPrimitives) ::= "Immutable<primitive1.name><primitive2.name>MapFactoryImpl"
+
+class(primitive1, primitive2, sameTwoPrimitives) ::= <<
+<body(primitive1.type, primitive2.type, primitive1.name, primitive2.name)>
+>>
+
+body(type1, type2, name1, name2) ::= <<
+<copyrightAndOthers()>
+
+package org.eclipse.collections.impl.map.immutable.primitive;
+
+import org.eclipse.collections.api.block.function.primitive.<name1>Function;
+<if(!sameTwoPrimitives)>import org.eclipse.collections.api.block.function.primitive.<name2>Function;<endif>
+import org.eclipse.collections.api.factory.map.primitive.Immutable<name1><name2>MapFactory;
+import org.eclipse.collections.api.map.primitive.Immutable<name1><name2>Map;
+import org.eclipse.collections.api.map.primitive.<name1><name2>Map;
+import org.eclipse.collections.impl.factory.primitive.<name1><name2>Maps;
+
+/**
+ * Immutable<name1><name2>MapFactoryImpl is a factory implementation which creates instances of type {@link Immutable<name1><name2>Map}.
+ * This file was automatically generated from template file immutablePrimitivePrimitiveMapFactoryImpl.stg.
+ *
+ * @since 4.0.
+ */
+public class Immutable<name1><name2>MapFactoryImpl implements Immutable<name1><name2>MapFactory
+{
+    public static final Immutable<name1><name2>MapFactory INSTANCE = new Immutable<name1><name2>MapFactoryImpl();
+
+    @Override
+    public Immutable<name1><name2>Map empty()
+    {
+        return Immutable<name1><name2>EmptyMap.INSTANCE;
+    }
+
+    @Override
+    public Immutable<name1><name2>Map of()
+    {
+        return this.empty();
+    }
+
+    @Override
+    public Immutable<name1><name2>Map with()
+    {
+        return this.empty();
+    }
+
+    @Override
+    public Immutable<name1><name2>Map of(<type1> key, <type2> value)
+    {
+        return this.with(key, value);
+    }
+
+    @Override
+    public Immutable<name1><name2>Map with(<type1> key, <type2> value)
+    {
+        return new Immutable<name1><name2>SingletonMap(key, value);
+    }
+
+    @Override
+    public Immutable<name1><name2>Map ofAll(<name1><name2>Map map)
+    {
+        return this.withAll(map);
+    }
+
+    @Override
+    public Immutable<name1><name2>Map withAll(<name1><name2>Map map)
+    {
+        if (map instanceof Immutable<name1><name2>Map)
+        {
+            return (Immutable<name1><name2>Map) map;
+        }
+        if (map.isEmpty())
+        {
+            return this.with();
+        }
+        if (map.size() == 1)
+        {
+            <type1> key = map.keysView().<type1>Iterator().next();
+            return new Immutable<name1><name2>SingletonMap(key, map.get(key));
+        }
+        return new Immutable<name1><name2>HashMap(map);
+    }
+
+    @Override
+    public \<T> Immutable<name1><name2>Map from(Iterable\<T> iterable, <name1>Function\<? super T> keyFunction, <name2>Function\<? super T> valueFunction)
+    {
+        return <name1><name2>Maps.mutable.from(iterable, keyFunction, valueFunction).toImmutable();
+    }
+}
+
+>>
