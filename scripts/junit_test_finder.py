@@ -35,7 +35,9 @@ def find_all_junit_tests(directory):
 
 def generate_txt(junit_tests, test_directory):
     file_name = extract_project_name(test_directory) + ".txt"
-    txt_path = os.path.join(os.path.dirname(__file__), file_name)
+    txt_path = os.path.join(os.path.dirname(__file__), "output", file_name)
+    if not os.path.exists(os.path.dirname(txt_path)):
+        os.makedirs(os.path.dirname(txt_path))
     with open(txt_path, "w") as f:
         for test_path in junit_tests:
             proccessed_test_path = process_path(test_path)
