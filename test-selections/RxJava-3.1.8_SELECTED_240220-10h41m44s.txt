@@ -1,0 +1,64 @@
+# RxJava-3.1.8 | SELECTED 30 TESTS 
+# ROW IN 'ALL TESTS' FILE | TEST NR. | TEST METHOD PATH 
+   9875 |     1.    io.reactivex.rxjava3.internal.util.QueueDrainHelperTest.checkTerminatedDelayErrorEmpty
+   4106 |     2.    io.reactivex.rxjava3.internal.operators.flowable.FlowableRangeTest.conditionalFastPathCancel
+   1489 |     3.    io.reactivex.rxjava3.internal.observers.MaybeConsumersTest.onErrorError
+   1714 |     4.    io.reactivex.rxjava3.internal.operators.completable.CompletableMergeIterableTest.errorRace
+   5428 |     5.    io.reactivex.rxjava3.internal.operators.maybe.MaybeCacheTest.removeRemoveRace
+   4389 |     6.    io.reactivex.rxjava3.internal.operators.flowable.FlowableRetryTest.retryWhenTrampolineScheduler
+  11580 |     7.    io.reactivex.rxjava3.subjects.UnicastSubjectTest.fusionLive
+     82 |     8.    io.reactivex.rxjava3.completable.CompletableTest.mergeDelayErrorIterableEmpty
+  11621 |     9.    io.reactivex.rxjava3.subscribers.SafeSubscriberTest.onNextAfterOnError
+   6489 |     10.    io.reactivex.rxjava3.internal.operators.observable.ObservableAnyTest.isEmptyWithEmptyObservable
+   8980 |     11.    io.reactivex.rxjava3.internal.operators.single.SingleConcatEagerTest.iterableNormal
+   7214 |     12.    io.reactivex.rxjava3.internal.operators.observable.ObservableFirstTest.firstOrDefaultWithOneElementObservable
+   3504 |     13.    io.reactivex.rxjava3.internal.operators.flowable.FlowableMapTest.mapWithError
+     10 |     14.    io.reactivex.rxjava3.completable.CompletableTest.concatEmpty
+   5448 |     15.    io.reactivex.rxjava3.internal.operators.maybe.MaybeConcatArrayTest.mixed
+   5383 |     16.    io.reactivex.rxjava3.internal.operators.maybe.MaybeAmbTest.maybeSourcesInIterable
+  11936 |     17.    io.reactivex.rxjava3.testsupport.TestSubscriberExTest.assertValuesOnlyThrowsWhenCompleted
+   8551 |     18.    io.reactivex.rxjava3.internal.operators.observable.ObservableTimeIntervalTest.timeIntervalDefaultSchedulerCustomUnit
+  10916 |     19.    io.reactivex.rxjava3.processors.MulticastProcessorTest.requestUpstreamPrefetchNonFused2
+   1174 |     20.    io.reactivex.rxjava3.internal.jdk8.ObservableFromStreamTest.manyConditionalSkip
+   4554 |     21.    io.reactivex.rxjava3.internal.operators.flowable.FlowableSingleTest.singleWithEmpty
+   3520 |     22.    io.reactivex.rxjava3.internal.operators.flowable.FlowableMapTest.sourceIgnoresCancelConditional
+   9042 |     23.    io.reactivex.rxjava3.internal.operators.single.SingleDeferTest.normal
+    390 |     24.    io.reactivex.rxjava3.disposables.SerialDisposableTests.unsubscribingTwiceDoesUnsubscribeOnce
+  10832 |     25.    io.reactivex.rxjava3.processors.AsyncProcessorTest.cancelUpfront
+  11741 |     26.    io.reactivex.rxjava3.subscribers.TestSubscriberTest.assertValuePredicateMatch
+   8810 |     27.    io.reactivex.rxjava3.internal.operators.observable.ObservableWindowWithTimeTest.skipOnError
+   9861 |     28.    io.reactivex.rxjava3.internal.util.NotificationLiteTest.errorNotificationCompare
+  11724 |     29.    io.reactivex.rxjava3.subscribers.TestSubscriberTest.await
+   1788 |     30.    io.reactivex.rxjava3.internal.operators.completable.CompletableSwitchOnNextTest.normal
+
+# CLASS PATHS
+io.reactivex.rxjava3.internal.util.QueueDrainHelperTest
+io.reactivex.rxjava3.internal.operators.flowable.FlowableRangeTest
+io.reactivex.rxjava3.internal.observers.MaybeConsumersTest
+io.reactivex.rxjava3.internal.operators.completable.CompletableMergeIterableTest
+io.reactivex.rxjava3.internal.operators.maybe.MaybeCacheTest
+io.reactivex.rxjava3.internal.operators.flowable.FlowableRetryTest
+io.reactivex.rxjava3.subjects.UnicastSubjectTest
+io.reactivex.rxjava3.completable.CompletableTest
+io.reactivex.rxjava3.subscribers.SafeSubscriberTest
+io.reactivex.rxjava3.internal.operators.observable.ObservableAnyTest
+io.reactivex.rxjava3.internal.operators.single.SingleConcatEagerTest
+io.reactivex.rxjava3.internal.operators.observable.ObservableFirstTest
+io.reactivex.rxjava3.internal.operators.flowable.FlowableMapTest
+io.reactivex.rxjava3.internal.operators.maybe.MaybeConcatArrayTest
+io.reactivex.rxjava3.internal.operators.maybe.MaybeAmbTest
+io.reactivex.rxjava3.testsupport.TestSubscriberExTest
+io.reactivex.rxjava3.internal.operators.observable.ObservableTimeIntervalTest
+io.reactivex.rxjava3.processors.MulticastProcessorTest
+io.reactivex.rxjava3.internal.jdk8.ObservableFromStreamTest
+io.reactivex.rxjava3.internal.operators.flowable.FlowableSingleTest
+io.reactivex.rxjava3.internal.operators.single.SingleDeferTest
+io.reactivex.rxjava3.disposables.SerialDisposableTests
+io.reactivex.rxjava3.processors.AsyncProcessorTest
+io.reactivex.rxjava3.subscribers.TestSubscriberTest
+io.reactivex.rxjava3.internal.operators.observable.ObservableWindowWithTimeTest
+io.reactivex.rxjava3.internal.util.NotificationLiteTest
+io.reactivex.rxjava3.internal.operators.completable.CompletableSwitchOnNextTest
+
+# JMH COMMAND - RUN SELECTED BENCHMARKS
+java -jar "rxjava-3.0.0-SNAPSHOT-jmh.jar" -f 1 -wi 0 -i 1 -r 100ms -foe true io.reactivex.rxjava3.internal.util.QueueDrainHelperTest._Benchmark.benchmark_checkTerminatedDelayErrorEmpty io.reactivex.rxjava3.internal.operators.flowable.FlowableRangeTest._Benchmark.benchmark_conditionalFastPathCancel io.reactivex.rxjava3.internal.observers.MaybeConsumersTest._Benchmark.benchmark_onErrorError io.reactivex.rxjava3.internal.operators.completable.CompletableMergeIterableTest._Benchmark.benchmark_errorRace io.reactivex.rxjava3.internal.operators.maybe.MaybeCacheTest._Benchmark.benchmark_removeRemoveRace io.reactivex.rxjava3.internal.operators.flowable.FlowableRetryTest._Benchmark.benchmark_retryWhenTrampolineScheduler io.reactivex.rxjava3.subjects.UnicastSubjectTest._Benchmark.benchmark_fusionLive io.reactivex.rxjava3.completable.CompletableTest._Benchmark.benchmark_mergeDelayErrorIterableEmpty io.reactivex.rxjava3.subscribers.SafeSubscriberTest._Benchmark.benchmark_onNextAfterOnError io.reactivex.rxjava3.internal.operators.observable.ObservableAnyTest._Benchmark.benchmark_isEmptyWithEmptyObservable io.reactivex.rxjava3.internal.operators.single.SingleConcatEagerTest._Benchmark.benchmark_iterableNormal io.reactivex.rxjava3.internal.operators.observable.ObservableFirstTest._Benchmark.benchmark_firstOrDefaultWithOneElementObservable io.reactivex.rxjava3.internal.operators.flowable.FlowableMapTest._Benchmark.benchmark_mapWithError io.reactivex.rxjava3.completable.CompletableTest._Benchmark.benchmark_concatEmpty io.reactivex.rxjava3.internal.operators.maybe.MaybeConcatArrayTest._Benchmark.benchmark_mixed io.reactivex.rxjava3.internal.operators.maybe.MaybeAmbTest._Benchmark.benchmark_maybeSourcesInIterable io.reactivex.rxjava3.testsupport.TestSubscriberExTest._Benchmark.benchmark_assertValuesOnlyThrowsWhenCompleted io.reactivex.rxjava3.internal.operators.observable.ObservableTimeIntervalTest._Benchmark.benchmark_timeIntervalDefaultSchedulerCustomUnit io.reactivex.rxjava3.processors.MulticastProcessorTest._Benchmark.benchmark_requestUpstreamPrefetchNonFused2 io.reactivex.rxjava3.internal.jdk8.ObservableFromStreamTest._Benchmark.benchmark_manyConditionalSkip io.reactivex.rxjava3.internal.operators.flowable.FlowableSingleTest._Benchmark.benchmark_singleWithEmpty io.reactivex.rxjava3.internal.operators.flowable.FlowableMapTest._Benchmark.benchmark_sourceIgnoresCancelConditional io.reactivex.rxjava3.internal.operators.single.SingleDeferTest._Benchmark.benchmark_normal io.reactivex.rxjava3.disposables.SerialDisposableTests._Benchmark.benchmark_unsubscribingTwiceDoesUnsubscribeOnce io.reactivex.rxjava3.processors.AsyncProcessorTest._Benchmark.benchmark_cancelUpfront io.reactivex.rxjava3.subscribers.TestSubscriberTest._Benchmark.benchmark_assertValuePredicateMatch io.reactivex.rxjava3.internal.operators.observable.ObservableWindowWithTimeTest._Benchmark.benchmark_skipOnError io.reactivex.rxjava3.internal.util.NotificationLiteTest._Benchmark.benchmark_errorNotificationCompare io.reactivex.rxjava3.subscribers.TestSubscriberTest._Benchmark.benchmark_await io.reactivex.rxjava3.internal.operators.completable.CompletableSwitchOnNextTest._Benchmark.benchmark_normal
