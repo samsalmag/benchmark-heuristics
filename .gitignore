@@ -36,3 +36,4 @@ target/
 *.log		# Log file
 *.ctxt		# BlueJ files
 .mtj.tmp/	# Mobile Tools for Java (J2ME)			
+scripts/output/
