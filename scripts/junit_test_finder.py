@@ -1,10 +1,7 @@
 import os
 import re
 
-path_1 = r"projects\eclipse-collections-11.1.0\unit-tests\src\test\java\org\eclipse\collections\impl"   # Eclipse Collections
-path_2 = r"projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3"                                    # RxJava
-path_3 = r"projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j"                         # stubby4j
-
+# Finds all java files within the given directory
 def find_java_files(directory):
     java_files = []
     for root, dirs, files in os.walk(directory):
@@ -13,6 +10,7 @@ def find_java_files(directory):
                 java_files.append(os.path.join(root, file))
     return java_files
 
+# Finds all junit tests within a single java file with path 'java_file_path'
 def find_junit_tests(java_file_path):
     junit_tests = []
     with open(java_file_path, "r") as file:
@@ -23,6 +21,7 @@ def find_junit_tests(java_file_path):
         
     return junit_tests
 
+# Finds all junit tests within the given directory
 def find_all_junit_tests(directory):
     junit_tests = []
     java_files = find_java_files(directory)
@@ -33,8 +32,9 @@ def find_all_junit_tests(directory):
             junit_tests.append(file_no_extension + "\\" + test)
     return junit_tests
 
+# Creates a txt file containing all 'junit_tests' within the directory of 'test_directory'
 def generate_txt(junit_tests, test_directory):
-    file_name = extract_project_name(test_directory) + ".txt"
+    file_name = extract_project_name(test_directory) + "_ALL" + ".txt"
     txt_path = os.path.join(os.path.dirname(__file__), "output", file_name)
     if not os.path.exists(os.path.dirname(txt_path)):
         os.makedirs(os.path.dirname(txt_path))
@@ -44,17 +44,18 @@ def generate_txt(junit_tests, test_directory):
             f.write(proccessed_test_path + "\n")
     return txt_path
 
+# Process and format the given path
 def process_path(path):
-    # Replace slashes with periods
-    path = path.replace("\\", ".")
-    # Find the index of the folder named "test" followed by a folder named "java"
-    index_test = path.find(".test.java.")
+    path = path.replace("\\", ".")          # Replace slashes with periods
+    index_test = path.find(".test.java.")   # Find the index of the folder named "test" followed by a folder named "java"
+    
     # If such a pattern is found, include everything after the "java" folder
     if index_test != -1:
         path = path[index_test + len(".test.java."):]
     
     return path
 
+# Extracts project name from all projects in the 'projects' folder
 def extract_project_name(file_path):
     start_index = file_path.find("projects\\") + len("projects\\")
     end_index = file_path.find("\\", start_index)
@@ -63,13 +64,28 @@ def extract_project_name(file_path):
     else:
         return file_path[start_index:]
 
+# Exports all found junit tests within 'test_directory'
 def export_junit_tests(test_directory):
     junit_tests = find_all_junit_tests(test_directory)
     generate_txt(junit_tests, test_directory)
 
-print("Exporting first path...")
-export_junit_tests(path_1)  # Eclipse Collections
-print("Exporting second path...")
-export_junit_tests(path_2)  # RxJava
-print("Exporting third path...")
-export_junit_tests(path_3)  # stubby4j
+path_1 = r"projects\eclipse-collections-11.1.0\unit-tests\src\test\java\org\eclipse\collections\impl"   # Eclipse Collections
+path_2 = r"projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3"                                    # RxJava
+path_3 = r"projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j"                         # stubby4j
+
+# Eclipse Collections
+print("Exporting Eclpise junit tests...", end="")
+export_junit_tests(path_1)  
+print("done!")
+
+# RxJava
+print("Exporting RxJava junit tests...", end="")
+export_junit_tests(path_2)  
+print("done!")
+
+# stubby4j
+print("Exporting stubby4j junit tests...", end="")
+export_junit_tests(path_3)  
+print("done!")
+
+print("ALL DONE!")
