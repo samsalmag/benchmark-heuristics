@@ -58,17 +58,3 @@ apply from: "$rootDir/conf/gradle/multi-test-source-sets.gradle"
 apply from: "$rootDir/conf/gradle/jacoco.gradle"
 apply from: "$rootDir/conf/gradle/artifacts.gradle"
 apply from: "$rootDir/conf/gradle/sonatype.gradle"
-
-// NEW
-//sourceSets {
-//    jmh {
-//        java.srcDir 'src/jmh/java'
-//    }
-//}
-//
-//dependencies {
-//    jmhImplementation sourceSets.main.output
-//    jmhImplementation 'org.openjdk.jmh:jmh-core:1.33',
-//            'org.openjdk.jmh:jmh-generator-annprocess:1.33'
-//}
-// FINISH
