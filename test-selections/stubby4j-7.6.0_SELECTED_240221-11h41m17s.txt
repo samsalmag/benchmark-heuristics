@@ -1,0 +1,48 @@
+# stubby4j-7.6.0 | SELECTED 30 TESTS 
+# ROW IN 'ALL TESTS' FILE | TEST NR. | TEST METHOD PATH 
+    162 |     1.    io.github.azagniotov.stubby4j.stubs.StubMatcherTest.postBodiesMatch_ShouldReturnTrue_WhenEquivalentXmlWithCustomContentTypeAndCharset
+    121 |     2.    io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest.shouldNotAuthorizeViaBasic_WhenAuthorizationHeaderBasicIsNotTheSame
+     48 |     3.    io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.shouldReturnCommandlineParams
+    364 |     4.    io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest.shouldFindBodyNotTokenized_WhenRawFileNotTemplateFile
+     18 |     5.    io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.testIsSslDisabledWhenLongOptionGiven
+    362 |     6.    io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest.shouldFindBodyTokenized_WhenBodyContainsTemplateTokens
+     87 |     7.    io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest.shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode308
+    294 |     8.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.stubbedRequestEqualsAssertingRequest_WhenComplexJsonPostRegexStubbedAndJsonPosted
+    164 |     9.    io.github.azagniotov.stubby4j.stubs.StubMatcherTest.postBodiesMatch_ShouldReturnFalse_WhenStringNotMatch
+    158 |     10.    io.github.azagniotov.stubby4j.stubs.StubMatcherTest.postBodiesMatchUsingXMLUnitRegexPlaceholder_ShouldReturnTrue
+    356 |     11.    io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest.shouldFindBodyTokenized_shouldReturnEmptyBody_WhenBodyIsEmpty_AndFileIsEmpty
+    105 |     12.    io.github.azagniotov.stubby4j.stubs.RegexParserTest.shouldNotMatchWhenRegexPatternWithSyntaxError
+    141 |     13.    io.github.azagniotov.stubby4j.stubs.StubMatcherTest.mapsMatch_ShouldReturnTrue_WhenDataStoreMapEmptyAndAssertingMapEmpty
+     26 |     14.    io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.testtHasStubsPortWhenShortOptionGiven
+     82 |     15.    io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest.shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode301
+    173 |     16.    io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest.stubbedProxyConfigEqualsAssertingConfig_WhenProxyConfigDescriptionDifferent
+    264 |     17.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldGetAuthorizationTypeBearer_WhenBearerAuthorizationStubbed
+     40 |     18.    io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.shouldRemoveOptionTlsWithAlpnHttp2WhenDisableSslGiven
+     42 |     19.    io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.shouldFailOnInvalidCommandlineLongOptionString
+     23 |     20.    io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.testIsYamlProvidedWhenLongOptionGiven
+    322 |     21.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldfindStubRequestNotEqual_WhenComparedToDifferentInstanceClass
+     28 |     22.     io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.testtIsWatchWhenShortOptionGiven
+    139 |     23.    io.github.azagniotov.stubby4j.stubs.StubMatcherTest.stringsMatch_ShouldReturnFalse_WhenAssertingValueNull
+    180 |     24.    io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest.stubbedProxyConfigHashCode
+    128 |     25.    io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest.shouldVerifyBehaviour_WhenAuthorizationHeaderBearerIsNotTheSame
+    253 |     26.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldGetPostBody_WhenPostProvided_ButFileIsEmpty
+    430 |     27.    io.github.azagniotov.stubby4j.utils.StringUtilsTest.shouldReturnErrorWhenTryingToConvertEmptyInputStreamToString
+    243 |     28.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.stubbedRequestEqualsAssertingRequest_WhenStubbedUrlRegexAnythingAround_AndUrlsEqual
+    443 |     29.    io.github.azagniotov.stubby4j.yaml.YamlBuilderTest.shouldBuildStubbedRequestWithMultilineStubbedResponse
+     83 |     30.    io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest.shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode302
+
+# CLASS PATHS
+io.github.azagniotov.stubby4j.stubs.StubMatcherTest
+io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest
+io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest
+io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest
+io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest
+io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest
+io.github.azagniotov.stubby4j.handlers.strategy.DefaultResponseHandlingStrategyTest
+io.github.azagniotov.stubby4j.stubs.RegexParserTest
+io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest
+io.github.azagniotov.stubby4j.utils.StringUtilsTest
+io.github.azagniotov.stubby4j.yaml.YamlBuilderTest
+
+# JMH COMMAND - RUNS SELECTED BENCHMARKS
+java -jar "stubby4j-jmh.jar" -f 1 -wi 0 -i 1 -r 100ms -foe true io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_postBodiesMatch_ShouldReturnTrue_WhenEquivalentXmlWithCustomContentTypeAndCharset$ io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest._Benchmark.benchmark_shouldNotAuthorizeViaBasic_WhenAuthorizationHeaderBasicIsNotTheSame$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_shouldReturnCommandlineParams$ io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest._Benchmark.benchmark_shouldFindBodyNotTokenized_WhenRawFileNotTemplateFile$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_testIsSslDisabledWhenLongOptionGiven$ io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest._Benchmark.benchmark_shouldFindBodyTokenized_WhenBodyContainsTemplateTokens$ io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest._Benchmark.benchmark_shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode308$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestEqualsAssertingRequest_WhenComplexJsonPostRegexStubbedAndJsonPosted$ io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_postBodiesMatch_ShouldReturnFalse_WhenStringNotMatch$ io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_postBodiesMatchUsingXMLUnitRegexPlaceholder_ShouldReturnTrue$ io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest._Benchmark.benchmark_shouldFindBodyTokenized_shouldReturnEmptyBody_WhenBodyIsEmpty_AndFileIsEmpty$ io.github.azagniotov.stubby4j.stubs.RegexParserTest._Benchmark.benchmark_shouldNotMatchWhenRegexPatternWithSyntaxError$ io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_mapsMatch_ShouldReturnTrue_WhenDataStoreMapEmptyAndAssertingMapEmpty$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_testtHasStubsPortWhenShortOptionGiven$ io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest._Benchmark.benchmark_shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode301$ io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest._Benchmark.benchmark_stubbedProxyConfigEqualsAssertingConfig_WhenProxyConfigDescriptionDifferent$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldGetAuthorizationTypeBearer_WhenBearerAuthorizationStubbed$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_shouldRemoveOptionTlsWithAlpnHttp2WhenDisableSslGiven$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_shouldFailOnInvalidCommandlineLongOptionString$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_testIsYamlProvidedWhenLongOptionGiven$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldfindStubRequestNotEqual_WhenComparedToDifferentInstanceClass$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_testtIsWatchWhenShortOptionGiven$ io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_stringsMatch_ShouldReturnFalse_WhenAssertingValueNull$ io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest._Benchmark.benchmark_stubbedProxyConfigHashCode$ io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest._Benchmark.benchmark_shouldVerifyBehaviour_WhenAuthorizationHeaderBearerIsNotTheSame$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldGetPostBody_WhenPostProvided_ButFileIsEmpty$ io.github.azagniotov.stubby4j.utils.StringUtilsTest._Benchmark.benchmark_shouldReturnErrorWhenTryingToConvertEmptyInputStreamToString$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestEqualsAssertingRequest_WhenStubbedUrlRegexAnythingAround_AndUrlsEqual$ io.github.azagniotov.stubby4j.yaml.YamlBuilderTest._Benchmark.benchmark_shouldBuildStubbedRequestWithMultilineStubbedResponse$ io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest._Benchmark.benchmark_shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode302$
