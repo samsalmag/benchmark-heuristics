@@ -40,7 +40,7 @@ def generate_output(project1_input, project2_input, project3_input):
                 row_number_str = str(row_number).rjust(7)
                 f.write(f"{row_number_str} |     {i}.    {row_content[:7]}{row_content[7:]}\n")
                 i += 1
-                jmh_command += ' ' + get_benchmark_path(row_content)
+                jmh_command += " " + get_benchmark_path(row_content) + "$"
             f.write("\n")
 
             # Print class paths
@@ -53,7 +53,7 @@ def generate_output(project1_input, project2_input, project3_input):
                 f.write(f"{class_name}\n")
             
             # Print jmh jar command
-            f.write("\n# JMH COMMAND - RUN SELECTED BENCHMARKS\n" + jmh_command + "\n")
+            f.write("\n# JMH COMMAND - RUNS SELECTED BENCHMARKS\n" + jmh_command + "\n")
 
             print("done!")
     print("ALL DONE!")
