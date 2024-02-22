@@ -1,0 +1,64 @@
+# mockito-5.10.0 | SELECTED 30 TESTS 
+# ROW IN 'ALL TESTS' FILE | TEST NR. | TEST METHOD PATH 
+     86 |     1.    org.mockito.internal.configuration.plugins.DefaultMockitoPluginsTest.test_getMockMaker
+   1669 |     2.    org.mockitousage.serialization.DeepStubsSerializableTest.should_discard_generics_metadata_when_serialized_then_disabling_deep_stubs_with_generics
+    722 |     3.    org.mockito.internal.util.PrimitivesTest.should_not_return_null_for_primitives
+   1229 |     4.    org.mockitousage.constructor.CreatingMocksWithConstructorTest.calls_real_interface_method
+    966 |     5.    org.mockitousage.annotation.MockInjectionUsingConstructorTest.injectMocksMustFailWithAbstractClass
+   2273 |     6.    org.mockitousage.verification.VerificationWithAfterTest.should_return_formatted_output_from_toString_using_wrapped_verification_mode
+   1685 |     7.    org.mockitousage.session.MockitoSessionTest.unfinished_stubbing_with_other_failure
+   2073 |     8.    org.mockitousage.verification.DescriptiveMessagesOnVerificationInOrderErrorsTest.shouldPrintVerificationInOrderErrorAndShowBothWantedAndPrevious
+    342 |     9.    org.mockito.internal.junit.ArgMismatchFinderTest.no_mismatch_when_mock_different
+    748 |     10.    org.mockito.internal.util.collections.HashCodeAndEqualsSafeSetTest.isEmptyAfterClear
+    872 |     11.    org.mockito.internal.verification.checkers.MissingInvocationCheckerTest.shouldPassBecauseActualInvocationFound
+   1005 |     12.    org.mockitousage.annotation.WrongSetOfAnnotationsTest.should_not_allow_Mock_and_InjectMocks
+   1511 |     13.    org.mockitousage.matchers.MatchersTest.any_matcher
+    791 |     14.    org.mockito.internal.util.reflection.GenericMetadataSupportTest.can_get_type_variables_from_ParameterizedType
+   2117 |     15.    org.mockitousage.verification.FindingRedundantInvocationsInOrderTest.shouldSayNoInteractionsWanted
+     97 |     16.    org.mockito.internal.configuration.plugins.PluginFinderTest.multiple_empty_implementations
+   1571 |     17.    org.mockitousage.matchers.VarargsTest.shouldMatchVarArgs_oneNullArgument
+   1991 |     18.    org.mockitousage.stubbing.StubbingWithDelegateTest.calling_method_with_wrong_reference_return_should_throw_exception
+   2069 |     19.    org.mockitousage.verification.BasicVerificationTest.shouldDetectRedundantInvocation
+   2256 |     20.    org.mockitousage.verification.VerificationWithAfterTest.should_verify_with_after
+    979 |     21.    org.mockitousage.annotation.MockInjectionUsingSetterOrPropertyTest.should_insert_into_field_with_matching_name_when_multiple_fields_of_same_type_exists_in_injectee
+     72 |     22.    org.mockito.internal.configuration.MockAnnotationProcessorTest.testRaw
+    390 |     23.    org.mockito.internal.matchers.EqualsTest.shouldAppendQuotingForChar
+    381 |     24.    org.mockito.internal.matchers.ComparableMatchersTest.testGreaterOrEqual
+   1006 |     25.    org.mockitousage.annotation.WrongSetOfAnnotationsTest.should_not_allow_Captor_and_Mock
+   1090 |     26.    org.mockitousage.basicapi.UsingVarargsTest.shouldStubStringVarargs
+   1465 |     27.    org.mockitousage.matchers.CapturingArgumentsTest.should_capture_multiple_vararg_some_null_with_array_captor
+   1357 |     28.    org.mockitousage.junitrule.StrictJUnitRuleTest.fails_fast_when_stubbing_invoked_with_different_argument
+    282 |     29.    org.mockito.internal.invocation.InvocationMatcherTest.should_not_equal_if_number_of_arguments_differ
+   1205 |     30.    org.mockitousage.constructor.CreatingMocksWithConstructorTest.can_create_mock_with_constructor
+
+# CLASS PATHS
+org.mockito.internal.configuration.plugins.DefaultMockitoPluginsTest
+org.mockitousage.serialization.DeepStubsSerializableTest
+org.mockito.internal.util.PrimitivesTest
+org.mockitousage.constructor.CreatingMocksWithConstructorTest
+org.mockitousage.annotation.MockInjectionUsingConstructorTest
+org.mockitousage.verification.VerificationWithAfterTest
+org.mockitousage.session.MockitoSessionTest
+org.mockitousage.verification.DescriptiveMessagesOnVerificationInOrderErrorsTest
+org.mockito.internal.junit.ArgMismatchFinderTest
+org.mockito.internal.util.collections.HashCodeAndEqualsSafeSetTest
+org.mockito.internal.verification.checkers.MissingInvocationCheckerTest
+org.mockitousage.annotation.WrongSetOfAnnotationsTest
+org.mockitousage.matchers.MatchersTest
+org.mockito.internal.util.reflection.GenericMetadataSupportTest
+org.mockitousage.verification.FindingRedundantInvocationsInOrderTest
+org.mockito.internal.configuration.plugins.PluginFinderTest
+org.mockitousage.matchers.VarargsTest
+org.mockitousage.stubbing.StubbingWithDelegateTest
+org.mockitousage.verification.BasicVerificationTest
+org.mockitousage.annotation.MockInjectionUsingSetterOrPropertyTest
+org.mockito.internal.configuration.MockAnnotationProcessorTest
+org.mockito.internal.matchers.EqualsTest
+org.mockito.internal.matchers.ComparableMatchersTest
+org.mockitousage.basicapi.UsingVarargsTest
+org.mockitousage.matchers.CapturingArgumentsTest
+org.mockitousage.junitrule.StrictJUnitRuleTest
+org.mockito.internal.invocation.InvocationMatcherTest
+
+# JMH COMMAND - RUNS SELECTED BENCHMARKS
+java -jar "mockito-jmh.jar" -f 1 -wi 0 -i 1 -r 100ms -foe true org.mockito.internal.configuration.plugins.DefaultMockitoPluginsTest._Benchmark.benchmark_test_getMockMaker$ org.mockitousage.serialization.DeepStubsSerializableTest._Benchmark.benchmark_should_discard_generics_metadata_when_serialized_then_disabling_deep_stubs_with_generics$ org.mockito.internal.util.PrimitivesTest._Benchmark.benchmark_should_not_return_null_for_primitives$ org.mockitousage.constructor.CreatingMocksWithConstructorTest._Benchmark.benchmark_calls_real_interface_method$ org.mockitousage.annotation.MockInjectionUsingConstructorTest._Benchmark.benchmark_injectMocksMustFailWithAbstractClass$ org.mockitousage.verification.VerificationWithAfterTest._Benchmark.benchmark_should_return_formatted_output_from_toString_using_wrapped_verification_mode$ org.mockitousage.session.MockitoSessionTest._Benchmark.benchmark_unfinished_stubbing_with_other_failure$ org.mockitousage.verification.DescriptiveMessagesOnVerificationInOrderErrorsTest._Benchmark.benchmark_shouldPrintVerificationInOrderErrorAndShowBothWantedAndPrevious$ org.mockito.internal.junit.ArgMismatchFinderTest._Benchmark.benchmark_no_mismatch_when_mock_different$ org.mockito.internal.util.collections.HashCodeAndEqualsSafeSetTest._Benchmark.benchmark_isEmptyAfterClear$ org.mockito.internal.verification.checkers.MissingInvocationCheckerTest._Benchmark.benchmark_shouldPassBecauseActualInvocationFound$ org.mockitousage.annotation.WrongSetOfAnnotationsTest._Benchmark.benchmark_should_not_allow_Mock_and_InjectMocks$ org.mockitousage.matchers.MatchersTest._Benchmark.benchmark_any_matcher$ org.mockito.internal.util.reflection.GenericMetadataSupportTest._Benchmark.benchmark_can_get_type_variables_from_ParameterizedType$ org.mockitousage.verification.FindingRedundantInvocationsInOrderTest._Benchmark.benchmark_shouldSayNoInteractionsWanted$ org.mockito.internal.configuration.plugins.PluginFinderTest._Benchmark.benchmark_multiple_empty_implementations$ org.mockitousage.matchers.VarargsTest._Benchmark.benchmark_shouldMatchVarArgs_oneNullArgument$ org.mockitousage.stubbing.StubbingWithDelegateTest._Benchmark.benchmark_calling_method_with_wrong_reference_return_should_throw_exception$ org.mockitousage.verification.BasicVerificationTest._Benchmark.benchmark_shouldDetectRedundantInvocation$ org.mockitousage.verification.VerificationWithAfterTest._Benchmark.benchmark_should_verify_with_after$ org.mockitousage.annotation.MockInjectionUsingSetterOrPropertyTest._Benchmark.benchmark_should_insert_into_field_with_matching_name_when_multiple_fields_of_same_type_exists_in_injectee$ org.mockito.internal.configuration.MockAnnotationProcessorTest._Benchmark.benchmark_testRaw$ org.mockito.internal.matchers.EqualsTest._Benchmark.benchmark_shouldAppendQuotingForChar$ org.mockito.internal.matchers.ComparableMatchersTest._Benchmark.benchmark_testGreaterOrEqual$ org.mockitousage.annotation.WrongSetOfAnnotationsTest._Benchmark.benchmark_should_not_allow_Captor_and_Mock$ org.mockitousage.basicapi.UsingVarargsTest._Benchmark.benchmark_shouldStubStringVarargs$ org.mockitousage.matchers.CapturingArgumentsTest._Benchmark.benchmark_should_capture_multiple_vararg_some_null_with_array_captor$ org.mockitousage.junitrule.StrictJUnitRuleTest._Benchmark.benchmark_fails_fast_when_stubbing_invoked_with_different_argument$ org.mockito.internal.invocation.InvocationMatcherTest._Benchmark.benchmark_should_not_equal_if_number_of_arguments_differ$ org.mockitousage.constructor.CreatingMocksWithConstructorTest._Benchmark.benchmark_can_create_mock_with_constructor$

@@ -69,12 +69,12 @@ def export_junit_tests(test_directory):
     junit_tests = find_all_junit_tests(test_directory)
     generate_txt(junit_tests, test_directory)
 
-path_1 = r"projects\eclipse-collections-11.1.0\unit-tests\src\test\java\org\eclipse\collections\impl"   # Eclipse Collections
-path_2 = r"projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3"                                    # RxJava
-path_3 = r"projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j"                         # stubby4j
+path_1 = r"benchmark-heuristics\projects\mockito-5.10.0\src\test\java\org"                                                   # Mockito
+path_2 = r"benchmark-heuristics\projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3"                                    # RxJava
+path_3 = r"benchmark-heuristics\projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j"                         # stubby4j
 
-# Eclipse Collections
-print("Exporting Eclpise junit tests...", end="")
+# Mockito
+print("Exporting Mockito junit tests...", end="")
 export_junit_tests(path_1)  
 print("done!")
 

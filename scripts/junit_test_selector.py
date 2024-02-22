@@ -85,14 +85,14 @@ def get_benchmark_path(unit_test_path):
 def get_jmh_base_command(jmhjar_name):
     return f"java -jar \"{jmhjar_name}\" -f 1 -wi 0 -i 1 -r 100ms -foe true"
 
-project1_tests_path = r"scripts\output\eclipse-collections-11.1.0_ALL.txt"   # Path to txt with ALL Eclipse Collections tests
-project2_tests_path = r"scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
-project3_tests_path = r"scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
+project1_tests_path = r"benchmark-heuristics\scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
+project2_tests_path = r"benchmark-heuristics\scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
+project3_tests_path = r"benchmark-heuristics\scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
 
 num_tests = 30  # Number of junit tests to select from each project
-project1_jmhjar_name = "EMPTY"
+project1_jmhjar_name = "mockito-jmh.jar"
 project2_jmhjar_name = "rxjava-3.0.0-SNAPSHOT-jmh.jar"
-project3_jmhjar_name = "EMPTY"
+project3_jmhjar_name = "stubby4j-jmh.jar"
 
 generate_output((project1_tests_path, num_tests, project1_jmhjar_name), 
                 (project2_tests_path, num_tests, project2_jmhjar_name), 
