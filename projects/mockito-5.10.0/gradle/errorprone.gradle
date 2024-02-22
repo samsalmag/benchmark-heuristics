@@ -1,0 +1,6 @@
+
+apply plugin: "net.ltgt.errorprone"
+
+dependencies {
+    errorprone libraries.errorprone
+}
