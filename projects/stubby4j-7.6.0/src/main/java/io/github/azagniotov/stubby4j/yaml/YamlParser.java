@@ -74,7 +74,7 @@ import static java.util.Optional.ofNullable;
 import static org.yaml.snakeyaml.DumperOptions.FlowStyle;
 
 public class YamlParser {
-    static final String FAILED_TO_LOAD_FILE_ERR = "Failed to retrieveLoadedStubs response content using relative path specified in 'file'. Check that response content exists in relative path specified in 'file'";
+    public static final String FAILED_TO_LOAD_FILE_ERR = "Failed to retrieveLoadedStubs response content using relative path specified in 'file'. Check that response content exists in relative path specified in 'file'";
     private static final Logger LOGGER = LoggerFactory.getLogger(YamlParser.class);
     private final static Yaml SNAKE_YAML = SnakeYaml.INSTANCE.getSnakeYaml();
     private final AtomicInteger parsedStubCounter = new AtomicInteger();

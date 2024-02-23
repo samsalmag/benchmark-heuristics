@@ -40,7 +40,7 @@ import static java.util.stream.Collectors.toCollection;
 
 public class StubRequest implements ReflectableStub {
 
-    static final String HTTP_HEADER_AUTHORIZATION = "authorization";
+    public static final String HTTP_HEADER_AUTHORIZATION = "authorization";
 
     private final String url;
     private final String post;

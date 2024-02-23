@@ -103,7 +103,7 @@ public class StubRepositoryTest {
 
     @Test
     public void shouldGetResourceStatsAsCsv() throws Exception {
-        assertThat(spyStubRepository.getResourceStatsAsCsv()).isEqualTo("resourceId,hits\n");
+        assertThat(spyStubRepository.getResourceStatsAsCsv()).isEqualTo("resourceId,hits\r\n");
     }
 
     @Test

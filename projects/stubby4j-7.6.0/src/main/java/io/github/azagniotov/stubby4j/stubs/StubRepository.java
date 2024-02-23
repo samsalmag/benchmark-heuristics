@@ -326,7 +326,7 @@ public class StubRepository {
         return webSocketConfigs.get(webSocketConfigUniqueUrl);
     }
 
-    synchronized boolean resetStubsCache(final YamlParseResultSet yamlParseResultSet) {
+    public synchronized boolean resetStubsCache(final YamlParseResultSet yamlParseResultSet) {
         this.stubMatchesCache.clear();
         this.stubs.clear();
         this.uuidToStub.clear();
@@ -494,7 +494,7 @@ public class StubRepository {
         }
     }
 
-    synchronized void updateStubByIndex(final int index, final StubHttpLifecycle newStub) {
+    public synchronized void updateStubByIndex(final int index, final StubHttpLifecycle newStub) {
         final StubHttpLifecycle deletedStub = deleteStubByIndex(index);
         stubs.add(index, newStub);
         updateResourceIDHeaders();
