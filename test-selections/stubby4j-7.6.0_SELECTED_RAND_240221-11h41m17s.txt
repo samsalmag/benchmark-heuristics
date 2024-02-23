@@ -1,0 +1,54 @@
+# stubby4j-7.6.0 | SELECTED 30 TESTS 
+# ROW IN 'ALL TESTS' FILE | TEST NR. | TEST METHOD PATH 
+    324 |     1.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.stubbedRequestNotEqualsAssertingRequest_WhenUrlStubbed_ButNullUrlSubmitted
+    207 |     2.    io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest.shouldThrow_WhenResponseObjectIsNotStubResponseType
+    315 |     3.    io.github.azagniotov.stubby4j.stubs.StubRepositoryTest.shouldApplyProxyConfigByProxyConfigUuidHeaderToHttpTransport_WhenResponseIsProxiable
+    438 |     4.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldFindRequestBodyNotStubbed_WhenJustMethodPatch
+    154 |     5.    io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest.shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode302
+    473 |     6.    io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest.returnsBodyAsExpectedBytesWhenOnlyFileStubbed
+     22 |     7.    io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.testIsYamlProvidedWhenShortOptionGiven
+     51 |     8.    io.github.azagniotov.stubby4j.functional.AdminPortalTest.should_ReturnMethodNotImplemented_WhenSuccessfulTraceMade_ToAdminPortalRoot
+    246 |     9.    io.github.azagniotov.stubby4j.stubs.StubMatcherTest.postBodiesMatch_ShouldReturnFalse_WhenDifferentJson
+     56 |     10.    io.github.azagniotov.stubby4j.functional.AdminPortalTest.should_ReturnExpectedError_WhenSuccessfulGetMade_ToAdminPortalRootWithNonExistentUuid
+    336 |     11.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.stubbedRequestNotEqualsAssertingRequest_WhenSubmittedUrlShorter
+    133 |     12.    io.github.azagniotov.stubby4j.handlers.StubsPortalHandlerTest.shouldDetermineRequestAsHandledWhenBaseRequestHandled
+    536 |     13.    io.github.azagniotov.stubby4j.yaml.YamlBuilderTest.shouldBuildStubbedResponseWithSequenceResponsesFoldedBodyAndFile
+    468 |     14.    io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketMessageTypeTest.returnsFalseOnUnknownProperties
+    149 |     15.    io.github.azagniotov.stubby4j.handlers.strategy.DefaultResponseHandlingStrategyTest.shouldReturnReplacedValueInResponseHeaderWhenRequestBodyHasDynamicToken
+    526 |     16.    io.github.azagniotov.stubby4j.utils.StringUtilsTest.shouldReturnErrorWhenTryingToConvertEmptyInputStreamToString
+    434 |     17.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldFindPostNotStubbed_WhenPostEmptyAndMethodPut
+    472 |     18.    io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest.returnsBodyAsExpectedBytesWhenOnlyBodyStubbed
+    235 |     19.    io.github.azagniotov.stubby4j.stubs.StubMatcherTest.stringsMatch_ShouldReturnFalse_WhenAssertingValueNull
+    437 |     20.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldFindRequestBodyStubbed_WhenFileStubbedAndMethodPatch
+    426 |     21.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldFindTwoHashCodesEqual_WhenTwoRequestHaveUrlNull
+    418 |     22.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.shouldfindStubRequestNotEqual_WhenComparedToDifferentInstanceClass
+    107 |     23.    io.github.azagniotov.stubby4j.functional.client.StubbyClientTest.doPost_ShouldMakeSuccessfulPost_WhenNullPostGiven
+    331 |     24.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.stubbedRequestNotEqualsAssertingRequest_WhenStubbedUrlHasRequiredTrailingSlash_ButNoSlashSubmitted
+    479 |     25.    io.github.azagniotov.stubby4j.utils.CollectionUtilsTest.constructParamMap_ShouldConstructParamMap_WhenQueryParamHasNoValue
+    168 |     26.    io.github.azagniotov.stubby4j.integration.server.ssl.CustomHostnameVerifierTest.subjectAltNamesMustContainLocalhost
+    340 |     27.    io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.stubbedRequestEqualsAssertingRequest_WhenStubbedUrlRegexGroups_AndUrlsEqual
+    304 |     28.    io.github.azagniotov.stubby4j.stubs.StubRepositoryTest.stubbedRequestEqualsAssertingRequest_WhenQueryParamArrayHasElementsWithinUrlEncodedQuotes
+    209 |     29.    io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest.shouldReturnDefaultStubResponse_WhenNoSequenceResponsePresentInTheList
+    270 |     30.    io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest.stubbedProxyConfigNotEqualsAssertingConfig_WhenProxyNamesDifferent
+
+# CLASS PATHS
+io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest
+io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest
+io.github.azagniotov.stubby4j.stubs.StubRepositoryTest
+io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest
+io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest
+io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest
+io.github.azagniotov.stubby4j.functional.AdminPortalTest
+io.github.azagniotov.stubby4j.stubs.StubMatcherTest
+io.github.azagniotov.stubby4j.handlers.StubsPortalHandlerTest
+io.github.azagniotov.stubby4j.yaml.YamlBuilderTest
+io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketMessageTypeTest
+io.github.azagniotov.stubby4j.handlers.strategy.DefaultResponseHandlingStrategyTest
+io.github.azagniotov.stubby4j.utils.StringUtilsTest
+io.github.azagniotov.stubby4j.functional.client.StubbyClientTest
+io.github.azagniotov.stubby4j.utils.CollectionUtilsTest
+io.github.azagniotov.stubby4j.integration.server.ssl.CustomHostnameVerifierTest
+io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest
+
+# JMH COMMAND - RUNS SELECTED BENCHMARKS
+java -jar "stubby4j-jmh.jar" -f 1 -wi 0 -i 1 -r 100ms -foe true io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestNotEqualsAssertingRequest_WhenUrlStubbed_ButNullUrlSubmitted$ io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest._Benchmark.benchmark_shouldThrow_WhenResponseObjectIsNotStubResponseType$ io.github.azagniotov.stubby4j.stubs.StubRepositoryTest._Benchmark.benchmark_shouldApplyProxyConfigByProxyConfigUuidHeaderToHttpTransport_WhenResponseIsProxiable$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldFindRequestBodyNotStubbed_WhenJustMethodPatch$ io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest._Benchmark.benchmark_shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode302$ io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest._Benchmark.benchmark_returnsBodyAsExpectedBytesWhenOnlyFileStubbed$ io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_testIsYamlProvidedWhenShortOptionGiven$ io.github.azagniotov.stubby4j.functional.AdminPortalTest._Benchmark.benchmark_should_ReturnMethodNotImplemented_WhenSuccessfulTraceMade_ToAdminPortalRoot$ io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_postBodiesMatch_ShouldReturnFalse_WhenDifferentJson$ io.github.azagniotov.stubby4j.functional.AdminPortalTest._Benchmark.benchmark_should_ReturnExpectedError_WhenSuccessfulGetMade_ToAdminPortalRootWithNonExistentUuid$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestNotEqualsAssertingRequest_WhenSubmittedUrlShorter$ io.github.azagniotov.stubby4j.handlers.StubsPortalHandlerTest._Benchmark.benchmark_shouldDetermineRequestAsHandledWhenBaseRequestHandled$ io.github.azagniotov.stubby4j.yaml.YamlBuilderTest._Benchmark.benchmark_shouldBuildStubbedResponseWithSequenceResponsesFoldedBodyAndFile$ io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketMessageTypeTest._Benchmark.benchmark_returnsFalseOnUnknownProperties$ io.github.azagniotov.stubby4j.handlers.strategy.DefaultResponseHandlingStrategyTest._Benchmark.benchmark_shouldReturnReplacedValueInResponseHeaderWhenRequestBodyHasDynamicToken$ io.github.azagniotov.stubby4j.utils.StringUtilsTest._Benchmark.benchmark_shouldReturnErrorWhenTryingToConvertEmptyInputStreamToString$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldFindPostNotStubbed_WhenPostEmptyAndMethodPut$ io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest._Benchmark.benchmark_returnsBodyAsExpectedBytesWhenOnlyBodyStubbed$ io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_stringsMatch_ShouldReturnFalse_WhenAssertingValueNull$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldFindRequestBodyStubbed_WhenFileStubbedAndMethodPatch$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldFindTwoHashCodesEqual_WhenTwoRequestHaveUrlNull$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_shouldfindStubRequestNotEqual_WhenComparedToDifferentInstanceClass$ io.github.azagniotov.stubby4j.functional.client.StubbyClientTest._Benchmark.benchmark_doPost_ShouldMakeSuccessfulPost_WhenNullPostGiven$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestNotEqualsAssertingRequest_WhenStubbedUrlHasRequiredTrailingSlash_ButNoSlashSubmitted$ io.github.azagniotov.stubby4j.utils.CollectionUtilsTest._Benchmark.benchmark_constructParamMap_ShouldConstructParamMap_WhenQueryParamHasNoValue$ io.github.azagniotov.stubby4j.integration.server.ssl.CustomHostnameVerifierTest._Benchmark.benchmark_subjectAltNamesMustContainLocalhost$ io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestEqualsAssertingRequest_WhenStubbedUrlRegexGroups_AndUrlsEqual$ io.github.azagniotov.stubby4j.stubs.StubRepositoryTest._Benchmark.benchmark_stubbedRequestEqualsAssertingRequest_WhenQueryParamArrayHasElementsWithinUrlEncodedQuotes$ io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest._Benchmark.benchmark_shouldReturnDefaultStubResponse_WhenNoSequenceResponsePresentInTheList$ io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest._Benchmark.benchmark_stubbedProxyConfigNotEqualsAssertingConfig_WhenProxyNamesDifferent$
