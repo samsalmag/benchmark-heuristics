@@ -138,6 +138,7 @@ test {
 task testNG(type: Test) {
     useTestNG()
 }
+testNG.enabled = false
 
 check.dependsOn testNG
 

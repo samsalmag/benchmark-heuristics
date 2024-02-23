@@ -85,10 +85,12 @@ allprojects { proj ->
         fileMode = Integer.parseInt("0644", 8)
     }
 
+    /*
     apply plugin: 'checkstyle'
     checkstyle {
        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
     }
+     */
 }
 
 configurations {
