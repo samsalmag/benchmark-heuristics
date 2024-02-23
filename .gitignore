@@ -37,3 +37,4 @@ target/
 *.ctxt		# BlueJ files
 .mtj.tmp/	# Mobile Tools for Java (J2ME)			
 scripts/output/
+projects/stubby4j-7.6.0/bin/
