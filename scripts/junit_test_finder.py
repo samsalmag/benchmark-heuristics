@@ -49,11 +49,11 @@ def generate_txt(junit_tests, project_name):
 # Process and format the given path
 def process_path(path):
     path = path.replace("\\", ".")          # Replace slashes with periods
-    index_test = path.find(".test.java.")   # Find the index of the folder named "test" followed by a folder named "java"
+    index_test = path.find(".java.")   # Find the index of the folder named "test" followed by a folder named "java"
     
     # If such a pattern is found, include everything after the "java" folder
     if index_test != -1:
-        path = path[index_test + len(".test.java."):]
+        path = path[index_test + len(".java."):]
     
     return path
 
@@ -62,12 +62,9 @@ def export_junit_tests(test_directories, project_name):
     junit_tests = find_all_junit_tests(test_directories)
     generate_txt(junit_tests, project_name)
 
-path_1 = (r"projects\mockito-5.10.0\src\test\java\org",)                               # Mockito
-path_2 = (r"projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3",)                # RxJava
-path_3 = (r"projects\stubby4j-7.6.0\src\functional-test",                              # stubby4j
-          r"projects\stubby4j-7.6.0\src\integration-test",
-          r"projects\stubby4j-7.6.0\src\load-test",
-          r"projects\stubby4j-7.6.0\src\test")                                             
+path_1 = (r"projects\mockito-5.10.0\src\test\java\org",)                                            # Mockito
+path_2 = (r"projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3",)                             # RxJava
+path_3 = (r"projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j",)                  # stubby4j                                          
 
 # Mockito
 print("Exporting Mockito junit tests...", end="")
