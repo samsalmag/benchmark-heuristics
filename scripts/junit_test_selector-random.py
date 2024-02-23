@@ -33,7 +33,7 @@ def generate_output(project1_input, project2_input, project3_input):
 
 
         print(f"{project_name}...", end="")
-        with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_SELECTED_{date_str}-{time_str}.txt"), "w") as f:
+        with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_SELECTED_RAND_{date_str}-{time_str}.txt"), "w") as f:
             f.write(f"# {project_name} | SELECTED {num_tests} TESTS \n# ROW IN 'ALL TESTS' FILE | TEST NR. | TEST METHOD PATH \n")
             i = 1
             for row_number, row_content in selected_tests:
@@ -85,9 +85,9 @@ def get_benchmark_path(unit_test_path):
 def get_jmh_base_command(jmhjar_name):
     return f"java -jar \"{jmhjar_name}\" -f 1 -wi 0 -i 1 -r 100ms -foe true"
 
-project1_tests_path = r"benchmark-heuristics\scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
-project2_tests_path = r"benchmark-heuristics\scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
-project3_tests_path = r"benchmark-heuristics\scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
+project1_tests_path = r"scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
+project2_tests_path = r"scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
+project3_tests_path = r"scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
 
 num_tests = 30  # Number of junit tests to select from each project
 project1_jmhjar_name = "mockito-jmh.jar"
