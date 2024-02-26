@@ -41,12 +41,12 @@ dependencies {
     api "org.reactivestreams:reactive-streams:$reactiveStreamsVersion"
     jmh "org.reactivestreams:reactive-streams:$reactiveStreamsVersion"
 
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    implementation "junit:junit:$junitVersion"
+    implementation "org.mockito:mockito-core:$mockitoVersion"
 
-    testImplementation "org.reactivestreams:reactive-streams-tck:$reactiveStreamsVersion"
-    testImplementation "org.testng:testng:$testNgVersion"
-    testImplementation "com.google.guava:guava:$guavaVersion"
+    implementation "org.reactivestreams:reactive-streams-tck:$reactiveStreamsVersion"
+    implementation "org.testng:testng:$testNgVersion"
+    implementation "com.google.guava:guava:$guavaVersion"
 }
 
 java {
