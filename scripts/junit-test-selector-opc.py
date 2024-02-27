@@ -61,6 +61,8 @@ def generate_output(project1_input, project2_input, project3_input):
             f.write("# CLASS PATHS\n")
             for class_name in list(dict.fromkeys(class_names)):
                 f.write(f"{class_name}\n")
+            
+            create_jmh_commands_txt(4, jmh_command)
 
             # Print jmh jar command
             f.write("\n# JMH COMMAND - RUNS SELECTED BENCHMARKS\n" + jmh_command + "\n")
@@ -78,6 +80,39 @@ def generate_output(project1_input, project2_input, project3_input):
 
     print("ALL DONE!")
 
+# Creates a txt file containing the whole jmh jar command split into multiple smaller commands
+def create_jmh_commands_txt(nrCommands, jmh_command):
+    words = jmh_command.split()
+    # Extract the base command (string) and all test arguments (list)
+    for i, word in enumerate(words):
+        if '$' in word:
+            jmh_base = ' '.join(words[:i])
+            test_args = words[i:]
+            print("\n")
+            print(jmh_base)
+            break
+    
+    # Create all smaller jmh commands
+    jmh_commands = []
+    part_length = len(test_args) // nrCommands
+    remainder = len(test_args) % nrCommands
+    start = 0
+    for i in range(nrCommands):
+        # Add remainder to the first i commands needing it
+        end = start + part_length + (1 if i < remainder else 0)
+        # Add jmh base to each command
+        jmh_commands.append(jmh_base + " ")
+        # Add specified test arguments with a space between them
+        jmh_commands[i] += ' '.join(test_args[start:end])
+        start = end
+
+    jmhjar_name = words[2].replace('"', '')
+    with open(os.path.join(os.path.dirname(__file__), "output", f"{jmhjar_name}_jmh_commands.txt"), "w") as f:
+        for i, command in enumerate(jmh_commands):
+            f.write(f"COMMAND {i+1}:\n\n{command}\n")
+            if i < len(jmh_commands) - 1:
+                f.write("-"*100 + "\n\n")
+ 
 # Extracts project name from a given tests files' 'file_path'
 def extract_project_name(file_path):
     start_index = file_path.find("scripts\\output\\") + len("scripts\\output\\")
