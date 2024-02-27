@@ -61,11 +61,21 @@ def generate_output(project1_input, project2_input, project3_input):
             f.write("# CLASS PATHS\n")
             for class_name in list(dict.fromkeys(class_names)):
                 f.write(f"{class_name}\n")
-            
+
             # Print jmh jar command
             f.write("\n# JMH COMMAND - RUNS SELECTED BENCHMARKS\n" + jmh_command + "\n")
 
             print("done!")
+
+        # For benchmark-remover script
+        with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_BENCHMARKS_{date_str}-{time_str}.txt"), "w") as f:
+            for row_number, row_content in selected_tests:
+                method_name = row_content[row_content.rfind(".") + 1:]
+                row_content = row_content[:row_content.rfind(".")]
+                row_content = row_content.replace(".", "\\")          # Replace slashes with periods
+                row_content += ".java"
+                f.write(f"\n {row_content} {method_name}")
+
     print("ALL DONE!")
 
 # Extracts project name from a given tests files' 'file_path'
