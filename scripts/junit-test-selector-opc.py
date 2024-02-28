@@ -62,7 +62,7 @@ def generate_output(project1_input, project2_input, project3_input):
             for class_name in list(dict.fromkeys(class_names)):
                 f.write(f"{class_name}\n")
             
-            create_jmh_commands_txt(4, jmh_command)
+            create_jmh_commands_txt(3, jmh_command)
 
             # Print jmh jar command
             f.write("\n# JMH COMMAND - RUNS SELECTED BENCHMARKS\n" + jmh_command + "\n")
@@ -107,11 +107,10 @@ def create_jmh_commands_txt(nrCommands, jmh_command):
         start = end
 
     jmhjar_name = words[2].replace('"', '')
-    with open(os.path.join(os.path.dirname(__file__), "output", f"{jmhjar_name}_jmh_commands.txt"), "w") as f:
-        for i, command in enumerate(jmh_commands):
-            f.write(f"COMMAND {i+1}:\n\n{command}\n")
-            if i < len(jmh_commands) - 1:
-                f.write("-"*100 + "\n\n")
+    for i, command in enumerate(jmh_commands):
+        with open(os.path.join(os.path.dirname(__file__), "output", f"{jmhjar_name}_jmh_command{i+1}.txt"), "w") as f:
+            f.write(f"{command}")
+
  
 # Extracts project name from a given tests files' 'file_path'
 def extract_project_name(file_path):
@@ -138,14 +137,15 @@ def get_benchmark_path(unit_test_path):
 
 # Get jmh base command (jmh command without selected junit tests) based on given jmh jar name
 def get_jmh_base_command(jmhjar_name):
-    return f"java -jar \"{jmhjar_name}\" -f 1 -wi 0 -i 1 -r 100ms -foe true"
+    return f"java -jar \"{jmhjar_name}\" -bm avgt -tu ms -f 5 -wi 5 -i 5 -r 100ms -foe false -o rxjava-output.txt"
+    
 
 project1_tests_path = r"scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
 project2_tests_path = r"scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
 project3_tests_path = r"scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
 
 project1_jmhjar_name = "mockito-jmh.jar"
-project2_jmhjar_name = "rxjava-3.0.0-SNAPSHOT-jmh.jar"
+project2_jmhjar_name = "rxjavaOPC.jar"
 project3_jmhjar_name = "stubby4j-jmh.jar"
 
 generate_output((project1_tests_path, project1_jmhjar_name), 
