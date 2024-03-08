@@ -6,9 +6,12 @@ import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
+import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
+import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParserAnonymousClassDeclaration;
 import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParserMethodDeclaration;
 import com.github.javaparser.symbolsolver.reflectionmodel.ReflectionMethodDeclaration;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
@@ -17,21 +20,24 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeS
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Parser {
 
     private final int MAX_DEPTH = 3; // Maximum recursion depth
+    private final String BASE_MAIN_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
+    private final String BASE_TEST_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
 
     private final ParserConfiguration PARSER_CONFIG;
     private final CombinedTypeSolver TYPE_SOLVER;
     private final JavaParserAdapter PARSER;
 
-    private final String BASE_MAIN_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
-    private final String BASE_TEST_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
+    private final String filePath;
+    private final String methodName;
 
-    private String filePath;
-    private String methodName;
+    private final Map<String, Integer> methodCalls = new HashMap<>();
+    private final Map<String, Integer> objectInstantiations = new HashMap<>();
 
     public Parser(String filePath, String methodName) {
         this.filePath = filePath;
@@ -68,6 +74,49 @@ public class Parser {
         catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("\n" + sortMapOutPlace(methodCalls));
+        System.out.println("\n" + sortMapOutPlace(objectInstantiations));
+    }
+
+    private void incrementMapValue(Map<String, Integer> map, String keyName) {
+        map.put(keyName, map.getOrDefault(keyName, 0) + 1);
+    }
+
+    private Map<String, Integer> sortMapOutPlace(Map<String, Integer> map) {
+        return map.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (a,b)->b, LinkedHashMap::new));
+
+    }
+
+    /**
+     * Finds all objects instantiations within a method.
+     *
+     * @param methodDeclaration The method to search object instantiations in.
+     */
+    private void findObjectInstantiations(MethodDeclaration methodDeclaration) {
+        // Loop through all object instantiations...
+        List<ObjectCreationExpr> objectCreationExprList = methodDeclaration.findAll(ObjectCreationExpr.class);
+        for (ObjectCreationExpr creationExpr : objectCreationExprList) {
+            ResolvedConstructorDeclaration resolvedConstructorDeclaration = creationExpr.resolve();
+            String packageName;
+
+            // If the object instantiation is an anonymous class, then the package name is not readily available...
+            // Do some magic to get package name of the class.
+            if (resolvedConstructorDeclaration.declaringType() instanceof JavaParserAnonymousClassDeclaration) {
+                JavaParserAnonymousClassDeclaration anonymousClassDeclaration = (JavaParserAnonymousClassDeclaration) resolvedConstructorDeclaration.declaringType();
+                packageName = anonymousClassDeclaration.getSuperTypeDeclaration().getQualifiedName();
+            }
+            // Else, do it very simply.
+            else {
+                packageName = resolvedConstructorDeclaration.declaringType().asReferenceType().getQualifiedName();
+            }
+
+            String instantiatedObjectPath = packageName + "." + creationExpr.getType().toString();
+            incrementMapValue(objectInstantiations, instantiatedObjectPath);
+        }
     }
 
     private void extractMethodInvocations(MethodDeclaration methodDeclaration, int depth) {
@@ -75,6 +124,8 @@ public class Parser {
             System.out.println("Maximum depth reached for method: " + methodDeclaration.getNameAsString());
             return;
         }
+
+        findObjectInstantiations(methodDeclaration);
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);
@@ -119,13 +170,16 @@ public class Parser {
                     }
                 }
 
+                String calledMethodFullName = resolvedMethodDeclaration.getQualifiedName();
+                incrementMapValue(methodCalls, calledMethodFullName);
+
                 // Continue finding method calls recursively if the called method is not from a java library.
                 if (!javaLibFile) {
-                    System.out.println("METHOD INVOCATION: " + resolvedMethodDeclaration.getQualifiedName());
+                    System.out.println("METHOD INVOCATION: " + calledMethodFullName);
                     extractMethodInvocations(calledMethodDeclaration, depth + 1);
                 }
                 else {
-                    System.out.println("JAVA LIB FILE (STOPPING RECURSION): " + resolvedMethodDeclaration.getQualifiedName());
+                    System.out.println("JAVA LIB FILE (STOPPING RECURSION): " + calledMethodFullName);
                 }
             }
             catch (UnsolvedSymbolException e) {
