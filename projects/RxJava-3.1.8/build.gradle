@@ -47,6 +47,10 @@ dependencies {
     implementation "org.reactivestreams:reactive-streams-tck:$reactiveStreamsVersion"
     implementation "org.testng:testng:$testNgVersion"
     implementation "com.google.guava:guava:$guavaVersion"
+
+    // JavaParser
+    implementation 'com.github.javaparser:javaparser-core:3.25.0'
+    implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.25.0'
 }
 
 java {

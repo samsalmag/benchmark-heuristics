@@ -86,13 +86,15 @@ public class Parser {
 
                 MethodDeclaration calledMethodDeclaration = null;
                 // If method call is from source code, we can get its method declaration directly.
-                if (resolvedMethodDeclaration instanceof JavaParserMethodDeclaration javaParserMethodDeclaration) {
+                if (resolvedMethodDeclaration instanceof JavaParserMethodDeclaration) {
+                    JavaParserMethodDeclaration javaParserMethodDeclaration = (JavaParserMethodDeclaration) resolvedMethodDeclaration;
                     calledMethodDeclaration = javaParserMethodDeclaration.getWrappedNode();
                 }
 
                 // If the method call is from a library (such as JRE), we cannot get its method declaration directly.
                 // We need to jump through some hoops...
-                else if (resolvedMethodDeclaration instanceof ReflectionMethodDeclaration reflectionMethodDeclaration) {
+                else if (resolvedMethodDeclaration instanceof ReflectionMethodDeclaration) {
+                    ReflectionMethodDeclaration reflectionMethodDeclaration = (ReflectionMethodDeclaration) resolvedMethodDeclaration;
 
                     // Check if the called method is located in a RxJava package.
                     // If true, get full path for the class that holds the called method. Then create a new compilation unit that parses that path.
