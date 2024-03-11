@@ -23,9 +23,19 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Parser {
+/**
+ * Class that parses a method recursively. The parser goes through all methods within the provided method as well, etc...
+ * Is able to find method invocations, object instantiations, and package accesses.
+ * Use MethodParser.parse() to first parse a method, then use getters to retrieve the information about it.
+ *
+ * @author Sam Salek
+ */
+public class MethodParser {
 
-    private final int MAX_DEPTH = 3; // Maximum recursion depth
+    // Display debug prints or not.
+    private final boolean debug = false;
+
+    private final int MAX_DEPTH = Integer.MAX_VALUE; // Maximum recursion depth
     private final String BASE_MAIN_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
     private final String BASE_TEST_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
 
@@ -35,11 +45,23 @@ public class Parser {
 
     private final String filePath;
     private final String methodName;
+    private final String projectTerm = "rxjava";    // This is used to figure out of method is within source code or a java lib.
+                                                    // Should reflect a unique package name within the project.
 
     private final Map<String, Integer> methodCalls = new HashMap<>();
     private final Map<String, Integer> objectInstantiations = new HashMap<>();
+    private final Map<String, Integer> packageAccesses = new HashMap<>();
 
-    public Parser(String filePath, String methodName) {
+    private boolean runComplete = false;
+
+    /**
+     * Creates a new instance of MethodParser.
+     *
+     *
+     * @param filePath Path to the file where the method resides.
+     * @param methodName Name of the method.
+     */
+    public MethodParser(String filePath, String methodName) {
         this.filePath = filePath;
         this.methodName = methodName;
 
@@ -47,13 +69,15 @@ public class Parser {
         PARSER_CONFIG = new ParserConfiguration().setSymbolResolver(new JavaSymbolSolver(TYPE_SOLVER));
 
         TYPE_SOLVER.add(new ReflectionTypeSolver(false));
-        //TYPE_SOLVER.add(new JarTypeSolver("C:\\Program Files (x86)\\Java\\jre1.8.0_301\\lib\\rt.jar"));
         TYPE_SOLVER.add(new JavaParserTypeSolver(new File("E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java"), PARSER_CONFIG));
         TYPE_SOLVER.add(new JavaParserTypeSolver(new File("E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\test\\java"), PARSER_CONFIG));
 
         PARSER = JavaParserAdapter.of(new JavaParser(PARSER_CONFIG));
     }
 
+    /**
+     * Runs the parser. Do this first before using any getters.
+     */
     public void run() {
         try {
             // Parse the Java file
@@ -64,31 +88,64 @@ public class Parser {
                     .stream()
                     .filter(method -> method.getNameAsString().equals(methodName))
                     .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("Method not found: " + methodName));
+                    .orElseThrow(() -> new IllegalArgumentException("ERROR: Method not found \"" + methodName + "\""));
 
-            // Start recursively extracting method invocations from the start method
-            System.out.println("Starting extraction from method: " + methodName + "\n");
-
-            extractMethodInvocations(startMethod, 0);
+            parseMethod(startMethod, 0);
         }
         catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println("\n" + sortMapOutPlace(methodCalls));
-        System.out.println("\n" + sortMapOutPlace(objectInstantiations));
+        if (debug) {
+            System.out.println("\n" + sortMapOutOfPlace(methodCalls));
+            System.out.println("\n" + sortMapOutOfPlace(objectInstantiations));
+            System.out.println("\n" + sortMapOutOfPlace(packageAccesses));
+        }
+
+        runComplete = true;
     }
 
+    /**
+     * Gets all method calls within the method, recursively.
+     *
+     * @return A map containing all method calls and how many times it occurred.
+     */
+    public Map<String, Integer> getMethodCalls() {
+        if (!runComplete) throw new IllegalStateException("ERROR: Method not parsed yet! Use MethodParser.parse() first.");
+        return new HashMap<>(methodCalls);
+    }
+
+    /**
+     * Gets all object instantiations within the method, recursively.
+     *
+     * @return A map containing all object instantiations and how many times it occurred.
+     */
+    public Map<String, Integer> getObjectInstantiations() {
+        if (!runComplete) throw new IllegalStateException("ERROR: Method not parsed yet! Use MethodParser.parse() first.");
+        return new HashMap<>(objectInstantiations);
+    }
+
+    /**
+     * Gets all package accesses within the method, recursively.
+     *
+     * @return A map containing all package accesses and how many times it occurred.
+     */
+    public Map<String, Integer> getPackageAccesses() {
+        if (!runComplete) throw new IllegalStateException("ERROR: Method not parsed yet! Use MethodParser.parse() first.");
+        return new HashMap<>(packageAccesses);
+    }
+
+    // Increments the value of a key inside a map by 1.
     private void incrementMapValue(Map<String, Integer> map, String keyName) {
         map.put(keyName, map.getOrDefault(keyName, 0) + 1);
     }
 
-    private Map<String, Integer> sortMapOutPlace(Map<String, Integer> map) {
+    // Sorts the provided map based on key. Does it out of place, so remember to save the return value.
+    private Map<String, Integer> sortMapOutOfPlace(Map<String, Integer> map) {
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (a,b)->b, LinkedHashMap::new));
-
     }
 
     /**
@@ -101,30 +158,42 @@ public class Parser {
         List<ObjectCreationExpr> objectCreationExprList = methodDeclaration.findAll(ObjectCreationExpr.class);
         for (ObjectCreationExpr creationExpr : objectCreationExprList) {
             ResolvedConstructorDeclaration resolvedConstructorDeclaration = creationExpr.resolve();
+            String classPath;
             String packageName;
 
             // If the object instantiation is an anonymous class, then the package name is not readily available...
             // Do some magic to get package name of the class.
             if (resolvedConstructorDeclaration.declaringType() instanceof JavaParserAnonymousClassDeclaration) {
                 JavaParserAnonymousClassDeclaration anonymousClassDeclaration = (JavaParserAnonymousClassDeclaration) resolvedConstructorDeclaration.declaringType();
-                packageName = anonymousClassDeclaration.getSuperTypeDeclaration().getQualifiedName();
+                classPath = anonymousClassDeclaration.getSuperTypeDeclaration().getQualifiedName();
+                packageName = anonymousClassDeclaration.getSuperTypeDeclaration().getPackageName();
             }
             // Else, do it very simply.
             else {
-                packageName = resolvedConstructorDeclaration.declaringType().asReferenceType().getQualifiedName();
+                classPath = resolvedConstructorDeclaration.declaringType().asReferenceType().getQualifiedName();
+                packageName = resolvedConstructorDeclaration.declaringType().asReferenceType().getPackageName();
             }
 
-            String instantiatedObjectPath = packageName + "." + creationExpr.getType().toString();
-            incrementMapValue(objectInstantiations, instantiatedObjectPath);
+            // Add to object instantiation map and package accesses map.
+            incrementMapValue(objectInstantiations, classPath);
+            incrementMapValue(packageAccesses, packageName);
         }
     }
 
-    private void extractMethodInvocations(MethodDeclaration methodDeclaration, int depth) {
+    /**
+     * Parses a method. Finds all method invocations, object instantiations, and package accesses within the provided method.
+     *
+     * @param methodDeclaration The method to parse.
+     * @param depth The current depth of the parsing, since this method can be used recursively.
+     *              Will not exceed MAX_DEPTH.
+     */
+    private void parseMethod(MethodDeclaration methodDeclaration, int depth) {
         if (depth >= MAX_DEPTH) {
-            System.out.println("Maximum depth reached for method: " + methodDeclaration.getNameAsString());
+            System.out.println("MAXIMUM DEPTH REACHED FOR METHOD \"" + methodDeclaration.getNameAsString() + "\"");
             return;
         }
 
+        // Find any object instantiations inside the method
         findObjectInstantiations(methodDeclaration);
 
         // Loop through all method calls in the provided methodDeclaration variable.
@@ -150,7 +219,7 @@ public class Parser {
                     // Check if the called method is located in a RxJava package.
                     // If true, get full path for the class that holds the called method. Then create a new compilation unit that parses that path.
                     // The parser finds and provides us the method declaration for the called method.
-                    if (reflectionMethodDeclaration.toString().contains("rxjava")) {
+                    if (reflectionMethodDeclaration.toString().contains(projectTerm)) {
                         String classPath = (reflectionMethodDeclaration.getPackageName() + "." + reflectionMethodDeclaration.getClassName()).replace(".", "\\");
                         String fullPath = BASE_MAIN_PATH + classPath + ".java";
                         CompilationUnit methodCu = PARSER.parse(new File(fullPath));
@@ -170,16 +239,17 @@ public class Parser {
                     }
                 }
 
-                String calledMethodFullName = resolvedMethodDeclaration.getQualifiedName();
-                incrementMapValue(methodCalls, calledMethodFullName);
+                // Add method call and package access to respective map.
+                incrementMapValue(methodCalls, resolvedMethodDeclaration.getQualifiedName());
+                incrementMapValue(packageAccesses, resolvedMethodDeclaration.getPackageName());
 
                 // Continue finding method calls recursively if the called method is not from a java library.
                 if (!javaLibFile) {
-                    System.out.println("METHOD INVOCATION: " + calledMethodFullName);
-                    extractMethodInvocations(calledMethodDeclaration, depth + 1);
+                    if (debug) System.out.println("METHOD INVOCATION: " + resolvedMethodDeclaration.getQualifiedName());
+                    parseMethod(calledMethodDeclaration, depth + 1);
                 }
                 else {
-                    System.out.println("JAVA LIB FILE (STOPPING RECURSION): " + calledMethodFullName);
+                    if (debug) System.out.println("JAVA LIB FILE (STOPPING RECURSION): " + resolvedMethodDeclaration.getQualifiedName());
                 }
             }
             catch (UnsolvedSymbolException e) {
@@ -189,10 +259,8 @@ public class Parser {
                 throw new RuntimeException(e);
             }
 
-            // Separate each recursion section, so it is easier to distinguish and read the print.
-            if (depth == 0) {
-                System.out.println();
-            }
+            // Separate each recursion section, so it is easier to distinguish and read the debug print.
+            if (debug && depth == 0) System.out.println();
         }
     }
 }
