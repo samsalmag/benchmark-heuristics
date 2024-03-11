@@ -38,12 +38,17 @@ public class MethodStatsExtractor {
         return methodStats;
     }
 
-    // Counts conditionals in a method
-    private static int countConditionals(MethodDeclaration startMethod) {
-        int ifCount = startMethod.findAll(IfStmt.class).size(); // Count if and else if statements
+    /**
+     * Counts conditionals in a method.
+     *
+     * @param method The method to count conditionals in.
+     * @return Number of conditionals.
+     */
+    public static int countConditionals(MethodDeclaration method) {
+        int ifCount = method.findAll(IfStmt.class).size(); // Count if and else if statements
 
         // Count switch case statements, excludes default case
-        int switchCaseCount = startMethod.findAll(SwitchStmt.class).stream()
+        int switchCaseCount = method.findAll(SwitchStmt.class).stream()
                 .flatMap(switchStmt -> switchStmt.getEntries().stream())
                 .filter(switchEntry -> switchEntry.getLabels().isNonEmpty()) // Filter out default cases
                 .mapToInt(switchEntry -> 1)
@@ -52,16 +57,27 @@ public class MethodStatsExtractor {
         return ifCount + switchCaseCount;
     }
 
-    // Counts loops in a method
-    private static int countLoops(MethodDeclaration startMethod) {
-        List<Node> loops = startMethod.findAll(Node.class, n ->
+    /**
+     * Counts loops in a method.
+     *
+     * @param method The method to count loops in.
+     * @return Number of loops.
+     */
+    public static int countLoops(MethodDeclaration method) {
+        List<Node> loops = method.findAll(Node.class, n ->
                 n instanceof ForStmt || n instanceof WhileStmt || n instanceof DoStmt);
         return loops.size();
     }
 
-    // Counts nested loops in a method
-    private static int countNestedLoops(MethodDeclaration startMethod) {
-        return calculateDepth(startMethod, 0) - 1;
+    /**
+     * Counts nested loops in a method.
+     *
+     * @param method The method to count nested loops in.
+     * @return Number of nested loops.
+     */
+    public static int countNestedLoops(MethodDeclaration method) {
+        int depth = calculateDepth(method, 0);
+        return (depth > 0) ? depth - 1 : 0;
     }
 
     // Counts depth of nested loops in a method
