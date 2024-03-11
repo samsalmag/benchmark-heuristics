@@ -54,6 +54,10 @@ public class MethodParser {
 
     private boolean runComplete = false;
 
+    private int nConditionals = 0;
+    private int nLoops = 0;
+    private int nNestedLoops = 0;
+
     /**
      * Creates a new instance of MethodParser.
      *
@@ -135,12 +139,59 @@ public class MethodParser {
         return new HashMap<>(packageAccesses);
     }
 
-    // Increments the value of a key inside a map by 1.
+    /**
+     * Gets number of conditional statements in the method, recursively.
+     *
+     * @return An integer of number of conditionals.
+     */
+    public int getConditionals() {
+        return nConditionals;
+    }
+
+    /**
+     * Gets number of loops in the method, recursively.
+     *
+     * @return An integer of number of loops.
+     */
+    public int getLoops() {
+        return nLoops;
+    }
+
+    /**
+     * Gets number of nested loops in the method, recursively.
+     *
+     * @return An integer of number of nested loops.
+     */
+    public int getNestedLoops() {
+        return nNestedLoops;
+    }
+
+    /**
+     * Gets number of method calls in the method, recursively.
+     *
+     * @return An integer of number of method calls.
+     */
+    public int getMethodCallsAmount() {
+        return methodCalls.values().stream().mapToInt(v -> v).sum();
+    }
+
+    /**
+     * Increments the value of a key inside a map by 1.
+     *
+     * @param map The map where the key to increment resides.
+     * @param keyName Name of the key to increment.
+     */
     private void incrementMapValue(Map<String, Integer> map, String keyName) {
         map.put(keyName, map.getOrDefault(keyName, 0) + 1);
     }
 
-    // Sorts the provided map based on key. Does it out of place, so remember to save the return value.
+    /**
+     * Sorts the provided map based on key.
+     * Does it out of place (returns sorted map), so remember to save the return value.
+     *
+     * @param map The map to sort.
+     * @return The sorted map.
+     */
     private Map<String, Integer> sortMapOutOfPlace(Map<String, Integer> map) {
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -195,6 +246,11 @@ public class MethodParser {
 
         // Find any object instantiations inside the method
         findObjectInstantiations(methodDeclaration);
+
+        // Count stats of method
+        nConditionals += MethodStatsExtractor.countConditionals(methodDeclaration);
+        nLoops += MethodStatsExtractor.countLoops(methodDeclaration);
+        nNestedLoops += MethodStatsExtractor.countNestedLoops(methodDeclaration);
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);
