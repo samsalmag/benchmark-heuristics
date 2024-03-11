@@ -18,8 +18,9 @@ public class Main {
     }
 
     /**
+     * Nicely prints the parsing of the provided MethodParser.
      *
-     * @param parser
+     * @param parser The parser to print.
      */
     public static void print(MethodParser parser) {
         System.out.println("\nMETHOD CALLS");
