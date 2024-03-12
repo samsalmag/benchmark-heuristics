@@ -15,6 +15,7 @@ public class Main {
         MethodParser parser = new MethodParser(filePath, methodName);
         parser.run();
         print(parser);
+        parser.toJson("E:\\Chalmers\\DATX05-MastersThesis\\test.json");
     }
 
     /**
@@ -33,9 +34,9 @@ public class Main {
         parser.getPackageAccesses().forEach((k ,v) -> System.out.println(k + ": " + v));
 
         System.out.println("\nSTATS");
-        System.out.println("Conditionals: " + parser.getConditionals());
-        System.out.println("Loops: " + parser.getLoops());
-        System.out.println("Nested loops: " + parser.getNestedLoops());
-        System.out.println("Method calls: " + parser.getMethodCallsAmount());
+        System.out.println("Conditionals: " + parser.getNumConditionals());
+        System.out.println("Loops: " + parser.getNumLoops());
+        System.out.println("Nested loops: " + parser.getNumNestedLoops());
+        System.out.println("Method calls: " + parser.getNumMethodCalls());
     }
 }
