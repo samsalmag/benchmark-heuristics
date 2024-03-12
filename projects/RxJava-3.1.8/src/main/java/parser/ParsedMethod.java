@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class ParsedMethod {
 
+    private String filePath;
     private String methodName;
 
     private Map<String, Integer> methodCalls = new HashMap<>();
@@ -20,6 +21,18 @@ public class ParsedMethod {
     private int numLoops;
     private int numNestedLoops;
     private int numMethodCalls;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String path) {
+        this.filePath = path;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
 
     public void setMethodName(String methodName) {
         this.methodName = methodName;
