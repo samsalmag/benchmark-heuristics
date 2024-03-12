@@ -17,8 +17,6 @@ import com.github.javaparser.symbolsolver.reflectionmodel.ReflectionMethodDeclar
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.util.*;
@@ -111,15 +109,16 @@ public class MethodParser {
     }
 
     /**
-     * Exports a json file at filePath containing the parsed data of this parser's method.
+     * Returns a ParsedMethod containing the data this parser extracted.
      *
-     * @param filePath Where to create the json file.
+     * @return A ParsedMethod instance.
      */
-    public void toJson(String filePath) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public ParsedMethod toParsedMethod() {
         ParsedMethod parsedMethod = new ParsedMethod();
+        String formattedPath = filePath.substring(filePath.indexOf("java\\") + "java\\".length()).trim();
 
         // Add data to parsed method instance.
+        parsedMethod.setFilePath(formattedPath);
         parsedMethod.setMethodName(this.methodName);
         parsedMethod.setMethodCalls(getMethodCalls());
         parsedMethod.setObjectInstantiations(getObjectInstantiations());
@@ -129,19 +128,7 @@ public class MethodParser {
         parsedMethod.setNumNestedLoops(getNumNestedLoops());
         parsedMethod.setNumMethodCalls(getNumMethodCalls());
 
-        // Create wrapper for data, so desired formatting in json file is achieved.
-        Map<String, ParsedMethod> wrapperMap = new HashMap<>();
-        wrapperMap.put(this.methodName, parsedMethod);
-
-        // Create json file
-        try {
-            Writer writer = new FileWriter(filePath);
-            gson.toJson(wrapperMap, writer);
-            writer.close();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return parsedMethod;
     }
 
     /**
