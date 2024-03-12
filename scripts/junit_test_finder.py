@@ -64,7 +64,10 @@ def export_junit_tests(test_directories, project_name):
 
 path_1 = (r"projects\mockito-5.10.0\src\test\java\org",)                                            # Mockito
 path_2 = (r"projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3",)                             # RxJava
-path_3 = (r"projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j",)                  # stubby4j                                          
+path_3 = (r"projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j",)                  # stubby4j test
+path_4 = (r"projects\stubby4j-7.6.0\src\functional-test\java\io\github\azagniotov\stubby4j",)       # stubby4j functional-test
+path_5 = (r"projects\stubby4j-7.6.0\src\integration-test\java\io\github\azagniotov\stubby4j",)      # stubby4j integration-test
+path_6 = (r"projects\stubby4j-7.6.0\src\load-test\java\io\github\azagniotov\stubby4j",)             # stubby4j load-test                                   
 
 # Mockito
 print("Exporting Mockito junit tests...", end="")
@@ -78,7 +81,10 @@ print("done!")
 
 # stubby4j
 print("Exporting stubby4j junit tests...", end="")
-export_junit_tests(path_3, "stubby4j-7.6.0")  
+export_junit_tests(path_3, "stubby4j-7.6.0")
+# export_junit_tests(path_4, "stubby4j-7.6.0-functional-test") 
+# export_junit_tests(path_5, "stubby4j-7.6.0-integration-test") 
+# export_junit_tests(path_6, "stubby4j-7.6.0-load-test") 
 print("done!")
 
 print("ALL DONE!")

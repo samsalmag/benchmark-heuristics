@@ -36,10 +36,10 @@ def generate_output(project1_input, project2_input, project3_input):
                
 
     for project in [project1_input, project2_input, project3_input]:
-        project_tests_path, jmhjar_name = project
+        project_tests_path, simple_project_name = project
         project_name = extract_project_name(project_tests_path)
         selected_tests = select_random_junit_tests(project_tests_path)
-        jmh_command = get_jmh_base_command(jmhjar_name)
+        jmh_command = get_jmh_base_command(simple_project_name)
 
 
         print(f"{project_name}...", end="")
@@ -70,13 +70,13 @@ def generate_output(project1_input, project2_input, project3_input):
             print("done!")
 
         # For benchmark-remover script
-        with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_BENCHMARKS_{date_str}-{time_str}.txt"), "w") as f:
-            for row_number, row_content in selected_tests:
-                method_name = row_content[row_content.rfind(".") + 1:]
-                row_content = row_content[:row_content.rfind(".")]
-                row_content = row_content.replace(".", "\\")          # Replace slashes with periods
-                row_content += ".java"
-                f.write(f"\n {row_content} {method_name}")
+        # with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_BENCHMARKS_{date_str}-{time_str}.txt"), "w") as f:
+        #    for row_number, row_content in selected_tests:
+        #        method_name = row_content[row_content.rfind(".") + 1:]
+        #        row_content = row_content[:row_content.rfind(".")]
+        #        row_content = row_content.replace(".", "\\")          # Replace slashes with periods
+        #        row_content += ".java"
+        #        f.write(f"\n {row_content} {method_name}")
 
     print("ALL DONE!")
 
@@ -88,8 +88,6 @@ def create_jmh_commands_txt(nrCommands, jmh_command):
         if '$' in word:
             jmh_base = ' '.join(words[:i])
             test_args = words[i:]
-            print("\n")
-            print(jmh_base)
             break
     
     # Create all smaller jmh commands
@@ -106,9 +104,9 @@ def create_jmh_commands_txt(nrCommands, jmh_command):
         jmh_commands[i] += ' '.join(test_args[start:end])
         start = end
 
-    jmhjar_name = words[2].replace('"', '')
+    jmhjar_name = words[2].replace('"', '').replace('-jmh-OPC.jar', '')
     for i, command in enumerate(jmh_commands):
-        with open(os.path.join(os.path.dirname(__file__), "output", f"{jmhjar_name}_jmh_command{i+1}.txt"), "w") as f:
+        with open(os.path.join(os.path.dirname(__file__), "output", f"{jmhjar_name}-OPC_jmh_command{i+1}.txt"), "w") as f:
             f.write(f"{command}")
 
  
@@ -136,18 +134,14 @@ def get_benchmark_path(unit_test_path):
         return unit_test_path
 
 # Get jmh base command (jmh command without selected junit tests) based on given jmh jar name
-def get_jmh_base_command(jmhjar_name):
-    return f"java -jar \"{jmhjar_name}\" -bm avgt -tu ms -f 5 -wi 5 -i 5 -r 100ms -foe false -o rxjava-output.txt"
+def get_jmh_base_command(project_name):
+    return f"java -jar \"{project_name}-jmh-OPC.jar\" -bm avgt -tu ns -f 5 -wi 5 -i 5 -r 100ms -foe false -o {project_name}-output.txt"
     
 
 project1_tests_path = r"scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
 project2_tests_path = r"scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
-project3_tests_path = r"scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
+project3_tests_path = r"scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j "src/test/" tests
 
-project1_jmhjar_name = "mockito-jmh.jar"
-project2_jmhjar_name = "rxjavaOPC.jar"
-project3_jmhjar_name = "stubby4j-jmh.jar"
-
-generate_output((project1_tests_path, project1_jmhjar_name), 
-                (project2_tests_path, project2_jmhjar_name), 
-                (project3_tests_path, project3_jmhjar_name))
+generate_output((project1_tests_path, "mockito"), 
+                (project2_tests_path, "rxjava"), 
+                (project3_tests_path, "stubby4j"))
