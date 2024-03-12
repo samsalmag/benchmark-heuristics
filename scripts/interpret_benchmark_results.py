@@ -1,5 +1,7 @@
 import os
 import statistics
+import re
+import json
 
 # removes the errors from inputted benchmark file and creates a new file
 def remove_errors_txt(file_path):
@@ -10,6 +12,19 @@ def remove_errors_txt(file_path):
         current_segment = []  # Buffer to store lines of the current benchmark segment
         contains_error = False  # Flag to indicate if the current benchmark segment contains an error
         in_summary = False  # Flag to indicate if the summary section has started
+
+        # -------- remove thread text, if present ----------------
+        # thread_pattern = r"^Thread\[.*?\n(?:  at .*\n)*(?:\r?\n)?"
+        # file_contents = infile.read()
+        # cleaned_text = re.sub(thread_pattern, "", file_contents, flags=re.MULTILINE)
+        # outfile.writelines(cleaned_text)
+
+        # -------- remove jdk warning text, if present ----------------
+        # jdk_warning_text = "OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended"
+        # pattern = re.escape(jdk_warning_text) + r"\s*"
+        # file_contents = infile.read()
+        # cleaned_text = re.sub(pattern, "", file_contents)
+        # outfile.writelines(cleaned_text)
 
         for line in infile:
             # Check if the summary starts
@@ -100,22 +115,36 @@ def get_rmad_all_benchmarks(benchmark_dict):
     sorted_rmad = sorted(rmad_benchmarks, key=lambda pair: pair[1])
     return sorted_rmad
 
+# Prints a warning if the dictionary doesn't have 5 forks, with each fork having 5 iterations
+def validate_benchmark_dictionary(benchmark_dict):
+    for key in benchmark_dict:
+        forkIndex = 0
+        for fork in benchmark_dict[key]:
+            forkIndex += 1
+            iterList = benchmark_dict[key][fork]
+            if len(iterList) != 5:
+                print("WARNING, NOT 5 ITERATIONS!!!")
+                print(benchmark_dict[key])
+                print(key)
+        if forkIndex != 5:
+            print("WARNING, NOT 5 FORKS!!!")
     
 root_path = r"benchmarks\results"
-rxjava_paths = [root_path + r"\rxjava-output1.txt", root_path + r"\rxjava-output2.txt", root_path + r"\rxjava-output3.txt"]
+file_paths_mockito = [root_path + r"\mockito-output1.txt", root_path + r"\mockito-output2.txt"]
+file_paths_rxjava = [root_path + r"\rxjava-output1.txt", root_path + r"\rxjava-output2.txt", root_path + r"\rxjava-output3.txt"]
 results = []
-for path in rxjava_paths:
+for path in file_paths_rxjava:
     remove_errors_txt(path)
     path_no_error_file = path.split(".")[0] +"_removed_errors.txt"
     results.append(read_results(path_no_error_file))
-    remove_file(path_no_error_file)
+    # remove_file(path_no_error_file)
 
 rxjava_dict = {}
 for dictionary in results:
     rxjava_dict.update(dictionary)
 
-
+validate_benchmark_dictionary(rxjava_dict) # check for incorrect structure in dict
 RMADs = get_rmad_all_benchmarks(rxjava_dict)
 
-# with open(root_path + r'\rxjava_dict.json', 'w') as json_file:
-#     json.dump(rxjava_dict, json_file)
+with open(root_path + r'\rxjava2_dict.json', 'w') as json_file:
+    json.dump(rxjava_dict, json_file)
