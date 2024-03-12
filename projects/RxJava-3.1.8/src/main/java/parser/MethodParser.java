@@ -119,6 +119,7 @@ public class MethodParser {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         ParsedMethod parsedMethod = new ParsedMethod();
 
+        // Add data to parsed method instance.
         parsedMethod.setMethodName(this.methodName);
         parsedMethod.setMethodCalls(getMethodCalls());
         parsedMethod.setObjectInstantiations(getObjectInstantiations());
@@ -128,8 +129,11 @@ public class MethodParser {
         parsedMethod.setNumNestedLoops(getNumNestedLoops());
         parsedMethod.setNumMethodCalls(getNumMethodCalls());
 
+        // Create wrapper for data, so desired formatting in json file is achieved.
         Map<String, ParsedMethod> wrapperMap = new HashMap<>();
         wrapperMap.put(this.methodName, parsedMethod);
+
+        // Create json file
         try {
             Writer writer = new FileWriter(filePath);
             gson.toJson(wrapperMap, writer);

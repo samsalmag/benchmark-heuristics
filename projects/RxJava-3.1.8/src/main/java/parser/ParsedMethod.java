@@ -3,6 +3,11 @@ package parser;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Data class for a parsed method. Only stores data.
+ *
+ * @author Sam Salek
+ */
 public class ParsedMethod {
 
     private String methodName;
