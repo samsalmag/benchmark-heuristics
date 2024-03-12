@@ -17,9 +17,10 @@ import com.github.javaparser.symbolsolver.reflectionmodel.ReflectionMethodDeclar
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -54,9 +55,9 @@ public class MethodParser {
 
     private boolean runComplete = false;
 
-    private int nConditionals = 0;
-    private int nLoops = 0;
-    private int nNestedLoops = 0;
+    private int numConditionals = 0;
+    private int numLoops = 0;
+    private int numNestedLoops = 0;
 
     /**
      * Creates a new instance of MethodParser.
@@ -110,6 +111,40 @@ public class MethodParser {
     }
 
     /**
+     * Exports a json file at filePath containing the parsed data of this parser's method.
+     *
+     * @param filePath Where to create the json file.
+     */
+    public void toJson(String filePath) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        ParsedMethod parsedMethod = new ParsedMethod();
+
+        // Add data to parsed method instance.
+        parsedMethod.setMethodName(this.methodName);
+        parsedMethod.setMethodCalls(getMethodCalls());
+        parsedMethod.setObjectInstantiations(getObjectInstantiations());
+        parsedMethod.setPackageAccesses(getPackageAccesses());
+        parsedMethod.setNumConditionals(getNumConditionals());
+        parsedMethod.setNumLoops(getNumLoops());
+        parsedMethod.setNumNestedLoops(getNumNestedLoops());
+        parsedMethod.setNumMethodCalls(getNumMethodCalls());
+
+        // Create wrapper for data, so desired formatting in json file is achieved.
+        Map<String, ParsedMethod> wrapperMap = new HashMap<>();
+        wrapperMap.put(this.methodName, parsedMethod);
+
+        // Create json file
+        try {
+            Writer writer = new FileWriter(filePath);
+            gson.toJson(wrapperMap, writer);
+            writer.close();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Gets all method calls within the method, recursively.
      *
      * @return A map containing all method calls and how many times it occurred.
@@ -144,8 +179,8 @@ public class MethodParser {
      *
      * @return An integer of number of conditionals.
      */
-    public int getConditionals() {
-        return nConditionals;
+    public int getNumConditionals() {
+        return numConditionals;
     }
 
     /**
@@ -153,8 +188,8 @@ public class MethodParser {
      *
      * @return An integer of number of loops.
      */
-    public int getLoops() {
-        return nLoops;
+    public int getNumLoops() {
+        return numLoops;
     }
 
     /**
@@ -162,8 +197,8 @@ public class MethodParser {
      *
      * @return An integer of number of nested loops.
      */
-    public int getNestedLoops() {
-        return nNestedLoops;
+    public int getNumNestedLoops() {
+        return numNestedLoops;
     }
 
     /**
@@ -171,7 +206,7 @@ public class MethodParser {
      *
      * @return An integer of number of method calls.
      */
-    public int getMethodCallsAmount() {
+    public int getNumMethodCalls() {
         return methodCalls.values().stream().mapToInt(v -> v).sum();
     }
 
@@ -248,9 +283,9 @@ public class MethodParser {
         findObjectInstantiations(methodDeclaration);
 
         // Count stats of method
-        nConditionals += MethodStatsExtractor.countConditionals(methodDeclaration);
-        nLoops += MethodStatsExtractor.countLoops(methodDeclaration);
-        nNestedLoops += MethodStatsExtractor.countNestedLoops(methodDeclaration);
+        numConditionals += MethodStatsExtractor.countConditionals(methodDeclaration);
+        numLoops += MethodStatsExtractor.countLoops(methodDeclaration);
+        numNestedLoops += MethodStatsExtractor.countNestedLoops(methodDeclaration);
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);

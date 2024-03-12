@@ -48,9 +48,10 @@ dependencies {
     implementation "org.testng:testng:$testNgVersion"
     implementation "com.google.guava:guava:$guavaVersion"
 
-    // JavaParser
+    // parser package (JavaParser & Gson)
     implementation 'com.github.javaparser:javaparser-core:3.25.0'
     implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.25.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 java {
