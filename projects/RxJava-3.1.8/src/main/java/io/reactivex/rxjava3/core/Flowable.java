@@ -8006,7 +8006,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
             }
             return FlowableScalarXMap.scalarXMap(v, mapper);
         }
-        return RxJavaPlugins.onAssembly(new FlowableConcatMap<>(this, mapper, prefetch, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new FlowableConcatMap<>(this, mapper, prefetch, temp));
     }
 
     /**
