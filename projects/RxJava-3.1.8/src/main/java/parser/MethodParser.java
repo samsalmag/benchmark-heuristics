@@ -53,9 +53,10 @@ public class MethodParser {
 
     private boolean runComplete = false;
 
-    private int numConditionals = 0;
-    private int numLoops = 0;
-    private int numNestedLoops = 0;
+    private int numConditionals;
+    private int numLoops;
+    private int numNestedLoops;
+    private int numLines;
 
     /**
      * Creates a new instance of MethodParser.
@@ -127,6 +128,7 @@ public class MethodParser {
         parsedMethod.setNumLoops(getNumLoops());
         parsedMethod.setNumNestedLoops(getNumNestedLoops());
         parsedMethod.setNumMethodCalls(getNumMethodCalls());
+        parsedMethod.setLinesOfCode(getNumLines());
 
         return parsedMethod;
     }
@@ -195,6 +197,15 @@ public class MethodParser {
      */
     public int getNumMethodCalls() {
         return methodCalls.values().stream().mapToInt(v -> v).sum();
+    }
+
+    /**
+     * Gets number of lines in the method, recursively.
+     *
+     * @return An integer of number of lines.
+     */
+    public int getNumLines() {
+        return numLines;
     }
 
     /**
@@ -273,6 +284,7 @@ public class MethodParser {
         numConditionals += MethodStatsExtractor.countConditionals(methodDeclaration);
         numLoops += MethodStatsExtractor.countLoops(methodDeclaration);
         numNestedLoops += MethodStatsExtractor.countNestedLoops(methodDeclaration);
+        numLines += MethodStatsExtractor.linesOfCode(methodDeclaration);
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);

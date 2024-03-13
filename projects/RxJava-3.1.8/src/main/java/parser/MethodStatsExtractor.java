@@ -94,4 +94,11 @@ public class MethodStatsExtractor {
         }
         return maxDepth;
     }
+
+    public static int linesOfCode(MethodDeclaration method) {
+        int startLine = method.getBegin().get().line;
+        int endLine = method.getEnd().get().line;
+
+        return endLine - startLine + 1;
+    }
 }

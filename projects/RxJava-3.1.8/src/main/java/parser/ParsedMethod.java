@@ -21,6 +21,7 @@ public class ParsedMethod {
     private int numLoops;
     private int numNestedLoops;
     private int numMethodCalls;
+    private int linesOfCode;
 
     public String getFilePath() {
         return filePath;
@@ -64,5 +65,9 @@ public class ParsedMethod {
 
     public void setNumMethodCalls(int numMethodCalls) {
         this.numMethodCalls = numMethodCalls;
+    }
+
+    public void setLinesOfCode(int linesOfCode) {
+        this.linesOfCode = linesOfCode;
     }
 }
