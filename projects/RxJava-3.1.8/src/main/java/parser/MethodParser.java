@@ -310,7 +310,16 @@ public class MethodParser {
                     // If true, get full path for the class that holds the called method. Then create a new compilation unit that parses that path.
                     // The parser finds and provides us the method declaration for the called method.
                     if (reflectionMethodDeclaration.toString().contains(projectTerm)) {
-                        String classPath = (reflectionMethodDeclaration.getPackageName() + "." + reflectionMethodDeclaration.getClassName()).replace(".", "\\");
+                        String packageName = reflectionMethodDeclaration.getPackageName();
+                        String className = reflectionMethodDeclaration.getClassName();
+
+                        // If there are dots in the class name, assume the last part is the nested class name and ignore it for the path
+                        String[] classNameParts = className.split("\\.");
+                        if (classNameParts.length > 1) {
+                            className = classNameParts[0]; // Use only the top-level class name
+                        }
+
+                        String classPath = (packageName + "." + className).replace(".", "\\");
                         String fullPath = BASE_MAIN_PATH + classPath + ".java";
                         CompilationUnit methodCu = PARSER.parse(new File(fullPath));
 
