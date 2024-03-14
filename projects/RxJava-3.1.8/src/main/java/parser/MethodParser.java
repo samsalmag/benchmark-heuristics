@@ -284,7 +284,7 @@ public class MethodParser {
         numConditionals += MethodStatsExtractor.countConditionals(methodDeclaration);
         numLoops += MethodStatsExtractor.countLoops(methodDeclaration);
         numNestedLoops += MethodStatsExtractor.countNestedLoops(methodDeclaration);
-        numLines += MethodStatsExtractor.linesOfCode(methodDeclaration);
+        numLines += MethodStatsExtractor.countLinesOfCode(methodDeclaration);
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);
