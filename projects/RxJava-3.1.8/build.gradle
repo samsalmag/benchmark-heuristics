@@ -10,6 +10,7 @@ plugins {
     id("biz.aQute.bnd.builder") version "6.4.0"
     id("com.vanniktech.maven.publish") version "0.19.0"
     id("org.beryx.jar") version "1.2.0"
+    id "org.sonarqube" version "4.2.1.3168"
 }
 
 ext {
