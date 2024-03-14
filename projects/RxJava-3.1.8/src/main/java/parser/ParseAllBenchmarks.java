@@ -53,8 +53,12 @@ public class ParseAllBenchmarks {
                 System.out.println(benchmarkPath);
                 System.out.println(method);
                 System.out.println("INDEX, RUN METHODS: " + i);
-                MethodParser parser1 = new MethodParser(benchmarkPath.toString(), method);
-                parser1.run();
+                MethodParser parser = new MethodParser(Integer.MAX_VALUE,
+                                            "projects\\RxJava-3.1.8\\src\\main\\java\\",
+                                             "projects\\RxJava-3.1.8\\src\\main\\java\\",
+                                              "rxjava");
+
+                parser.parse(benchmarkPath.toString(), method);
                 // print(parser1);
 
                 System.out.println("Ambigous list, size: " + MethodParser.ambigousList.size() + " list:" + MethodParser.ambigousList);
@@ -68,21 +72,22 @@ public class ParseAllBenchmarks {
     /**
      * REMOVE THIS LATER, TAKEN FROM Main.java
      */
-    public static void print(MethodParser parser) {
+    public static void print(ParsedMethod parsedMethod) {
         System.out.println("\nMETHOD CALLS");
-        parser.getMethodCalls().forEach((k ,v) -> System.out.println(k + ": " + v));
+        parsedMethod.getMethodCalls().forEach((k ,v) -> System.out.println(k + ": " + v));
 
         System.out.println("\nOBJECT INSTANTIATIONS");
-        parser.getObjectInstantiations().forEach((k ,v) -> System.out.println(k + ": " + v));
+        parsedMethod.getObjectInstantiations().forEach((k ,v) -> System.out.println(k + ": " + v));
 
         System.out.println("\nPACKAGE ACCESSES");
-        parser.getPackageAccesses().forEach((k ,v) -> System.out.println(k + ": " + v));
+        parsedMethod.getPackageAccesses().forEach((k ,v) -> System.out.println(k + ": " + v));
 
         System.out.println("\nSTATS");
-        System.out.println("Conditionals: " + parser.getNumConditionals());
-        System.out.println("Loops: " + parser.getNumLoops());
-        System.out.println("Nested loops: " + parser.getNumNestedLoops());
-        System.out.println("Method calls: " + parser.getNumMethodCalls());
+        System.out.println("Conditionals: " + parsedMethod.getNumConditionals());
+        System.out.println("Loops: " + parsedMethod.getNumLoops());
+        System.out.println("Nested loops: " + parsedMethod.getNumNestedLoops());
+        System.out.println("Method calls: " + parsedMethod.getNumMethodCalls());
+        System.out.println("Lines of code: " + parsedMethod.getLinesOfCode());
     }
 
     /**
