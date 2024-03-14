@@ -7,6 +7,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
+import com.github.javaparser.resolution.TypeSolver;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
@@ -31,60 +32,60 @@ import java.util.stream.Collectors;
  */
 public class MethodParser {
 
-    // Display debug prints or not.
-    private final boolean debug = false;
-
-    private final int MAX_DEPTH = Integer.MAX_VALUE; // Maximum recursion depth
-    private final String BASE_MAIN_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
-    private final String BASE_TEST_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
+    private final boolean debug = false;    // Display debug prints.
 
     private final ParserConfiguration PARSER_CONFIG;
     private final CombinedTypeSolver TYPE_SOLVER;
     private final JavaParserAdapter PARSER;
 
-    private final String filePath;
-    private final String methodName;
-    private final String projectTerm = "rxjava";    // This is used to figure out of method is within source code or a java lib.
-                                                    // Should reflect a unique package name within the project.
+    private final int maxDepth;           // Maximum recursion depth
+    private final String baseMainPath;
+    private final String baseTestPath;
+    private final String projectTerm;     // This is used to figure out of method is within source code or a java lib.
+                                          // Should reflect a unique package name within the project, e.g., "rxjava" for project RxJava.
 
-    private final Map<String, Integer> methodCalls = new HashMap<>();
-    private final Map<String, Integer> objectInstantiations = new HashMap<>();
-    private final Map<String, Integer> packageAccesses = new HashMap<>();
+    private ParsedMethod parsedMethod;
+    private Map<String, Integer> methodCalls = new HashMap<>();
+    private Map<String, Integer> objectInstantiations = new HashMap<>();
+    private Map<String, Integer> packageAccesses = new HashMap<>();
 
-    private boolean runComplete = false;
+    private boolean runComplete;
 
-    private int numConditionals;
-    private int numLoops;
-    private int numNestedLoops;
-    private int numLines;
-
-    /**
-     * Creates a new instance of MethodParser.
-     *
-     *
-     * @param filePath Path to the file where the method resides.
-     * @param methodName Name of the method.
-     */
-    public MethodParser(String filePath, String methodName) {
-        this.filePath = filePath;
-        this.methodName = methodName;
+    public MethodParser(int maxDepth, String baseMainPath, String baseTestPath, String projectTerm, TypeSolver... typeSolvers) {
+        this.maxDepth = maxDepth;
+        this.baseMainPath = baseMainPath;
+        this.baseTestPath = baseTestPath;
+        this.projectTerm = projectTerm;
 
         TYPE_SOLVER = new CombinedTypeSolver();
-        PARSER_CONFIG = new ParserConfiguration().setSymbolResolver(new JavaSymbolSolver(TYPE_SOLVER));
-
         TYPE_SOLVER.add(new ReflectionTypeSolver(false));
-        TYPE_SOLVER.add(new JavaParserTypeSolver(new File("E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java"), PARSER_CONFIG));
-        TYPE_SOLVER.add(new JavaParserTypeSolver(new File("E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\test\\java"), PARSER_CONFIG));
+        Arrays.stream(typeSolvers).forEach(TYPE_SOLVER::add);
+
+        PARSER_CONFIG = new ParserConfiguration().setSymbolResolver(new JavaSymbolSolver(TYPE_SOLVER));
 
         PARSER = JavaParserAdapter.of(new JavaParser(PARSER_CONFIG));
     }
 
+
+    public MethodParser(int maxDepth, String baseMainPath, String baseTestPath, String projectTerm) {
+        this(maxDepth, baseMainPath, baseTestPath, projectTerm,
+                new JavaParserTypeSolver(new File("projects\\RxJava-3.1.8\\src\\main\\java").getAbsoluteFile()),
+                new JavaParserTypeSolver(new File("projects\\RxJava-3.1.8\\src\\test\\java").getAbsoluteFile()));
+    }
+
     /**
-     * Runs the parser. Do this first before using any getters.
+     * Runs the parser.
      */
-    public void run() {
+    public ParsedMethod parse(String filePath, String methodName) {
+        resetValues();
+
+        // Add to ParsedMethod
+        String formattedPath = filePath.substring(filePath.indexOf("java\\") + "java\\".length()).trim();
+        parsedMethod.setFilePath(formattedPath);
+        parsedMethod.setMethodName(methodName);
+
+        // Parse the Java file
         try {
-            // Parse the Java file
             CompilationUnit cu = PARSER.parse(new File(filePath));
 
             // Find the method to start from
@@ -100,112 +101,28 @@ public class MethodParser {
             throw new RuntimeException(e);
         }
 
+        // Add last bits to ParsedMethod
+        parsedMethod.setMethodCalls(new HashMap<>(methodCalls));
+        parsedMethod.setObjectInstantiations(new HashMap<>(objectInstantiations));
+        parsedMethod.setPackageAccesses(new HashMap<>(packageAccesses));
+
+        runComplete = true;
+
         if (debug) {
             System.out.println("\n" + sortMapOutOfPlace(methodCalls));
             System.out.println("\n" + sortMapOutOfPlace(objectInstantiations));
             System.out.println("\n" + sortMapOutOfPlace(packageAccesses));
         }
 
-        runComplete = true;
-    }
-
-    /**
-     * Returns a ParsedMethod containing the data this parser extracted.
-     *
-     * @return A ParsedMethod instance.
-     */
-    public ParsedMethod toParsedMethod() {
-        ParsedMethod parsedMethod = new ParsedMethod();
-        String formattedPath = filePath.substring(filePath.indexOf("java\\") + "java\\".length()).trim();
-
-        // Add data to parsed method instance.
-        parsedMethod.setFilePath(formattedPath);
-        parsedMethod.setMethodName(this.methodName);
-        parsedMethod.setMethodCalls(getMethodCalls());
-        parsedMethod.setObjectInstantiations(getObjectInstantiations());
-        parsedMethod.setPackageAccesses(getPackageAccesses());
-        parsedMethod.setNumConditionals(getNumConditionals());
-        parsedMethod.setNumLoops(getNumLoops());
-        parsedMethod.setNumNestedLoops(getNumNestedLoops());
-        parsedMethod.setNumMethodCalls(getNumMethodCalls());
-        parsedMethod.setLinesOfCode(getNumLines());
-
         return parsedMethod;
     }
 
-    /**
-     * Gets all method calls within the method, recursively.
-     *
-     * @return A map containing all method calls and how many times it occurred.
-     */
-    public Map<String, Integer> getMethodCalls() {
-        if (!runComplete) throw new IllegalStateException("ERROR: Method not parsed yet! Use MethodParser.parse() first.");
-        return new HashMap<>(methodCalls);
-    }
-
-    /**
-     * Gets all object instantiations within the method, recursively.
-     *
-     * @return A map containing all object instantiations and how many times it occurred.
-     */
-    public Map<String, Integer> getObjectInstantiations() {
-        if (!runComplete) throw new IllegalStateException("ERROR: Method not parsed yet! Use MethodParser.parse() first.");
-        return new HashMap<>(objectInstantiations);
-    }
-
-    /**
-     * Gets all package accesses within the method, recursively.
-     *
-     * @return A map containing all package accesses and how many times it occurred.
-     */
-    public Map<String, Integer> getPackageAccesses() {
-        if (!runComplete) throw new IllegalStateException("ERROR: Method not parsed yet! Use MethodParser.parse() first.");
-        return new HashMap<>(packageAccesses);
-    }
-
-    /**
-     * Gets number of conditional statements in the method, recursively.
-     *
-     * @return An integer of number of conditionals.
-     */
-    public int getNumConditionals() {
-        return numConditionals;
-    }
-
-    /**
-     * Gets number of loops in the method, recursively.
-     *
-     * @return An integer of number of loops.
-     */
-    public int getNumLoops() {
-        return numLoops;
-    }
-
-    /**
-     * Gets number of nested loops in the method, recursively.
-     *
-     * @return An integer of number of nested loops.
-     */
-    public int getNumNestedLoops() {
-        return numNestedLoops;
-    }
-
-    /**
-     * Gets number of method calls in the method, recursively.
-     *
-     * @return An integer of number of method calls.
-     */
-    public int getNumMethodCalls() {
-        return methodCalls.values().stream().mapToInt(v -> v).sum();
-    }
-
-    /**
-     * Gets number of lines in the method, recursively.
-     *
-     * @return An integer of number of lines.
-     */
-    public int getNumLines() {
-        return numLines;
+    private void resetValues() {
+        this.parsedMethod = new ParsedMethod();
+        this.methodCalls = new HashMap<>();
+        this.objectInstantiations = new HashMap<>();
+        this.packageAccesses = new HashMap<>();
+        runComplete = false;
     }
 
     /**
@@ -272,7 +189,7 @@ public class MethodParser {
      *              Will not exceed MAX_DEPTH.
      */
     private void parseMethod(MethodDeclaration methodDeclaration, int depth) {
-        if (depth >= MAX_DEPTH) {
+        if (depth >= maxDepth) {
             System.out.println("MAXIMUM DEPTH REACHED FOR METHOD \"" + methodDeclaration.getNameAsString() + "\"");
             return;
         }
@@ -281,10 +198,10 @@ public class MethodParser {
         findObjectInstantiations(methodDeclaration);
 
         // Count stats of method
-        numConditionals += MethodStatsExtractor.countConditionals(methodDeclaration);
-        numLoops += MethodStatsExtractor.countLoops(methodDeclaration);
-        numNestedLoops += MethodStatsExtractor.countNestedLoops(methodDeclaration);
-        numLines += MethodStatsExtractor.countLinesOfCode(methodDeclaration);
+        parsedMethod.setNumConditionals(parsedMethod.getNumConditionals() + MethodStatsExtractor.countConditionals(methodDeclaration));
+        parsedMethod.setNumLoops(parsedMethod.getNumLoops() + MethodStatsExtractor.countLoops(methodDeclaration));
+        parsedMethod.setNumNestedLoops(parsedMethod.getNumNestedLoops() + MethodStatsExtractor.countNestedLoops(methodDeclaration));
+        parsedMethod.setLinesOfCode(parsedMethod.getLinesOfCode() + MethodStatsExtractor.countLinesOfCode(methodDeclaration));
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);
@@ -320,8 +237,8 @@ public class MethodParser {
                         }
 
                         String classPath = (packageName + "." + className).replace(".", "\\");
-                        String fullPath = BASE_MAIN_PATH + classPath + ".java";
-                        CompilationUnit methodCu = PARSER.parse(new File(fullPath));
+                        String fullPath = baseMainPath + classPath + ".java";
+                        CompilationUnit methodCu = PARSER.parse(new File(fullPath).getAbsoluteFile());
 
                         calledMethodDeclaration = methodCu
                                 .findAll(MethodDeclaration.class)
@@ -361,5 +278,10 @@ public class MethodParser {
             // Separate each recursion section, so it is easier to distinguish and read the debug print.
             if (debug && depth == 0) System.out.println();
         }
+    }
+
+    public ParsedMethod getParsedMethod() {
+        if (!runComplete) throw new IllegalStateException("ERROR: Method parsing not complete yet! Use MethodParser.parse() first or wait for parsing to complete.");
+        return parsedMethod;
     }
 }
