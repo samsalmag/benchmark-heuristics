@@ -7,6 +7,7 @@ import com.github.javaparser.ast.Node;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Class that takes in a method of type MethodDeclaration and returns a Map<String, Integer> of method stats.
@@ -95,10 +96,34 @@ public class MethodStatsExtractor {
         return maxDepth;
     }
 
-    public static int linesOfCode(MethodDeclaration method) {
-        int startLine = method.getBegin().get().line;
-        int endLine = method.getEnd().get().line;
+    public static int countLinesOfCode(MethodDeclaration method) {
+        int lines = 0;
+        if (method.getBegin().isPresent()) {
+            int startLine = method.getBegin().get().line;
+            int endLine = method.getEnd().get().line;
 
-        return endLine - startLine + 1;
+            if (startLine != endLine) {
+                BlockStmt body = method.getBody().orElse(null);
+                if (body == null) return 0;
+                String[] bodyLines = body.toString().split("\\r?\\n");
+
+                for (String bodyLine : bodyLines) {
+                    // Don't count some stuff
+                    if (bodyLine.trim().isEmpty() ||
+                        isJavaComment(bodyLine) ||
+                        bodyLine.trim().equals("{") ||
+                        bodyLine.trim().equals("}")) continue;
+                    lines++;
+                }
+            }
+        }
+        return lines;
+    }
+
+    // Check if java comment
+    private static boolean isJavaComment(String line) {
+        // Regex to match Java comments (single-line and multi-line)
+        String regex = "(//.*$)|(/\\*.*\\*/)";
+        return Pattern.matches(regex, line.trim());
     }
 }
