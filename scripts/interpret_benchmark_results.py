@@ -133,11 +133,11 @@ root_path = r"benchmarks\results"
 file_paths_mockito = [root_path + r"\mockito-output1.txt", root_path + r"\mockito-output2.txt"]
 file_paths_rxjava = [root_path + r"\rxjava-output1.txt", root_path + r"\rxjava-output2.txt", root_path + r"\rxjava-output3.txt"]
 results = []
-for path in file_paths_rxjava:
+for path in file_paths_mockito:
     remove_errors_txt(path)
     path_no_error_file = path.split(".")[0] +"_removed_errors.txt"
     results.append(read_results(path_no_error_file))
-    # remove_file(path_no_error_file)
+    remove_file(path_no_error_file)
 
 rxjava_dict = {}
 for dictionary in results:
@@ -146,5 +146,9 @@ for dictionary in results:
 validate_benchmark_dictionary(rxjava_dict) # check for incorrect structure in dict
 RMADs = get_rmad_all_benchmarks(rxjava_dict)
 
-with open(root_path + r'\rxjava2_dict.json', 'w') as json_file:
-    json.dump(rxjava_dict, json_file)
+with open(root_path + r'\mockito_RMAD.json', 'w') as json_file:
+    json.dump(RMADs, json_file)
+
+with open(root_path + r'\mockito_RMAD.json', 'r') as json_file:
+    inFile = json_file.read()
+    print(inFile)

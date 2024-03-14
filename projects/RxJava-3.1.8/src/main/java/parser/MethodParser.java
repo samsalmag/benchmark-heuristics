@@ -7,6 +7,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
+import com.github.javaparser.resolution.MethodAmbiguityException;
 import com.github.javaparser.resolution.TypeSolver;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
@@ -33,6 +34,11 @@ import java.util.stream.Collectors;
 public class MethodParser {
 
     private final boolean debug = false;    // Display debug prints.
+
+    public static List<String> ambigousList = new ArrayList<>();
+    public static List<String> noSuchElementList = new ArrayList<>();
+    public static List<String> unsupportedOperationList = new ArrayList<>();
+    public static List<String> concurrentModificationList = new ArrayList<>();
 
     private final ParserConfiguration PARSER_CONFIG;
     private final CombinedTypeSolver TYPE_SOLVER;
@@ -95,7 +101,25 @@ public class MethodParser {
                     .findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("ERROR: Method not found \"" + methodName + "\""));
 
-            parseMethod(startMethod, 0);
+            try {
+                parseMethod(startMethod, 0);
+            } catch (MethodAmbiguityException e) {
+                System.out.println("AMBIGUOUS METHOD CALL!!!#!#!");
+                ambigousList.add(filePath);
+            }
+            catch (NoSuchElementException e) {
+                System.out.println("NO SUCH ELEMENT EXCEPTION!!");
+                noSuchElementList.add(filePath);
+            }
+            catch (UnsupportedOperationException e) {
+                System.out.println("UnsupportedOperationException EXCEPTION!!");
+                unsupportedOperationList.add(filePath);
+            }
+            catch (ConcurrentModificationException e) {
+                System.out.println("concurrentModificationList EXCEPTION!!");
+                concurrentModificationList.add(filePath);
+            }
+
         }
         catch (FileNotFoundException e) {
             throw new RuntimeException(e);
