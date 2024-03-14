@@ -27,8 +27,8 @@ public class ParsedMethod {
         return filePath;
     }
 
-    public void setFilePath(String path) {
-        this.filePath = path;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public String getMethodName() {
@@ -39,32 +39,64 @@ public class ParsedMethod {
         this.methodName = methodName;
     }
 
+    public Map<String, Integer> getMethodCalls() {
+        return methodCalls;
+    }
+
     public void setMethodCalls(Map<String, Integer> methodCalls) {
         this.methodCalls = methodCalls;
+    }
+
+    public Map<String, Integer> getObjectInstantiations() {
+        return objectInstantiations;
     }
 
     public void setObjectInstantiations(Map<String, Integer> objectInstantiations) {
         this.objectInstantiations = objectInstantiations;
     }
 
+    public Map<String, Integer> getPackageAccesses() {
+        return packageAccesses;
+    }
+
     public void setPackageAccesses(Map<String, Integer> packageAccesses) {
         this.packageAccesses = packageAccesses;
+    }
+
+    public int getNumConditionals() {
+        return numConditionals;
     }
 
     public void setNumConditionals(int numConditionals) {
         this.numConditionals = numConditionals;
     }
 
+    public int getNumLoops() {
+        return numLoops;
+    }
+
     public void setNumLoops(int numLoops) {
         this.numLoops = numLoops;
+    }
+
+    public int getNumNestedLoops() {
+        return numNestedLoops;
     }
 
     public void setNumNestedLoops(int numNestedLoops) {
         this.numNestedLoops = numNestedLoops;
     }
 
+    public int getNumMethodCalls() {
+        return numMethodCalls;
+    }
+
     public void setNumMethodCalls(int numMethodCalls) {
         this.numMethodCalls = numMethodCalls;
+    }
+
+    public int getLinesOfCode() {
+        return linesOfCode;
     }
 
     public void setLinesOfCode(int linesOfCode) {
