@@ -7,6 +7,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
+import com.github.javaparser.resolution.MethodAmbiguityException;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
@@ -31,11 +32,16 @@ import java.util.stream.Collectors;
  */
 public class MethodParser {
 
+    public static List<String> ambigousList = new ArrayList<>();
+    public static List<String> noSuchElementList = new ArrayList<>();
+    public static List<String> unsupportedOperationList = new ArrayList<>();
+    public static List<String> concurrentModificationList = new ArrayList<>();
+
     // Display debug prints or not.
     private final boolean debug = false;
 
     private final int MAX_DEPTH = Integer.MAX_VALUE; // Maximum recursion depth
-    private final String BASE_MAIN_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
+    private final String BASE_MAIN_PATH = "C:\\Users\\super\\IntelliJ-projects\\MASTER\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
     private final String BASE_TEST_PATH = "E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java\\";
 
     private final ParserConfiguration PARSER_CONFIG;
@@ -72,8 +78,8 @@ public class MethodParser {
         PARSER_CONFIG = new ParserConfiguration().setSymbolResolver(new JavaSymbolSolver(TYPE_SOLVER));
 
         TYPE_SOLVER.add(new ReflectionTypeSolver(false));
-        TYPE_SOLVER.add(new JavaParserTypeSolver(new File("E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java"), PARSER_CONFIG));
-        TYPE_SOLVER.add(new JavaParserTypeSolver(new File("E:\\Chalmers\\DATX05-MastersThesis\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\test\\java"), PARSER_CONFIG));
+        TYPE_SOLVER.add(new JavaParserTypeSolver(new File("C:\\Users\\super\\IntelliJ-projects\\MASTER\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\main\\java"), PARSER_CONFIG));
+        TYPE_SOLVER.add(new JavaParserTypeSolver(new File("C:\\Users\\super\\IntelliJ-projects\\MASTER\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\test\\java"), PARSER_CONFIG));
 
         PARSER = JavaParserAdapter.of(new JavaParser(PARSER_CONFIG));
     }
@@ -93,7 +99,25 @@ public class MethodParser {
                     .findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("ERROR: Method not found \"" + methodName + "\""));
 
-            parseMethod(startMethod, 0);
+            try {
+                parseMethod(startMethod, 0);
+            } catch (MethodAmbiguityException e) {
+                System.out.println("AMBIGUOUS METHOD CALL!!!#!#!");
+                ambigousList.add(filePath);
+            }
+            catch (NoSuchElementException e) {
+                System.out.println("NO SUCH ELEMENT EXCEPTION!!");
+                noSuchElementList.add(filePath);
+            }
+            catch (UnsupportedOperationException e) {
+                System.out.println("UnsupportedOperationException EXCEPTION!!");
+                unsupportedOperationList.add(filePath);
+            }
+            catch (ConcurrentModificationException e) {
+                System.out.println("concurrentModificationList EXCEPTION!!");
+                concurrentModificationList.add(filePath);
+            }
+
         }
         catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -298,8 +322,16 @@ public class MethodParser {
                     // If true, get full path for the class that holds the called method. Then create a new compilation unit that parses that path.
                     // The parser finds and provides us the method declaration for the called method.
                     if (reflectionMethodDeclaration.toString().contains(projectTerm)) {
-                        String classPath = (reflectionMethodDeclaration.getPackageName() + "." + reflectionMethodDeclaration.getClassName()).replace(".", "\\");
+                        String packageName = reflectionMethodDeclaration.getPackageName();
+                        String className = reflectionMethodDeclaration.getClassName();
+                        String[] classNameParts = className.split("\\.");
+                        if (classNameParts.length > 1) {
+                            // If there are dots in the class name, assume the last part is the nested class name and ignore it for the path
+                            className = classNameParts[0]; // Use only the top-level class name
+                        }
+                        String classPath = (packageName + "." + className).replace(".", "\\");
                         String fullPath = BASE_MAIN_PATH + classPath + ".java";
+
                         CompilationUnit methodCu = PARSER.parse(new File(fullPath));
 
                         calledMethodDeclaration = methodCu
