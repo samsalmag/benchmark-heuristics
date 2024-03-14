@@ -1473,7 +1473,8 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
     public static <@NonNull T> Observable<T> concatDelayError(@NonNull ObservableSource<? extends ObservableSource<? extends T>> sources, int bufferSize, boolean tillTheEnd) {
         Objects.requireNonNull(sources, "sources is null");
         ObjectHelper.verifyPositive(bufferSize, "bufferSize is null");
-        return RxJavaPlugins.onAssembly(new ObservableConcatMap(sources, Functions.identity(), bufferSize, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new ObservableConcatMap(sources, Functions.identity(), bufferSize, temp));
     }
 
     /**
@@ -6975,7 +6976,8 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
             }
             return ObservableScalarXMap.scalarXMap(v, mapper);
         }
-        return RxJavaPlugins.onAssembly(new ObservableConcatMap<>(this, mapper, bufferSize, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new ObservableConcatMap<>(this, mapper, bufferSize, temp));
     }
 
     /**
@@ -7013,7 +7015,8 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(bufferSize, "bufferSize");
         Objects.requireNonNull(scheduler, "scheduler is null");
-        return RxJavaPlugins.onAssembly(new ObservableConcatMapScheduler<>(this, mapper, bufferSize, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, scheduler));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new ObservableConcatMapScheduler<>(this, mapper, bufferSize, temp, scheduler));
     }
 
     /**
@@ -7144,7 +7147,8 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(maxConcurrency, "maxConcurrency");
         ObjectHelper.verifyPositive(bufferSize, "bufferSize");
-        return RxJavaPlugins.onAssembly(new ObservableConcatMapEager<>(this, mapper, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, maxConcurrency, bufferSize));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new ObservableConcatMapEager<>(this, mapper, temp, maxConcurrency, bufferSize));
     }
 
     /**
@@ -7292,7 +7296,8 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
     public final Completable concatMapCompletableDelayError(@NonNull Function<? super T, ? extends CompletableSource> mapper, boolean tillTheEnd, int bufferSize) {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(bufferSize, "bufferSize");
-        return RxJavaPlugins.onAssembly(new ObservableConcatMapCompletable<>(this, mapper, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, bufferSize));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new ObservableConcatMapCompletable<>(this, mapper, temp, bufferSize));
     }
 
     /**
@@ -7481,7 +7486,8 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
     public final <@NonNull R> Observable<R> concatMapMaybeDelayError(@NonNull Function<? super T, ? extends MaybeSource<? extends R>> mapper, boolean tillTheEnd, int bufferSize) {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(bufferSize, "bufferSize");
-        return RxJavaPlugins.onAssembly(new ObservableConcatMapMaybe<>(this, mapper, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, bufferSize));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new ObservableConcatMapMaybe<>(this, mapper, temp, bufferSize));
     }
 
     /**
@@ -7642,7 +7648,8 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
     public final <@NonNull R> Observable<R> concatMapSingleDelayError(@NonNull Function<? super T, ? extends SingleSource<? extends R>> mapper, boolean tillTheEnd, int bufferSize) {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(bufferSize, "bufferSize");
-        return RxJavaPlugins.onAssembly(new ObservableConcatMapSingle<>(this, mapper, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, bufferSize));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new ObservableConcatMapSingle<>(this, mapper, temp, bufferSize));
     }
 
     /**

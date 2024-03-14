@@ -7920,7 +7920,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     public final Completable concatMapCompletableDelayError(@NonNull Function<? super T, ? extends CompletableSource> mapper, boolean tillTheEnd, int prefetch) {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(prefetch, "prefetch");
-        return RxJavaPlugins.onAssembly(new FlowableConcatMapCompletable<>(this, mapper, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, prefetch));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new FlowableConcatMapCompletable<>(this, mapper, temp, prefetch));
     }
 
     /**
@@ -8054,7 +8055,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(prefetch, "prefetch");
         Objects.requireNonNull(scheduler, "scheduler is null");
-        return RxJavaPlugins.onAssembly(new FlowableConcatMapScheduler<>(this, mapper, prefetch, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, scheduler));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new FlowableConcatMapScheduler<>(this, mapper, prefetch, temp, scheduler));
     }
 
     /**
@@ -8193,7 +8195,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(maxConcurrency, "maxConcurrency");
         ObjectHelper.verifyPositive(prefetch, "prefetch");
-        return RxJavaPlugins.onAssembly(new FlowableConcatMapEager<>(this, mapper, maxConcurrency, prefetch, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new FlowableConcatMapEager<>(this, mapper, maxConcurrency, prefetch, temp));
     }
 
     /**
@@ -8448,7 +8451,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     public final <@NonNull R> Flowable<R> concatMapMaybeDelayError(@NonNull Function<? super T, ? extends MaybeSource<? extends R>> mapper, boolean tillTheEnd, int prefetch) {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(prefetch, "prefetch");
-        return RxJavaPlugins.onAssembly(new FlowableConcatMapMaybe<>(this, mapper, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, prefetch));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new FlowableConcatMapMaybe<>(this, mapper, temp, prefetch));
     }
 
     /**
@@ -8638,7 +8642,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     public final <@NonNull R> Flowable<R> concatMapSingleDelayError(@NonNull Function<? super T, ? extends SingleSource<? extends R>> mapper, boolean tillTheEnd, int prefetch) {
         Objects.requireNonNull(mapper, "mapper is null");
         ObjectHelper.verifyPositive(prefetch, "prefetch");
-        return RxJavaPlugins.onAssembly(new FlowableConcatMapSingle<>(this, mapper, tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY, prefetch));
+        ErrorMode temp = tillTheEnd ? ErrorMode.END : ErrorMode.BOUNDARY;  // Ternary operators cause exceptions when directly used as arguments during parsing? Extracted ternary to temp variable to avoid exception.
+        return RxJavaPlugins.onAssembly(new FlowableConcatMapSingle<>(this, mapper, temp, prefetch));
     }
 
     /**
