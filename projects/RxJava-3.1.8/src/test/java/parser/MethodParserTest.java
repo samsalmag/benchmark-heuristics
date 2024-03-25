@@ -1,6 +1,5 @@
 package parser;
 
-import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,8 +16,8 @@ public class MethodParserTest {
     @BeforeClass
     public static void init() {
         PARSER = new MethodParser(Integer.MAX_VALUE, "src\\main\\java\\", "src\\test\\java\\", "rxjava",
-                                    new JavaParserTypeSolver(new File("src\\main\\java").getAbsoluteFile()),
-                                    new JavaParserTypeSolver(new File("src\\test\\java").getAbsoluteFile()));
+                                    new File("src\\main\\java"),
+                                    new File("src\\test\\java"));
     }
 
     @Test

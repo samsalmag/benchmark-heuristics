@@ -33,39 +33,65 @@ public class ParseAllBenchmarks {
         this.benchmarkMap = readJson();
     }
 
+    public void setupShutdownHook(JsonCreator jsonCreator) {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                jsonCreator.createJson();
+                System.out.println("Shutdown hook ran, created json file");
+            }));
+    }
+
     public void parseBenchmarks() {
-        for (int i = 0; i < benchmarkMap.size(); i++) {
-            if (i >= 0) {
+        JsonCreator jsonCreator = new JsonCreator("C:\\Users\\super\\IntelliJ-projects\\MASTER\\benchmark-heuristics\\benchmarks\\results\\parsedBenchmarks2.json");
+        setupShutdownHook(jsonCreator);
+        int successfulIndex = 0;
+        int iterationIndex = 0;
 
-                String benchmark = benchmarkMap.get(i).getKey();
-                int last_Index = benchmark.lastIndexOf('_');
-                String method = benchmark.substring(last_Index + 1);
+        try {
+            for (int i = 0; i < benchmarkMap.size(); i++) {
+                if (i >= 650) {
+                    iterationIndex += 1;
 
-                int secondLastDotIndex = benchmark.lastIndexOf('.', benchmark.lastIndexOf('.') - 1);
-                // Get the class path, each directory is currently separated by dots so have to use paths library to resolve path
-                String classPathDots = benchmark.substring(0, secondLastDotIndex);
-                String[] parts = classPathDots.split("\\.");
-                Path classPath = Paths.get("", parts);
+                    String benchmark = benchmarkMap.get(i).getKey();
+                    int last_Index = benchmark.lastIndexOf('_');
+                    String method = benchmark.substring(last_Index + 1);
 
-                Path base = Paths.get(BASE_TEST_PATH);
-                Path resolvedPath = base.resolve(classPath); // concatenate base path with class path
-                Path benchmarkPath = Paths.get(resolvedPath + ".java"); // add .java to file extension
-                System.out.println(benchmarkPath);
-                System.out.println(method);
-                System.out.println("INDEX, RUN METHODS: " + i);
-                MethodParser parser = new MethodParser(Integer.MAX_VALUE,
-                                            "projects\\RxJava-3.1.8\\src\\main\\java\\",
-                                             "projects\\RxJava-3.1.8\\src\\main\\java\\",
-                                              "rxjava");
+                    int secondLastDotIndex = benchmark.lastIndexOf('.', benchmark.lastIndexOf('.') - 1);
+                    // Get the class path, each directory is currently separated by dots so have to use paths library to resolve path
+                    String classPathDots = benchmark.substring(0, secondLastDotIndex);
+                    String[] parts = classPathDots.split("\\.");
+                    Path classPath = Paths.get("", parts);
 
-                parser.parse(benchmarkPath.toString(), method);
-                // print(parser1);
+                    Path base = Paths.get(BASE_TEST_PATH);
+                    Path resolvedPath = base.resolve(classPath); // concatenate base path with class path
+                    Path benchmarkPath = Paths.get(resolvedPath + ".java"); // add .java to file extension
+                    System.out.println(benchmarkPath);
+                    System.out.println(method);
+                    MethodParser parser = new MethodParser(Integer.MAX_VALUE,
+                            "projects\\RxJava-3.1.8\\src\\main\\java\\",
+                            "projects\\RxJava-3.1.8\\src\\main\\java\\",
+                            "rxjava");
 
-                System.out.println("Ambigous list, size: " + MethodParser.ambigousList.size() + " list:" + MethodParser.ambigousList);
-                System.out.println("noSuchElementList list, size: " + MethodParser.noSuchElementList.size() + " list:" + MethodParser.noSuchElementList);
-                System.out.println("unsupportedOperationList list, size: " + MethodParser.unsupportedOperationList.size() + " list:" + MethodParser.unsupportedOperationList);
-                System.out.println("concurrentModificationList list, size: " + MethodParser.concurrentModificationList.size() + " list:" + MethodParser.concurrentModificationList);
+                    ParsedMethod parsed = parser.parse(benchmarkPath.toString(), method);
+                    System.out.println("INDEX, RUN METHODS: " + (i + 1) + "/" + benchmarkMap.size());
+                    if (MethodParser.ambigousList.contains(benchmarkPath.toString()) || MethodParser.otherExceptionList.contains(benchmarkPath.toString()) || MethodParser.unsupportedOperationList.contains(benchmarkPath.toString()) || MethodParser.concurrentModificationList.contains(benchmarkPath.toString()) || MethodParser.noSuchElementList.contains(benchmarkPath.toString())) {
+                        System.out.println("INDEX, SUCCESSFUL RAN METHODS: " + successfulIndex + "/" + iterationIndex);
+                        continue;
+                    }
+                    Double RMAD = benchmarkMap.get(i).getValue();
+                    parsed.setRMAD(RMAD);
+                    jsonCreator.add(parsed);
+                    successfulIndex += 1;
+                    System.out.println("INDEX, SUCCESSFUL RAN METHODS: " + successfulIndex + "/" + iterationIndex);
+                }
             }
+        } finally {
+            System.out.println("Ambigous list, size: " + MethodParser.ambigousList.size() + " list:" + MethodParser.ambigousList);
+            System.out.println("noSuchElementList list, size: " + MethodParser.noSuchElementList.size() + " list:" + MethodParser.noSuchElementList);
+            System.out.println("unsupportedOperationList list, size: " + MethodParser.unsupportedOperationList.size() + " list:" + MethodParser.unsupportedOperationList);
+            System.out.println("concurrentModificationList list, size: " + MethodParser.concurrentModificationList.size() + " list:" + MethodParser.concurrentModificationList);
+            System.out.println("Other list, size: " + MethodParser.otherExceptionList.size() + " list:" + MethodParser.otherExceptionList);
+            // Create json file even if there's an exception
+            jsonCreator.createJson();
         }
     }
 
@@ -87,7 +113,12 @@ public class ParseAllBenchmarks {
         System.out.println("Loops: " + parsedMethod.getNumLoops());
         System.out.println("Nested loops: " + parsedMethod.getNumNestedLoops());
         System.out.println("Method calls: " + parsedMethod.getNumMethodCalls());
+        System.out.println("Recursive method calls: " + parsedMethod.getRecursiveMethodCalls());
         System.out.println("Lines of code: " + parsedMethod.getLinesOfCode());
+        System.out.println("Logical lines of code: " + parsedMethod.getLogicalLinesOfCode());
+        System.out.println("Lines of code (junit test): " + parsedMethod.getLinesOfCodeJunitTest());
+        System.out.println("Logical lines of code (junit test): " + parsedMethod.getLogicalLinesOfCodeJunitTest());
+        System.out.println("RMAD: " + parsedMethod.getRMAD());
     }
 
     /**

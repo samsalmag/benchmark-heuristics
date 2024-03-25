@@ -120,6 +120,26 @@ public class MethodStatsExtractor {
         return lines;
     }
 
+    public static int countLogicalLinesOfCode(MethodDeclaration method) {
+        if (!method.getBody().isPresent()) {
+               return 0;
+            }
+        BlockStmt body = method.getBody().get();
+        return countStatementsInBlock(body);
+    }
+
+    private static int countStatementsInBlock(Node node) {
+        int count = 0;
+        for (Node child : node.getChildNodes()) {
+                if (child instanceof com.github.javaparser.ast.stmt.Statement) {
+                        count++;
+                    }
+                count += countStatementsInBlock(child);
+            }
+        return count;
+    }
+
+
     // Check if java comment
     private static boolean isJavaComment(String line) {
         // Regex to match Java comments (single-line and multi-line)

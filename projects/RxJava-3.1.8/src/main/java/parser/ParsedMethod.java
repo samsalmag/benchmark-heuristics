@@ -21,7 +21,54 @@ public class ParsedMethod {
     private int numLoops;
     private int numNestedLoops;
     private int numMethodCalls;
-    private int linesOfCode;
+    private int linesOfCode; // counts physical lines of code
+    private int logicalLinesOfCode;
+    private int recursiveMethodCalls; // Non java lib calls
+    private int linesOfCodeJunitTest;
+
+    public double getRMAD() {
+        return RMAD;
+    }
+
+    public void setRMAD(double RMAD) {
+        this.RMAD = RMAD;
+    }
+
+    private double RMAD; // stability value
+
+    public int getLogicalLinesOfCodeJunitTest() {
+        return logicalLinesOfCodeJunitTest;
+    }
+
+    public void setLogicalLinesOfCodeJunitTest(int logicalLinesOfCodeJunitTest) {
+        this.logicalLinesOfCodeJunitTest = logicalLinesOfCodeJunitTest;
+    }
+
+    private int logicalLinesOfCodeJunitTest;
+
+    public int getLogicalLinesOfCode() {
+        return logicalLinesOfCode;
+    }
+
+    public void setLogicalLinesOfCode(int logicalLinesOfCode) {
+        this.logicalLinesOfCode = logicalLinesOfCode;
+    }
+
+    public int getRecursiveMethodCalls() {
+        return recursiveMethodCalls;
+    }
+
+    public void setRecursiveMethodCalls(int recursiveMethodCalls_NonJavaLib) {
+        this.recursiveMethodCalls = recursiveMethodCalls_NonJavaLib;
+    }
+
+    public int getLinesOfCodeJunitTest() {
+        return linesOfCodeJunitTest;
+    }
+
+    public void setLinesOfCodeJunitTest(int linesOfCodeJunitTest) {
+        this.linesOfCodeJunitTest = linesOfCodeJunitTest;
+    }
 
     public String getFilePath() {
         return filePath;

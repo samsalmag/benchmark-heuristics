@@ -103,8 +103,15 @@ def calculate_rmad_benchmark(forks_dict):
     # Computing distance between iteration times and median of all iterations
     deviations = [abs(time - median) for time in all_fork_iterations]
     MAD = statistics.median(deviations)
-    RMAD = MAD / median if median != 0 else 0
-    return RMAD
+    mad_coefficient = {
+        -1: 1.4826,
+        5: 1.803927,
+        10: 1.624681,
+        20: 1.545705,
+        30: 1.523031}
+    RMAD_new = (mad_coefficient[5] * MAD / median * 100)
+    # RMAD = MAD / median if median != 0 else 0
+    return RMAD_new
 
 # Calculates and returns a sorted list of pairs containing benchmarkname and its RMAD value
 def get_rmad_all_benchmarks(benchmark_dict):
@@ -130,23 +137,42 @@ def validate_benchmark_dictionary(benchmark_dict):
             print("WARNING, NOT 5 FORKS!!!")
     
 root_path = r"benchmarks\results"
-file_paths_mockito = [root_path + r"\mockito-output1.txt", root_path + r"\mockito-output2.txt"]
-file_paths_rxjava = [root_path + r"\rxjava-output1.txt", root_path + r"\rxjava-output2.txt", root_path + r"\rxjava-output3.txt"]
-results = []
-for path in file_paths_mockito:
-    remove_errors_txt(path)
-    path_no_error_file = path.split(".")[0] +"_removed_errors.txt"
-    results.append(read_results(path_no_error_file))
-    remove_file(path_no_error_file)
+# file_paths_mockito = [root_path + r"\mockito-output1.txt", root_path + r"\mockito-output2.txt"]
+# file_paths_rxjava = [root_path + r"\rxjava-output1.txt", root_path + r"\rxjava-output2.txt", root_path + r"\rxjava-output3.txt"]
+# results = []
+# for path in file_paths_rxjava:
+#     remove_errors_txt(path)
+#     path_no_error_file = path.split(".")[0] +"_removed_errors.txt"
+#     results.append(read_results(path_no_error_file))
+#     remove_file(path_no_error_file)
 
-rxjava_dict = {}
-for dictionary in results:
-    rxjava_dict.update(dictionary)
+# rxjava_dict = {}
+# for dictionary in results:
+#     rxjava_dict.update(dictionary)
 
-validate_benchmark_dictionary(rxjava_dict) # check for incorrect structure in dict
-RMADs = get_rmad_all_benchmarks(rxjava_dict)
+# validate_benchmark_dictionary(rxjava_dict) # check for incorrect structure in dict
+# RMADs = get_rmad_all_benchmarks(rxjava_dict)
 
-with open(root_path + r'\mockito_RMAD.json', 'w') as json_file:
+# with open(root_path + r'\mockito_RMAD.json', 'w') as json_file:
+#     json.dump(RMADs, json_file)
+
+with open(root_path + r'\rxjava_dict.json', 'r') as json_file:
+    # inFile = json_file.read()
+    inFile = json.load(json_file)
+
+RMADs = get_rmad_all_benchmarks(inFile)
+# import matplotlib.pyplot as plt
+# rmad_values = [pair[1] for pair in RMADs]
+# sorted_data = sorted(rmad_values)
+# plt.figure(figsize=(8, 6))
+# plt.hist(sorted_data, bins=20, color='skyblue', edgecolor='black')  # Adjust the number of bins as needed
+# plt.title('Distribution of RMAD Values')
+# plt.xlabel('RMAD')
+# plt.ylabel('Frequency')
+# plt.grid(True)
+# plt.show()
+
+with open(root_path + r'\rxjava_newer_RMAD.json', 'w') as json_file:
     json.dump(RMADs, json_file)
 
 with open(root_path + r'\mockito_RMAD.json', 'r') as json_file:

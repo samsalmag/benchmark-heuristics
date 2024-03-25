@@ -3,6 +3,9 @@ package parser;
 public class Main {
 
     public static void main(String[] args) {
+        ParseAllBenchmarks parseAllBenchmarks = new ParseAllBenchmarks("C:\\Users\\super\\IntelliJ-projects\\MASTER\\benchmark-heuristics\\benchmarks\\results\\rxjava_RMAD.json");
+        parseAllBenchmarks.parseBenchmarks();
+
         MethodParser parser = new MethodParser(Integer.MAX_VALUE,
                                     "projects\\RxJava-3.1.8\\src\\main\\java\\",
                                      "projects\\RxJava-3.1.8\\src\\main\\java\\",
