@@ -57,17 +57,17 @@ public class MethodParser {
 
     private boolean runComplete;
 
-    public MethodParser(int maxDepth, String baseMainPath, String baseTestPath, String projectTerm, TypeSolver... typeSolvers) {
+    public MethodParser(int maxDepth, String baseMainPath, String baseTestPath, String projectTerm, File... typeSolverPaths) {
         this.maxDepth = maxDepth;
         this.baseMainPath = baseMainPath;
         this.baseTestPath = baseTestPath;
         this.projectTerm = projectTerm;
 
         TYPE_SOLVER = new CombinedTypeSolver();
-        TYPE_SOLVER.add(new ReflectionTypeSolver(false));
-        Arrays.stream(typeSolvers).forEach(TYPE_SOLVER::add);
-
         PARSER_CONFIG = new ParserConfiguration().setSymbolResolver(new JavaSymbolSolver(TYPE_SOLVER));
+
+        TYPE_SOLVER.add(new ReflectionTypeSolver(false));
+        Arrays.stream(typeSolverPaths).forEach(t -> TYPE_SOLVER.add(new JavaParserTypeSolver(t, PARSER_CONFIG)));
 
         PARSER = JavaParserAdapter.of(new JavaParser(PARSER_CONFIG));
     }
@@ -75,8 +75,8 @@ public class MethodParser {
 
     public MethodParser(int maxDepth, String baseMainPath, String baseTestPath, String projectTerm) {
         this(maxDepth, baseMainPath, baseTestPath, projectTerm,
-                new JavaParserTypeSolver(new File("projects\\RxJava-3.1.8\\src\\main\\java").getAbsoluteFile()),
-                new JavaParserTypeSolver(new File("projects\\RxJava-3.1.8\\src\\test\\java").getAbsoluteFile()));
+                new File("projects\\RxJava-3.1.8\\src\\main\\java").getAbsoluteFile(),
+                new File("projects\\RxJava-3.1.8\\src\\test\\java").getAbsoluteFile());
     }
 
     /**
