@@ -39,6 +39,7 @@ public class MethodParser {
     public static List<String> noSuchElementList = new ArrayList<>();
     public static List<String> unsupportedOperationList = new ArrayList<>();
     public static List<String> concurrentModificationList = new ArrayList<>();
+    public static List<String> otherExceptionList = new ArrayList<>();
 
     private final ParserConfiguration PARSER_CONFIG;
     private final CombinedTypeSolver TYPE_SOLVER;
@@ -118,6 +119,10 @@ public class MethodParser {
             catch (ConcurrentModificationException e) {
                 System.out.println("concurrentModificationList EXCEPTION!!");
                 concurrentModificationList.add(filePath);
+            }
+            catch (Exception e) {
+                System.out.println("Other EXCEPTION!!");
+                otherExceptionList.add(filePath);
             }
 
         }
@@ -218,6 +223,11 @@ public class MethodParser {
             return;
         }
 
+        if (depth == 0) { // is JUnit test if depth is 0
+            parsedMethod.setLinesOfCodeJunitTest(parsedMethod.getLinesOfCodeJunitTest());
+            parsedMethod.setLogicalLinesOfCodeJunitTest(parsedMethod.getLogicalLinesOfCodeJunitTest());
+        }
+
         // Find any object instantiations inside the method
         findObjectInstantiations(methodDeclaration);
 
@@ -226,6 +236,7 @@ public class MethodParser {
         parsedMethod.setNumLoops(parsedMethod.getNumLoops() + MethodStatsExtractor.countLoops(methodDeclaration));
         parsedMethod.setNumNestedLoops(parsedMethod.getNumNestedLoops() + MethodStatsExtractor.countNestedLoops(methodDeclaration));
         parsedMethod.setLinesOfCode(parsedMethod.getLinesOfCode() + MethodStatsExtractor.countLinesOfCode(methodDeclaration));
+        parsedMethod.setLogicalLinesOfCode(parsedMethod.getLogicalLinesOfCode() + MethodStatsExtractor.countLogicalLinesOfCode(methodDeclaration));
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);
@@ -286,6 +297,7 @@ public class MethodParser {
                 // Continue finding method calls recursively if the called method is not from a java library.
                 if (!javaLibFile) {
                     if (debug) System.out.println("METHOD INVOCATION: " + resolvedMethodDeclaration.getQualifiedName());
+                    parsedMethod.setRecursiveMethodCalls(parsedMethod.getRecursiveMethodCalls() + 1); // increase non java lib method call stats
                     parseMethod(calledMethodDeclaration, depth + 1);
                 }
                 else {
