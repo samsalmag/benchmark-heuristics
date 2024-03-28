@@ -8,7 +8,6 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.resolution.MethodAmbiguityException;
-import com.github.javaparser.resolution.TypeSolver;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.declarations.ResolvedConstructorDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
@@ -240,6 +239,7 @@ public class MethodParser {
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);
+        parsedMethod.setNumMethodCalls(parsedMethod.getNumMethodCalls() + methodCallExprList.size());  // Add stat to parsed method
         for (MethodCallExpr callExpr : methodCallExprList) {
             boolean javaLibFile = false;
 
