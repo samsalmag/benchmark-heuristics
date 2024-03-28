@@ -3,8 +3,8 @@ package parser;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import jdk.internal.org.jline.utils.OSUtils;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -24,13 +24,12 @@ import java.nio.file.Paths;
  */
 public class ParseAllBenchmarks {
 
-    private final String BASE_TEST_PATH = "C:\\Users\\super\\IntelliJ-projects\\MASTER\\benchmark-heuristics\\projects\\RxJava-3.1.8\\src\\test\\java\\";
-    private List<SimpleEntry<String, Double>> benchmarkMap;
-    private String benchmarkJsonPath;
+    private final String baseTestPath;
+    private final List<SimpleEntry<String, Double>> benchmarkMap;
 
-    public ParseAllBenchmarks(String benchmarkJsonPath) {
-        this.benchmarkJsonPath = benchmarkJsonPath;
-        this.benchmarkMap = readJson();
+    public ParseAllBenchmarks(String baseTestPath, String benchmarkJsonPath) {
+        this.baseTestPath = baseTestPath;
+        this.benchmarkMap = readJson(benchmarkJsonPath);
     }
 
     public void setupShutdownHook(JsonCreator jsonCreator) {
@@ -40,64 +39,104 @@ public class ParseAllBenchmarks {
             }));
     }
 
-    public void parseBenchmarks() {
-        JsonCreator jsonCreator = new JsonCreator("C:\\Users\\super\\IntelliJ-projects\\MASTER\\benchmark-heuristics\\benchmarks\\results\\parsedBenchmarks2.json");
+    public void parseBenchmarks(String outputPath) {
+        parseBenchmarks(0, benchmarkMap.size() - 1, outputPath);
+    }
+
+    public void parseBenchmarks(int firstBenchmarkIndex, int lastBenchmarkIndex, String outputPath) {
+        // Check so indexes are in range, correct them if they are not
+        if (firstBenchmarkIndex < 0) firstBenchmarkIndex = 0;
+        if (lastBenchmarkIndex > benchmarkMap.size() - 1) lastBenchmarkIndex = benchmarkMap.size() - 1;
+
+
+        JsonCreator jsonCreator = new JsonCreator(outputPath);
         setupShutdownHook(jsonCreator);
         int successfulIndex = 0;
         int iterationIndex = 0;
 
         try {
-            for (int i = 0; i < benchmarkMap.size(); i++) {
-                if (i >= 650) {
-                    iterationIndex += 1;
+            for (int i = firstBenchmarkIndex; i <= lastBenchmarkIndex; i++) {
+                iterationIndex += 1;
 
-                    String benchmark = benchmarkMap.get(i).getKey();
-                    int last_Index = benchmark.lastIndexOf('_');
-                    String method = benchmark.substring(last_Index + 1);
+                String benchmark = benchmarkMap.get(i).getKey();
+                int last_Index = benchmark.lastIndexOf('_');
+                String method = benchmark.substring(last_Index + 1);
 
-                    int secondLastDotIndex = benchmark.lastIndexOf('.', benchmark.lastIndexOf('.') - 1);
-                    // Get the class path, each directory is currently separated by dots so have to use paths library to resolve path
-                    String classPathDots = benchmark.substring(0, secondLastDotIndex);
-                    String[] parts = classPathDots.split("\\.");
-                    Path classPath = Paths.get("", parts);
+                int secondLastDotIndex = benchmark.lastIndexOf('.', benchmark.lastIndexOf('.') - 1);
+                // Get the class path, each directory is currently separated by dots so have to use paths library to resolve path
+                String classPathDots = benchmark.substring(0, secondLastDotIndex);
+                String[] parts = classPathDots.split("\\.");
+                Path classPath = Paths.get("", parts);
 
-                    Path base = Paths.get(BASE_TEST_PATH);
-                    Path resolvedPath = base.resolve(classPath); // concatenate base path with class path
-                    Path benchmarkPath = Paths.get(resolvedPath + ".java"); // add .java to file extension
-                    System.out.println(benchmarkPath);
-                    System.out.println(method);
-                    MethodParser parser = new MethodParser(Integer.MAX_VALUE,
-                            "projects\\RxJava-3.1.8\\src\\main\\java\\",
-                            "projects\\RxJava-3.1.8\\src\\main\\java\\",
-                            "rxjava");
+                Path base = Paths.get(baseTestPath);
+                Path resolvedPath = base.resolve(classPath); // concatenate base path with class path
+                Path benchmarkPath = Paths.get(resolvedPath + ".java"); // add .java to file extension
+                System.out.println(benchmarkPath);
+                System.out.println(method);
+                MethodParser parser = new MethodParser(Integer.MAX_VALUE,
+                        "projects\\RxJava-3.1.8\\src\\main\\java\\",
+                        "projects\\RxJava-3.1.8\\src\\main\\java\\",
+                        "rxjava");
 
-                    ParsedMethod parsed = parser.parse(benchmarkPath.toString(), method);
-                    System.out.println("INDEX, RUN METHODS: " + (i + 1) + "/" + benchmarkMap.size());
-                    if (MethodParser.ambigousList.contains(benchmarkPath.toString()) || MethodParser.otherExceptionList.contains(benchmarkPath.toString()) || MethodParser.unsupportedOperationList.contains(benchmarkPath.toString()) || MethodParser.concurrentModificationList.contains(benchmarkPath.toString()) || MethodParser.noSuchElementList.contains(benchmarkPath.toString())) {
-                        System.out.println("INDEX, SUCCESSFUL RAN METHODS: " + successfulIndex + "/" + iterationIndex);
-                        continue;
-                    }
-                    Double RMAD = benchmarkMap.get(i).getValue();
-                    parsed.setRMAD(RMAD);
-                    jsonCreator.add(parsed);
-                    successfulIndex += 1;
+                ParsedMethod parsed = parser.parse(benchmarkPath.toString(), method);
+                System.out.println("INDEX, RUN METHODS: " + (i + 1) + "/" + benchmarkMap.size());
+                if (MethodParser.ambigousList.contains(benchmarkPath.toString()) ||
+                        MethodParser.otherExceptionList.contains(benchmarkPath.toString()) ||
+                        MethodParser.unsupportedOperationList.contains(benchmarkPath.toString()) ||
+                        MethodParser.concurrentModificationList.contains(benchmarkPath.toString()) ||
+                        MethodParser.noSuchElementList.contains(benchmarkPath.toString())) {
                     System.out.println("INDEX, SUCCESSFUL RAN METHODS: " + successfulIndex + "/" + iterationIndex);
+                    continue;
                 }
+                Double RMAD = benchmarkMap.get(i).getValue();
+                parsed.setRMAD(RMAD);
+                jsonCreator.add(parsed);
+                successfulIndex += 1;
+                System.out.println("INDEX, SUCCESSFUL RAN METHODS: " + successfulIndex + "/" + iterationIndex + "\n");
             }
-        } finally {
+        }
+        finally {
             System.out.println("Ambigous list, size: " + MethodParser.ambigousList.size() + " list:" + MethodParser.ambigousList);
             System.out.println("noSuchElementList list, size: " + MethodParser.noSuchElementList.size() + " list:" + MethodParser.noSuchElementList);
             System.out.println("unsupportedOperationList list, size: " + MethodParser.unsupportedOperationList.size() + " list:" + MethodParser.unsupportedOperationList);
             System.out.println("concurrentModificationList list, size: " + MethodParser.concurrentModificationList.size() + " list:" + MethodParser.concurrentModificationList);
             System.out.println("Other list, size: " + MethodParser.otherExceptionList.size() + " list:" + MethodParser.otherExceptionList);
+
             // Create json file even if there's an exception
             jsonCreator.createJson();
         }
     }
 
     /**
-     * REMOVE THIS LATER, TAKEN FROM Main.java
+     * Reads the given JSON file and converts it into a list of SimpleEntry<String, Double> objects,
+     * which is essentially a list of pairs.
+     *
+     * @return List of SimpleEntry<String, Double> objects.
      */
+    private List<SimpleEntry<String, Double>> readJson(String jsonPath) {
+        Gson gson = new Gson();
+        List<SimpleEntry<String, Double>> results = new ArrayList<>();
+
+        Type listType = new TypeToken<List<List<Object>>>(){}.getType();
+
+        try (FileReader reader = new FileReader(new File(jsonPath).getAbsoluteFile())) {
+            List<List<Object>> rawData = gson.fromJson(reader, listType);
+
+            for (List<Object> entry : rawData) {
+                String methodName = (String) entry.get(0);
+                double value = ((Number) entry.get(1)).doubleValue();
+                results.add(new SimpleEntry<>(methodName, value));
+            }
+
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return results;
+    }
+
+    /*
+    // REMOVE THIS LATER, TAKEN FROM Main.java
     public static void print(ParsedMethod parsedMethod) {
         System.out.println("\nMETHOD CALLS");
         parsedMethod.getMethodCalls().forEach((k ,v) -> System.out.println(k + ": " + v));
@@ -120,29 +159,5 @@ public class ParseAllBenchmarks {
         System.out.println("Logical lines of code (junit test): " + parsedMethod.getLogicalLinesOfCodeJunitTest());
         System.out.println("RMAD: " + parsedMethod.getRMAD());
     }
-
-    /**
-     * Reads the given JSON file and converts it into a list of SimpleEntry<String, Double> objects,
-     * which is essentially a list of pairs.
-     */
-    private List<SimpleEntry<String, Double>> readJson() {
-        Gson gson = new Gson();
-        List<SimpleEntry<String, Double>> results = new ArrayList<>();
-
-        Type listType = new TypeToken<List<List<Object>>>(){}.getType();
-
-        try (FileReader reader = new FileReader(benchmarkJsonPath)) {
-            List<List<Object>> rawData = gson.fromJson(reader, listType);
-
-            for (List<Object> entry : rawData) {
-                String methodName = (String) entry.get(0);
-                double value = ((Number) entry.get(1)).doubleValue();
-                results.add(new SimpleEntry<>(methodName, value));
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return results;
-    }
+    */
 }

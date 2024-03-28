@@ -3,6 +3,7 @@ package parser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -55,7 +56,7 @@ public class JsonCreator {
     public void createJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
-            Writer writer = new FileWriter(filePath);
+            Writer writer = new FileWriter(new File(filePath).getAbsoluteFile());
             gson.toJson(parsedMethodMap, writer);
             writer.close();
         }
