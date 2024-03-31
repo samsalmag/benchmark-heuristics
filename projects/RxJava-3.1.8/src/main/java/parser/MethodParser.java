@@ -223,23 +223,23 @@ public class MethodParser {
         }
 
         if (depth == 0) { // is JUnit test if depth is 0
-            parsedMethod.setLinesOfCodeJunitTest(parsedMethod.getLinesOfCodeJunitTest());
-            parsedMethod.setLogicalLinesOfCodeJunitTest(parsedMethod.getLogicalLinesOfCodeJunitTest());
+            parsedMethod.incrementLinesOfCodeJunitTest(MethodStatsExtractor.countLinesOfCode(methodDeclaration));
+            parsedMethod.incrementLogicalLinesOfCodeJunitTest(MethodStatsExtractor.countLogicalLinesOfCode(methodDeclaration));
         }
 
         // Find any object instantiations inside the method
         findObjectInstantiations(methodDeclaration);
 
         // Count stats of method
-        parsedMethod.setNumConditionals(parsedMethod.getNumConditionals() + MethodStatsExtractor.countConditionals(methodDeclaration));
-        parsedMethod.setNumLoops(parsedMethod.getNumLoops() + MethodStatsExtractor.countLoops(methodDeclaration));
-        parsedMethod.setNumNestedLoops(parsedMethod.getNumNestedLoops() + MethodStatsExtractor.countNestedLoops(methodDeclaration));
-        parsedMethod.setLinesOfCode(parsedMethod.getLinesOfCode() + MethodStatsExtractor.countLinesOfCode(methodDeclaration));
-        parsedMethod.setLogicalLinesOfCode(parsedMethod.getLogicalLinesOfCode() + MethodStatsExtractor.countLogicalLinesOfCode(methodDeclaration));
+        parsedMethod.incrementNumConditionals(MethodStatsExtractor.countConditionals(methodDeclaration));
+        parsedMethod.incrementNumLoops(MethodStatsExtractor.countLoops(methodDeclaration));
+        parsedMethod.incrementNumNestedLoops(MethodStatsExtractor.countNestedLoops(methodDeclaration));
+        parsedMethod.incrementLinesOfCode(MethodStatsExtractor.countLinesOfCode(methodDeclaration));
+        parsedMethod.incrementLogicalLinesOfCode(MethodStatsExtractor.countLogicalLinesOfCode(methodDeclaration));
 
         // Loop through all method calls in the provided methodDeclaration variable.
         List<MethodCallExpr> methodCallExprList = methodDeclaration.findAll(MethodCallExpr.class);
-        parsedMethod.setNumMethodCalls(parsedMethod.getNumMethodCalls() + methodCallExprList.size());  // Add stat to parsed method
+        parsedMethod.incrementNumMethodCalls(methodCallExprList.size());  // Add stat to parsed method
         for (MethodCallExpr callExpr : methodCallExprList) {
             boolean javaLibFile = false;
 
@@ -297,7 +297,7 @@ public class MethodParser {
                 // Continue finding method calls recursively if the called method is not from a java library.
                 if (!javaLibFile) {
                     if (debug) System.out.println("METHOD INVOCATION: " + resolvedMethodDeclaration.getQualifiedName());
-                    parsedMethod.setRecursiveMethodCalls(parsedMethod.getRecursiveMethodCalls() + 1); // increase non java lib method call stats
+                    parsedMethod.incrementNumRecursiveMethodCalls(1); // increase non java lib method call stats
                     parseMethod(calledMethodDeclaration, depth + 1);
                 }
                 else {
