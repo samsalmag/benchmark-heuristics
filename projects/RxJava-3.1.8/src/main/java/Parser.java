@@ -1,6 +1,7 @@
-package parser;
+import com.samsalek.benchmarkheuristics.parser.BenchmarkParser;
+import com.samsalek.benchmarkheuristics.parser.MethodParser;
 
-public class Main {
+public class Parser {
 
     public static void main(String[] args) {
 
@@ -19,7 +20,7 @@ public class Main {
             // parseAllBenchmarks.parseBenchmarks(parser, 261, 520, "benchmarks\\results\\parsedBenchmarks_test2.json");
             // parseAllBenchmarks.parseBenchmarks(parser, 521, 780, "benchmarks\\results\\parsedBenchmarks_test3.json");
 
-            parseAllBenchmarks.parseBenchmarks(parser, 10, 15, "benchmarks\\results\\parsedBenchmarks_test1.json");
+            parseAllBenchmarks.parseBenchmarks(parser, 70, 100, "benchmarks\\results\\parsedBenchmarks_test1.json");
         }
         else {
 
