@@ -54,6 +54,11 @@ dependencies {
     implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'
 }
 
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -186,6 +191,8 @@ checkstyle {
             "checkstyle.header.file"      : project.file("config/license/HEADER_JAVA")
     ]
 }
+checkstyleJmh.enabled = false
+checkstyleMain.enabled = false
 
 if (project.hasProperty("releaseMode")) {
     logger.lifecycle("ReleaseMode: {}", project.releaseMode)
