@@ -34,6 +34,14 @@ plugins {
 dependencies {
     implementation 'org.openjdk.jmh:jmh-core:1.33'
     implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.33'
+
+    // Our parser
+    implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'
+}
+
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 description = 'Mockito mock objects library core API and implementation'
@@ -60,6 +68,7 @@ allprojects { proj ->
     repositories {
         mavenCentral()
         google()
+        maven { url "https://jitpack.io" }
     }
     plugins.withId('java') {
         proj.apply from: "$rootDir/gradle/errorprone.gradle"
