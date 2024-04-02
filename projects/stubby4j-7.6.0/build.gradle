@@ -50,6 +50,18 @@ javadoc {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+
+    // Our parser
+    implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'
+}
+
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 apply from: "$rootDir/conf/gradle/dependencies.gradle"
