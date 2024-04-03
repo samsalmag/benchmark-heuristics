@@ -1,0 +1,986 @@
+{
+  "io.github.azagniotov.stubby4j.caching.NoOpStubHttpLifecycleCacheTest.clearByKey": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\caching\\NoOpStubHttpLifecycleCacheTest.java",
+    "methodName": "clearByKey",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 5,
+        "java.util.Optional.empty": 1,
+        "java.util.concurrent.atomic.AtomicInteger.decrementAndGet": 2,
+        "java.util.Map.containsKey": 5,
+        "io.github.azagniotov.stubby4j.caching.Cache.size": 3,
+        "org.ehcache.Cache.containsKey": 3,
+        "io.github.azagniotov.stubby4j.caching.Cache.cache": 7,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.getHttpStatusCode": 1,
+        "io.github.azagniotov.stubby4j.caching.Cache.clearByKey": 2,
+        "java.util.Map.get": 5,
+        "io.github.azagniotov.stubby4j.caching.Cache.putIfAbsent": 1,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 1,
+        "java.util.Map.clear": 1,
+        "java.util.Optional.ofNullable": 1,
+        "org.ehcache.Cache.get": 1,
+        "java.lang.Integer.parseInt": 1,
+        "org.eclipse.jetty.http.HttpStatus.getCode": 1,
+        "org.ehcache.Cache.remove": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.okResponse": 1,
+        "io.github.azagniotov.stubby4j.caching.Cache.get": 1,
+        "java.util.concurrent.atomic.AtomicInteger.incrementAndGet": 1,
+        "org.ehcache.Cache.put": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.caching.Cache.stubHttpLifecycleCache": 1
+      },
+      "objectInstantiations": {
+        "io.github.azagniotov.stubby4j.caching.NoOpStubHttpLifecycleCache": 1,
+        "java.util.LinkedHashMap": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder": 1,
+        "io.github.azagniotov.stubby4j.caching.StubHttpLifecycleCache": 1
+      },
+      "packageAccesses": {
+        "java.util": 14,
+        "java.lang": 1,
+        "java.util.concurrent.atomic": 3,
+        "io.github.azagniotov.stubby4j.stubs": 13,
+        "io.github.azagniotov.stubby4j.caching": 17,
+        "io.github.azagniotov.stubby4j.utils": 1,
+        "org.eclipse.jetty.http": 1,
+        "org.ehcache": 7
+      },
+      "numConditionals": 4,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 62,
+      "numRecursiveMethodCalls": 25,
+      "linesOfCode": 55,
+      "linesOfCodeJunitTest": 7,
+      "logicalLinesOfCode": 59,
+      "logicalLinesOfCodeJunitTest": 7
+    },
+    "stabilityMetricValue": 6.499000000000024
+  },
+  "io.github.azagniotov.stubby4j.stubs.StubRepositoryTest.shouldFailDeletingDefaultProxyConfigByUuid": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\StubRepositoryTest.java",
+    "methodName": "shouldFailDeletingDefaultProxyConfigByUuid",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.StubRepository.resetStubsCache": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder.withUUID": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotBlank": 3,
+        "io.github.azagniotov.stubby4j.stubs.StubRepository.loadProxyConfigsWithOptionalThrow": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder.withResponse": 1,
+        "io.github.azagniotov.stubby4j.caching.Cache.cache": 4,
+        "java.util.Collections.singletonList": 2,
+        "java.lang.Iterable.forEach": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isSet": 3,
+        "java.util.Map.get": 22,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.getResponses": 2,
+        "java.util.Map.isEmpty": 2,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 5,
+        "java.lang.String.equals": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.toLower": 2,
+        "java.util.concurrent.ConcurrentHashMap.clear": 6,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.addResourceIDHeader": 2,
+        "java.util.Map.put": 3,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.getUUID": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isBlank": 3,
+        "java.util.concurrent.atomic.AtomicInteger.set": 4,
+        "java.util.Map.clear": 4,
+        "java.util.LinkedList.add": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.withStrategy": 1,
+        "org.eclipse.jetty.http.HttpStatus.getCode": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.okResponse": 1,
+        "java.util.List.get": 2,
+        "java.lang.CharSequence.charAt": 3,
+        "io.github.azagniotov.stubby4j.stubs.StubRepository.getProxyConfigs": 1,
+        "java.util.concurrent.ConcurrentHashMap.putAll": 6,
+        "java.lang.CharSequence.length": 3,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotSet": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.length": 3,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlParseResultSet.getWebSocketConfigs": 2,
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 21,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyStrategy.ofNullableProperty": 1,
+        "org.ehcache.Cache.clear": 4,
+        "io.github.azagniotov.stubby4j.stubs.StubRepository.canMatchProxyConfigByUuid": 1,
+        "java.util.Map.containsKey": 23,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest.Builder.withUrl": 1,
+        "io.github.azagniotov.stubby4j.caching.Cache.size": 4,
+        "java.util.List.addAll": 2,
+        "java.util.concurrent.ConcurrentHashMap.remove": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.getHttpStatusCode": 2,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.reset": 1,
+        "java.util.List.clear": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder.withRequest": 1,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNotNull": 3,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlParseResultSet.getStubs": 2,
+        "java.util.Map.size": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubRepository.deleteProxyConfigByUuid": 1,
+        "java.util.concurrent.ConcurrentHashMap.containsKey": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest.Builder.withMethod": 1,
+        "java.lang.String.toLowerCase": 2,
+        "java.lang.Character.isWhitespace": 3,
+        "java.util.List.add": 1,
+        "io.github.azagniotov.stubby4j.yaml.ConfigurableYAMLProperty.toString": 1,
+        "java.util.Optional.ofNullable": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlParseResultSet.getUuidToStubs": 2,
+        "java.util.HashMap.put": 2,
+        "java.lang.Integer.parseInt": 2,
+        "io.github.azagniotov.generics.TypeSafeConverter.asCheckedLinkedList": 2,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.withPropertyEndpoint": 1,
+        "java.util.Optional.orElseThrow": 1,
+        "java.util.List.size": 2,
+        "java.lang.String.valueOf": 2,
+        "io.github.azagniotov.stubby4j.yaml.YamlParseResultSet.getProxyConfigs": 2,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.getUUID": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.setResourceId": 2,
+        "io.github.azagniotov.stubby4j.caching.Cache.clear": 4,
+        "io.github.azagniotov.stubby4j.stubs.StubRepository.updateResourceIDHeaders": 2,
+        "java.lang.Throwable.getMessage": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.build": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.getHeaders": 2
+      },
+      "objectInstantiations": {
+        "java.lang.IllegalStateException": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder": 2,
+        "io.github.azagniotov.stubby4j.yaml.YamlParseResultSet": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder": 1,
+        "java.util.HashMap": 7,
+        "java.lang.IllegalArgumentException": 3,
+        "java.util.ArrayList": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest.Builder": 1,
+        "java.util.LinkedHashMap": 8,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig": 1,
+        "java.util.LinkedList": 5,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest": 1
+      },
+      "packageAccesses": {
+        "java.util": 92,
+        "java.util.concurrent": 14,
+        "java.util.concurrent.atomic": 4,
+        "io.github.azagniotov.stubby4j.stubs": 59,
+        "io.github.azagniotov.stubby4j.caching": 12,
+        "org.eclipse.jetty.http": 2,
+        "io.github.azagniotov.stubby4j.yaml": 10,
+        "java.lang": 24,
+        "io.github.azagniotov.stubby4j.utils": 24,
+        "io.github.azagniotov.generics": 2,
+        "io.github.azagniotov.stubby4j.stubs.proxy": 8,
+        "org.ehcache": 4
+      },
+      "numConditionals": 17,
+      "numLoops": 5,
+      "numNestedLoops": 0,
+      "numMethodCalls": 255,
+      "numRecursiveMethodCalls": 102,
+      "linesOfCode": 248,
+      "linesOfCodeJunitTest": 20,
+      "logicalLinesOfCode": 273,
+      "logicalLinesOfCodeJunitTest": 20
+    },
+    "stabilityMetricValue": 53808.29000000004
+  },
+  "io.github.azagniotov.stubby4j.utils.HandlerUtilsTest.shouldEscapeHtmlEntities": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\utils\\HandlerUtilsTest.java",
+    "methodName": "shouldEscapeHtmlEntities",
+    "stats": {
+      "methodCalls": {
+        "java.lang.String.replaceAll": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.escapeHtmlEntities": 1
+      },
+      "objectInstantiations": {},
+      "packageAccesses": {
+        "java.lang": 2,
+        "io.github.azagniotov.stubby4j.utils": 1
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 5,
+      "numRecursiveMethodCalls": 1,
+      "linesOfCode": 4,
+      "linesOfCodeJunitTest": 3,
+      "logicalLinesOfCode": 4,
+      "logicalLinesOfCodeJunitTest": 3
+    },
+    "stabilityMetricValue": 9.423999999999978
+  },
+  "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest.shouldReturnDescription_WhenDescription": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\StubHttpLifecycleBuilderTest.java",
+    "methodName": "shouldReturnDescription_WhenDescription",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 5,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder.withDescription": 1,
+        "java.util.Map.clear": 1,
+        "java.util.Map.containsKey": 5,
+        "java.lang.Integer.parseInt": 1,
+        "org.eclipse.jetty.http.HttpStatus.getCode": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.getHttpStatusCode": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.okResponse": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.getDescription": 1,
+        "java.util.Map.get": 5,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.build": 1
+      },
+      "objectInstantiations": {
+        "java.util.LinkedHashMap": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycle": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder": 1
+      },
+      "packageAccesses": {
+        "java.util": 12,
+        "java.lang": 1,
+        "io.github.azagniotov.stubby4j.stubs": 14,
+        "io.github.azagniotov.stubby4j.utils": 1,
+        "org.eclipse.jetty.http": 1
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 33,
+      "numRecursiveMethodCalls": 12,
+      "linesOfCode": 35,
+      "linesOfCodeJunitTest": 2,
+      "logicalLinesOfCode": 35,
+      "logicalLinesOfCodeJunitTest": 2
+    },
+    "stabilityMetricValue": 3.1820000000000164
+  },
+  "io.github.azagniotov.stubby4j.utils.CollectionUtilsTest.chunkifyByteArrayAndQueue": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\utils\\CollectionUtilsTest.java",
+    "methodName": "chunkifyByteArrayAndQueue",
+    "stats": {
+      "methodCalls": {
+        "java.util.Collection.isEmpty": 1,
+        "java.lang.String.getBytes": 1,
+        "java.util.concurrent.BlockingQueue.add": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.encodeBase16": 2,
+        "java.util.Queue.poll": 1,
+        "java.nio.ByteBuffer.wrap": 1,
+        "java.lang.StringBuilder.append": 4,
+        "java.lang.StringBuilder.toString": 2,
+        "java.lang.Math.min": 1,
+        "java.nio.ByteBuffer.array": 1,
+        "java.nio.ByteBuffer.put": 1,
+        "java.nio.ByteBuffer.allocate": 1,
+        "java.lang.String.toCharArray": 2,
+        "io.github.azagniotov.stubby4j.utils.CollectionUtils.chunkifyByteArrayAndQueue": 1,
+        "java.util.Arrays.copyOfRange": 1
+      },
+      "objectInstantiations": {
+        "java.util.concurrent.ArrayBlockingQueue": 1,
+        "java.lang.StringBuilder": 2,
+        "java.lang.String": 1
+      },
+      "packageAccesses": {
+        "java.lang": 13,
+        "java.util": 3,
+        "io.github.azagniotov.stubby4j.utils": 3,
+        "java.nio": 4,
+        "java.util.concurrent": 2
+      },
+      "numConditionals": 0,
+      "numLoops": 2,
+      "numNestedLoops": 0,
+      "numMethodCalls": 27,
+      "numRecursiveMethodCalls": 3,
+      "linesOfCode": 28,
+      "linesOfCodeJunitTest": 10,
+      "logicalLinesOfCode": 32,
+      "logicalLinesOfCodeJunitTest": 11
+    },
+    "stabilityMetricValue": 89.21199999999953
+  },
+  "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest.returnsBodyAsExpectedBytesWhenOnlyFileStubbed": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\websocket\\StubWebSocketServerResponseTest.java",
+    "methodName": "returnsBodyAsExpectedBytesWhenOnlyFileStubbed",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 5,
+        "java.lang.String.trim": 1,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponse.getBodyAsBytes": 1,
+        "java.lang.String.getBytes": 2,
+        "java.lang.System.currentTimeMillis": 1,
+        "java.util.Map.clear": 1,
+        "java.util.Map.containsKey": 5,
+        "java.io.File.createTempFile": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.getBytesUtf8": 2,
+        "java.io.Writer.write": 1,
+        "io.github.azagniotov.stubby4j.utils.FileUtils.tempFileFromString": 1,
+        "java.io.File.deleteOnExit": 1,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponse.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.charsetUTF8": 2,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponse.Builder.withFile": 1,
+        "java.util.Map.get": 5,
+        "java.lang.Long.parseLong": 1,
+        "java.lang.String.equals": 1,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponse.Builder.reset": 1
+      },
+      "objectInstantiations": {
+        "java.io.FileWriter": 1,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponse": 1,
+        "java.io.BufferedWriter": 1
+      },
+      "packageAccesses": {
+        "java.util": 11,
+        "java.lang": 6,
+        "java.io": 5,
+        "io.github.azagniotov.stubby4j.stubs.websocket": 5,
+        "io.github.azagniotov.stubby4j.stubs": 5,
+        "io.github.azagniotov.stubby4j.utils": 5
+      },
+      "numConditionals": 1,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 41,
+      "numRecursiveMethodCalls": 14,
+      "linesOfCode": 38,
+      "linesOfCodeJunitTest": 2,
+      "logicalLinesOfCode": 39,
+      "logicalLinesOfCodeJunitTest": 2
+    },
+    "stabilityMetricValue": 690.1460000000079
+  },
+  "io.github.azagniotov.stubby4j.stubs.StubMatcherTest.arraysIntersect_ShouldReturnTrue_WhenTwoArraysHaveTheSameElements": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\StubMatcherTest.java",
+    "methodName": "arraysIntersect_ShouldReturnTrue_WhenTwoArraysHaveTheSameElements",
+    "stats": {
+      "methodCalls": {
+        "java.util.List.contains": 1,
+        "java.util.ArrayList.add": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubMatcher.listsIntersect": 1,
+        "java.util.List.isEmpty": 2
+      },
+      "objectInstantiations": {
+        "java.util.ArrayList": 2
+      },
+      "packageAccesses": {
+        "java.util": 7,
+        "io.github.azagniotov.stubby4j.stubs": 1
+      },
+      "numConditionals": 3,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 8,
+      "numRecursiveMethodCalls": 1,
+      "linesOfCode": 13,
+      "linesOfCodeJunitTest": 6,
+      "logicalLinesOfCode": 17,
+      "logicalLinesOfCodeJunitTest": 6
+    },
+    "stabilityMetricValue": 2.288000000000011
+  },
+  "io.github.azagniotov.stubby4j.utils.StringUtilsTest.shouldRemoveEncodedSquareBracketsFromString": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\utils\\StringUtilsTest.java",
+    "methodName": "shouldRemoveEncodedSquareBracketsFromString",
+    "stats": {
+      "methodCalls": {
+        "java.lang.String.replaceAll": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.removeSquareBrackets": 1
+      },
+      "objectInstantiations": {},
+      "packageAccesses": {
+        "java.lang": 1,
+        "io.github.azagniotov.stubby4j.utils": 1
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 4,
+      "numRecursiveMethodCalls": 1,
+      "linesOfCode": 5,
+      "linesOfCodeJunitTest": 4,
+      "logicalLinesOfCode": 5,
+      "logicalLinesOfCodeJunitTest": 4
+    },
+    "stabilityMetricValue": 16.235999999999876
+  },
+  "io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest.stubbedProxyConfigAsYaml": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\StubProxyConfigBuilderTest.java",
+    "methodName": "stubbedProxyConfigAsYaml",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 5,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.getProxyConfigAsYAML": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyStrategy.ofNullableProperty": 1,
+        "java.util.Map.containsKey": 5,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.withProxyConfigAsYAML": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotBlank": 2,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.reset": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.withProperty": 1,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNotNull": 2,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isSet": 2,
+        "java.util.Map.get": 6,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.toLower": 2,
+        "java.lang.String.toLowerCase": 2,
+        "java.util.Map.put": 2,
+        "java.lang.Character.isWhitespace": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isBlank": 2,
+        "java.util.Map.clear": 1,
+        "io.github.azagniotov.stubby4j.yaml.ConfigurableYAMLProperty.toString": 1,
+        "java.util.Optional.ofNullable": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.withStrategy": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.withPropertyEndpoint": 1,
+        "java.util.Optional.orElseThrow": 1,
+        "java.lang.CharSequence.charAt": 2,
+        "java.lang.CharSequence.length": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotSet": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.length": 2,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig.Builder.withUuid": 1
+      },
+      "objectInstantiations": {
+        "java.util.LinkedHashMap": 2,
+        "java.lang.IllegalArgumentException": 1,
+        "io.github.azagniotov.stubby4j.stubs.proxy.StubProxyConfig": 1
+      },
+      "packageAccesses": {
+        "java.util": 18,
+        "java.lang": 9,
+        "io.github.azagniotov.stubby4j.stubs": 5,
+        "io.github.azagniotov.stubby4j.utils": 16,
+        "io.github.azagniotov.stubby4j.stubs.proxy": 10,
+        "io.github.azagniotov.stubby4j.yaml": 1
+      },
+      "numConditionals": 6,
+      "numLoops": 2,
+      "numNestedLoops": 0,
+      "numMethodCalls": 64,
+      "numRecursiveMethodCalls": 31,
+      "linesOfCode": 67,
+      "linesOfCodeJunitTest": 2,
+      "logicalLinesOfCode": 76,
+      "logicalLinesOfCodeJunitTest": 2
+    },
+    "stabilityMetricValue": 4.907999999999902
+  },
+  "io.github.azagniotov.stubby4j.server.ssl.LanIPv4ValidatorTest.isNotPrivateIp": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\server\\ssl\\LanIPv4ValidatorTest.java",
+    "methodName": "isNotPrivateIp",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.server.ssl.LanIPv4Validator.isPrivateIp": 7,
+        "java.util.regex.Matcher.matches": 7,
+        "java.util.regex.Pattern.matcher": 7
+      },
+      "objectInstantiations": {},
+      "packageAccesses": {
+        "io.github.azagniotov.stubby4j.server.ssl": 7,
+        "java.util.regex": 14
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 35,
+      "numRecursiveMethodCalls": 7,
+      "linesOfCode": 14,
+      "linesOfCodeJunitTest": 7,
+      "logicalLinesOfCode": 14,
+      "logicalLinesOfCodeJunitTest": 7
+    },
+    "stabilityMetricValue": 21.908999999999878
+  },
+  "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketMessageTypeTest.returnsTrueOnKnownProperties": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\websocket\\StubWebSocketMessageTypeTest.java",
+    "methodName": "returnsTrueOnKnownProperties",
+    "stats": {
+      "methodCalls": {
+        "java.lang.String.toLowerCase": 2,
+        "java.lang.Character.isWhitespace": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isBlank": 2,
+        "java.util.Map.containsKey": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotBlank": 2,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketMessageType.isUnknownProperty": 2,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNotNull": 2,
+        "java.lang.CharSequence.charAt": 2,
+        "java.lang.CharSequence.length": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isSet": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotSet": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.length": 2,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.toLower": 2
+      },
+      "objectInstantiations": {},
+      "packageAccesses": {
+        "java.util": 2,
+        "java.lang": 8,
+        "io.github.azagniotov.stubby4j.utils": 16,
+        "io.github.azagniotov.stubby4j.stubs.websocket": 2
+      },
+      "numConditionals": 6,
+      "numLoops": 2,
+      "numNestedLoops": 0,
+      "numMethodCalls": 32,
+      "numRecursiveMethodCalls": 18,
+      "linesOfCode": 36,
+      "linesOfCodeJunitTest": 2,
+      "logicalLinesOfCode": 44,
+      "logicalLinesOfCodeJunitTest": 2
+    },
+    "stabilityMetricValue": 2.270999999999958
+  },
+  "io.github.azagniotov.stubby4j.stubs.RegexParserTest.shouldMatchSubjectWithMultiline": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\RegexParserTest.java",
+    "methodName": "shouldMatchSubjectWithMultiline",
+    "stats": {
+      "methodCalls": {
+        "java.lang.String.trim": 3,
+        "java.util.Map.get": 3
+      },
+      "objectInstantiations": {
+        "java.util.HashMap": 1
+      },
+      "packageAccesses": {
+        "java.util": 4,
+        "java.lang": 3
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 15,
+      "numRecursiveMethodCalls": 0,
+      "linesOfCode": 8,
+      "linesOfCodeJunitTest": 8,
+      "logicalLinesOfCode": 8,
+      "logicalLinesOfCodeJunitTest": 8
+    },
+    "stabilityMetricValue": 328.0679999999993
+  },
+  "io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest.shouldBeFalseThatYamlIsNotProvided": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\cli\\CommandLineInterpreterTest.java",
+    "methodName": "shouldBeFalseThatYamlIsNotProvided",
+    "stats": {
+      "methodCalls": {
+        "org.apache.commons.cli.CommandLineParser.parse": 1,
+        "io.github.azagniotov.stubby4j.cli.CommandLineInterpreter.isYamlProvided": 1,
+        "io.github.azagniotov.stubby4j.cli.CommandLineInterpreter.parseCommandLine": 1,
+        "org.apache.commons.cli.CommandLine.hasOption": 1
+      },
+      "objectInstantiations": {
+        "io.github.azagniotov.stubby4j.cli.CommandLineInterpreter": 1
+      },
+      "packageAccesses": {
+        "io.github.azagniotov.stubby4j.cli": 3,
+        "org.apache.commons.cli": 2
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 6,
+      "numRecursiveMethodCalls": 2,
+      "linesOfCode": 6,
+      "linesOfCodeJunitTest": 4,
+      "logicalLinesOfCode": 6,
+      "logicalLinesOfCodeJunitTest": 4
+    },
+    "stabilityMetricValue": 5.281999999999982
+  },
+  "io.github.azagniotov.stubby4j.yaml.YamlBuilderTest.shouldBuildStubbedResponseWithSequenceResponses": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\yaml\\YamlBuilderTest.java",
+    "methodName": "shouldBuildStubbedResponseWithSequenceResponses",
+    "stats": {
+      "methodCalls": {
+        "java.lang.String.trim": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Feature.withDescription": 1,
+        "java.util.Set.add": 7,
+        "java.lang.StringBuilder.append": 57,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Response.build": 1,
+        "java.lang.StringBuilder.toString": 1,
+        "java.lang.AbstractStringBuilder.setLength": 4,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Response.withLineBreak": 3,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Request.withUrl": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Request.appendTemporaryMethodPlaceholderStoreMethod": 1,
+        "java.util.Set.clear": 2,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Response.withSequenceResponseStatus": 3,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.newStubbedFeature": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Response.withSequenceResponseHeaders": 3,
+        "java.lang.StringBuilder.indexOf": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Feature.withUUID": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Request.newStubbedResponse": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Response.withSequenceResponseFile": 1,
+        "java.lang.String.format": 3,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.clear": 1,
+        "org.eclipse.jetty.http.HttpMethod.asString": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Request.withMethodPut": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Feature.newStubbedRequest": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Response.withSequenceResponseLiteralBody": 3
+      },
+      "objectInstantiations": {
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Request": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Feature": 1,
+        "io.github.azagniotov.stubby4j.yaml.YamlBuilder.Response": 1
+      },
+      "packageAccesses": {
+        "java.lang": 67,
+        "java.util": 9,
+        "org.eclipse.jetty.http": 1,
+        "io.github.azagniotov.stubby4j.yaml": 27
+      },
+      "numConditionals": 3,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 102,
+      "numRecursiveMethodCalls": 23,
+      "linesOfCode": 73,
+      "linesOfCodeJunitTest": 4,
+      "logicalLinesOfCode": 76,
+      "logicalLinesOfCodeJunitTest": 4
+    },
+    "stabilityMetricValue": 29.521000000000186
+  },
+  "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponsePolicyTest.returnsFalseOnUnknownProperties": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\websocket\\StubWebSocketServerResponsePolicyTest.java",
+    "methodName": "returnsFalseOnUnknownProperties",
+    "stats": {
+      "methodCalls": {
+        "java.lang.String.toLowerCase": 2,
+        "java.lang.Character.isWhitespace": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isBlank": 2,
+        "java.util.Map.containsKey": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotBlank": 2,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNotNull": 2,
+        "java.lang.CharSequence.charAt": 2,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponsePolicy.isUnknownProperty": 2,
+        "java.lang.CharSequence.length": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isSet": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotSet": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.length": 2,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.toLower": 2
+      },
+      "objectInstantiations": {},
+      "packageAccesses": {
+        "java.util": 2,
+        "java.lang": 8,
+        "io.github.azagniotov.stubby4j.utils": 16,
+        "io.github.azagniotov.stubby4j.stubs.websocket": 2
+      },
+      "numConditionals": 6,
+      "numLoops": 2,
+      "numNestedLoops": 0,
+      "numMethodCalls": 32,
+      "numRecursiveMethodCalls": 18,
+      "linesOfCode": 36,
+      "linesOfCodeJunitTest": 2,
+      "logicalLinesOfCode": 44,
+      "logicalLinesOfCodeJunitTest": 2
+    },
+    "stabilityMetricValue": 3.120999999999981
+  },
+  "io.github.azagniotov.stubby4j.utils.ReflectionUtilsTest.shouldGetObjectPropertiesAndValues": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\utils\\ReflectionUtilsTest.java",
+    "methodName": "shouldGetObjectPropertiesAndValues",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.utils.ReflectionUtils.getProperties": 1,
+        "java.lang.String.trim": 1,
+        "io.github.azagniotov.stubby4j.utils.ReflectionUtils.getPropertyValue": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotBlank": 1,
+        "java.lang.reflect.Field.getName": 3,
+        "java.security.AccessController.doPrivileged": 1,
+        "java.lang.reflect.Method.getName": 1,
+        "java.lang.String.equalsIgnoreCase": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.objectToString": 1,
+        "java.lang.reflect.Field.setAccessible": 1,
+        "java.lang.Object.getClass": 2,
+        "java.lang.reflect.AccessibleObject.isAccessible": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.newStringUtf8": 1,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNotNull": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isUSAscii": 1,
+        "java.lang.Class.getDeclaredMethods": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isSet": 1,
+        "java.lang.Object.toString": 1,
+        "java.util.Map.get": 4,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 2,
+        "java.lang.String.equals": 3,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.toLower": 1,
+        "java.lang.String.toLowerCase": 1,
+        "java.util.Map.put": 1,
+        "java.lang.Character.isWhitespace": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isBlank": 1,
+        "java.util.List.contains": 1,
+        "java.lang.Class.getDeclaredFields": 1,
+        "java.lang.reflect.Method.invoke": 1,
+        "java.lang.CharSequence.charAt": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.charsetUTF8": 1,
+        "java.nio.charset.CharsetEncoder.canEncode": 1,
+        "java.lang.CharSequence.length": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotSet": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.length": 1
+      },
+      "objectInstantiations": {
+        "java.util.HashMap": 1,
+        "java.lang.String": 2
+      },
+      "packageAccesses": {
+        "java.lang.reflect": 7,
+        "java.security": 1,
+        "java.util": 7,
+        "java.lang": 17,
+        "io.github.azagniotov.stubby4j.utils": 15,
+        "java.nio.charset": 1
+      },
+      "numConditionals": 11,
+      "numLoops": 1,
+      "numNestedLoops": 0,
+      "numMethodCalls": 55,
+      "numRecursiveMethodCalls": 15,
+      "linesOfCode": 57,
+      "linesOfCodeJunitTest": 6,
+      "logicalLinesOfCode": 71,
+      "logicalLinesOfCodeJunitTest": 6
+    },
+    "stabilityMetricValue": 138.41899999999987
+  },
+  "io.github.azagniotov.stubby4j.utils.FileUtilsTest.shouldNotConvertFileToBytesWhenBadFilenameGiven": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\utils\\FileUtilsTest.java",
+    "methodName": "shouldNotConvertFileToBytesWhenBadFilenameGiven",
+    "stats": {
+      "methodCalls": {
+        "java.io.File.toURI": 1,
+        "java.nio.file.Files.readAllBytes": 1,
+        "java.io.File.isFile": 1,
+        "java.nio.file.Paths.get": 1,
+        "io.github.azagniotov.stubby4j.utils.FileUtils.binaryFileToBytes": 1,
+        "java.lang.String.format": 1
+      },
+      "objectInstantiations": {
+        "java.io.IOException": 1,
+        "java.io.File": 1
+      },
+      "packageAccesses": {
+        "java.lang": 1,
+        "io.github.azagniotov.stubby4j.utils": 1,
+        "java.io": 4,
+        "java.nio.file": 2
+      },
+      "numConditionals": 1,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 8,
+      "numRecursiveMethodCalls": 1,
+      "linesOfCode": 7,
+      "linesOfCodeJunitTest": 3,
+      "logicalLinesOfCode": 8,
+      "logicalLinesOfCodeJunitTest": 3
+    },
+    "stabilityMetricValue": 67.89699999999993
+  },
+  "io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest.shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode307": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\handlers\\strategy\\HandlingStrategyFactoryTest.java",
+    "methodName": "shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode307",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 5,
+        "java.lang.String.getBytes": 1,
+        "org.eclipse.jetty.http.HttpStatus.Code.getCode": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.withHttpStatusCode": 1,
+        "java.util.Map.containsKey": 5,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotBlank": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.getBody": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.getResponseBodyAsBytes": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.getHttpStatusCode": 1,
+        "io.github.azagniotov.stubby4j.handlers.strategy.stubs.StubsResponseHandlingStrategyFactory.getStrategy": 1,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNotNull": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isSet": 1,
+        "java.util.Map.get": 5,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 2,
+        "java.lang.Character.isWhitespace": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isBlank": 1,
+        "java.util.Map.clear": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.getBytesUtf8": 1,
+        "java.lang.Integer.parseInt": 1,
+        "org.eclipse.jetty.http.HttpStatus.getCode": 1,
+        "java.lang.String.valueOf": 1,
+        "java.lang.CharSequence.charAt": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.charsetUTF8": 1,
+        "java.lang.CharSequence.length": 1,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.length": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.getHttpStatusCode": 1
+      },
+      "objectInstantiations": {
+        "java.util.LinkedHashMap": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse": 1,
+        "io.github.azagniotov.stubby4j.stubs.StubResponse.Builder": 1,
+        "io.github.azagniotov.stubby4j.handlers.strategy.stubs.NotFoundResponseHandlingStrategy": 1,
+        "io.github.azagniotov.stubby4j.handlers.strategy.stubs.RedirectResponseHandlingStrategy": 1,
+        "io.github.azagniotov.stubby4j.handlers.strategy.stubs.DefaultResponseHandlingStrategy": 1,
+        "io.github.azagniotov.stubby4j.handlers.strategy.stubs.UnauthorizedResponseHandlingStrategy": 1
+      },
+      "packageAccesses": {
+        "java.util": 12,
+        "java.lang": 6,
+        "io.github.azagniotov.stubby4j.stubs": 13,
+        "io.github.azagniotov.stubby4j.utils": 9,
+        "io.github.azagniotov.stubby4j.handlers.strategy.stubs": 5,
+        "org.eclipse.jetty.http": 2
+      },
+      "numConditionals": 12,
+      "numLoops": 1,
+      "numNestedLoops": 0,
+      "numMethodCalls": 48,
+      "numRecursiveMethodCalls": 21,
+      "linesOfCode": 73,
+      "linesOfCodeJunitTest": 3,
+      "logicalLinesOfCode": 57,
+      "logicalLinesOfCodeJunitTest": 3
+    },
+    "stabilityMetricValue": 3.7660000000000196
+  },
+  "io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest.stubbedRequestEqualsAssertingRequest_WhenNullUrlStubbed_AndNullUrlSubmitted": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\StubRequestBuilderTest.java",
+    "methodName": "stubbedRequestEqualsAssertingRequest_WhenNullUrlStubbed_AndNullUrlSubmitted",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 12,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest.Builder.build": 2,
+        "java.util.List.add": 2,
+        "java.util.Map.clear": 2,
+        "java.util.Map.containsKey": 12,
+        "org.eclipse.jetty.http.HttpMethod.asString": 2,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest.Builder.withUrl": 2,
+        "java.util.Map.get": 12,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest.Builder.withMethodGet": 2
+      },
+      "objectInstantiations": {
+        "java.util.LinkedHashMap": 4,
+        "io.github.azagniotov.stubby4j.stubs.StubRequest": 2,
+        "java.util.ArrayList": 2
+      },
+      "packageAccesses": {
+        "java.util": 34,
+        "io.github.azagniotov.stubby4j.stubs": 20,
+        "org.eclipse.jetty.http": 2
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 68,
+      "numRecursiveMethodCalls": 18,
+      "linesOfCode": 53,
+      "linesOfCodeJunitTest": 3,
+      "logicalLinesOfCode": 53,
+      "logicalLinesOfCodeJunitTest": 3
+    },
+    "stabilityMetricValue": 18959.937
+  },
+  "io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest.shouldStage_WhenConfigurablePropertyAndFieldValuePresent": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\StubResponseBuilderTest.java",
+    "methodName": "shouldStage_WhenConfigurablePropertyAndFieldValuePresent",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 1,
+        "java.util.Map.put": 1,
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.stage": 1,
+        "java.util.Optional.ifPresent": 1,
+        "java.util.Map.containsKey": 1,
+        "java.util.Optional.of": 1,
+        "java.util.Map.get": 1
+      },
+      "objectInstantiations": {},
+      "packageAccesses": {
+        "java.util": 5,
+        "io.github.azagniotov.stubby4j.stubs": 2
+      },
+      "numConditionals": 0,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 10,
+      "numRecursiveMethodCalls": 2,
+      "linesOfCode": 7,
+      "linesOfCodeJunitTest": 5,
+      "logicalLinesOfCode": 8,
+      "logicalLinesOfCodeJunitTest": 5
+    },
+    "stabilityMetricValue": 1.5649999999999977
+  },
+  "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequestTest.returnsBodyAsExpectedStringWhenOnlyBodyStubbed": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\stubs\\websocket\\StubWebSocketClientRequestTest.java",
+    "methodName": "returnsBodyAsExpectedStringWhenOnlyBodyStubbed",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.stubs.AbstractBuilder.getStaged": 3,
+        "java.lang.Character.isWhitespace": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isBlank": 2,
+        "java.util.Map.clear": 1,
+        "java.util.Map.containsKey": 3,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isNotBlank": 2,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequest.Builder.build": 1,
+        "io.github.azagniotov.stubby4j.utils.FileUtils.enforceSystemLineSeparator": 2,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequest.Builder.reset": 1,
+        "java.lang.String.replace": 8,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequest.Builder.withBody": 1,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNotNull": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.newStringUtf8": 1,
+        "java.lang.CharSequence.charAt": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.charsetUTF8": 1,
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequest.getBodyAsString": 1,
+        "java.lang.CharSequence.length": 2,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.isSet": 2,
+        "java.util.Map.get": 3,
+        "io.github.azagniotov.stubby4j.utils.StringUtils.length": 2,
+        "io.github.azagniotov.stubby4j.utils.ObjectUtils.isNull": 2
+      },
+      "objectInstantiations": {
+        "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequest": 1,
+        "java.lang.String": 1
+      },
+      "packageAccesses": {
+        "java.util": 7,
+        "java.lang": 15,
+        "io.github.azagniotov.stubby4j.stubs": 3,
+        "io.github.azagniotov.stubby4j.utils": 16,
+        "io.github.azagniotov.stubby4j.stubs.websocket": 5
+      },
+      "numConditionals": 7,
+      "numLoops": 2,
+      "numNestedLoops": 0,
+      "numMethodCalls": 49,
+      "numRecursiveMethodCalls": 23,
+      "linesOfCode": 54,
+      "linesOfCodeJunitTest": 2,
+      "logicalLinesOfCode": 63,
+      "logicalLinesOfCodeJunitTest": 2
+    },
+    "stabilityMetricValue": 2.5849999999999795
+  },
+  "io.github.azagniotov.stubby4j.caching.CacheTest.shouldBuildNoOpCache": {
+    "filePath": "io\\github\\azagniotov\\stubby4j\\caching\\CacheTest.java",
+    "methodName": "shouldBuildNoOpCache",
+    "stats": {
+      "methodCalls": {
+        "io.github.azagniotov.stubby4j.caching.Cache.stubHttpLifecycleCache": 1
+      },
+      "objectInstantiations": {
+        "io.github.azagniotov.stubby4j.caching.NoOpStubHttpLifecycleCache": 1,
+        "io.github.azagniotov.stubby4j.caching.StubHttpLifecycleCache": 1
+      },
+      "packageAccesses": {
+        "io.github.azagniotov.stubby4j.caching": 3
+      },
+      "numConditionals": 1,
+      "numLoops": 0,
+      "numNestedLoops": 0,
+      "numMethodCalls": 3,
+      "numRecursiveMethodCalls": 1,
+      "linesOfCode": 6,
+      "linesOfCodeJunitTest": 2,
+      "logicalLinesOfCode": 7,
+      "logicalLinesOfCodeJunitTest": 2
+    },
+    "stabilityMetricValue": 2.558999999999969
+  }
+}
