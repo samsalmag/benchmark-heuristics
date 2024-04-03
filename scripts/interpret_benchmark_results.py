@@ -3,7 +3,8 @@ import statistics
 import re
 import json
 
-# removes the errors from inputted benchmark file and creates a new file
+# Removes any errors from an inputted benchmark file (txt file from a jmh run) 
+# Creates a new txt file with failed benchmarks being removed
 def remove_errors_txt(file_path):
     lines_no_errors = []
     file_name = file_path.split(".")[0]
@@ -57,7 +58,8 @@ def remove_errors_txt(file_path):
     
     return lines_no_errors
 
-# creates and returns a dictionary containing all results of benchmark output, input is file path
+# Creates and returns a dictionary containing all results of benchmark output (forks, iterations), 
+# Input is file path to a cleaned txt file (having any errors removed)
 def read_results(file_path):
     results = {} # key: benchmark name, value: dict(key: fork nr, value: list(iteration))
 
@@ -111,7 +113,8 @@ def calculate_rmad_benchmark(forks_dict):
         30: 1.523031}
     RMAD_new = (mad_coefficient[5] * MAD / median * 100)
     # RMAD = MAD / median if median != 0 else 0
-    return RMAD_new
+    # return RMAD_new
+    return MAD
 
 # Calculates and returns a sorted list of pairs containing benchmarkname and its RMAD value
 def get_rmad_all_benchmarks(benchmark_dict):
@@ -122,7 +125,7 @@ def get_rmad_all_benchmarks(benchmark_dict):
     sorted_rmad = sorted(rmad_benchmarks, key=lambda pair: pair[1])
     return sorted_rmad
 
-# Prints a warning if the dictionary doesn't have 5 forks, with each fork having 5 iterations
+# Prints a warning if the inputted dictionary doesn't have 5 forks, with each fork having 5 iterations
 def validate_benchmark_dictionary(benchmark_dict):
     for key in benchmark_dict:
         forkIndex = 0
@@ -139,42 +142,20 @@ def validate_benchmark_dictionary(benchmark_dict):
 root_path = r"benchmarks\results"
 # file_paths_mockito = [root_path + r"\mockito-output1.txt", root_path + r"\mockito-output2.txt"]
 # file_paths_rxjava = [root_path + r"\rxjava-output1.txt", root_path + r"\rxjava-output2.txt", root_path + r"\rxjava-output3.txt"]
-# results = []
-# for path in file_paths_rxjava:
-#     remove_errors_txt(path)
-#     path_no_error_file = path.split(".")[0] +"_removed_errors.txt"
-#     results.append(read_results(path_no_error_file))
-#     remove_file(path_no_error_file)
+file_paths_stubby = [root_path + r"\stubby4j-output1.txt"]
+results = []
+for path in file_paths_stubby:
+    remove_errors_txt(path)
+    path_no_error_file = path.split(".")[0] +"_removed_errors.txt"
+    results.append(read_results(path_no_error_file))
 
 # rxjava_dict = {}
 # for dictionary in results:
 #     rxjava_dict.update(dictionary)
 
-# validate_benchmark_dictionary(rxjava_dict) # check for incorrect structure in dict
-# RMADs = get_rmad_all_benchmarks(rxjava_dict)
+stubby_dict = {}
+stubby_dict.update(results[0])
+rmads = get_rmad_all_benchmarks(stubby_dict)
 
-# with open(root_path + r'\mockito_RMAD.json', 'w') as json_file:
-#     json.dump(RMADs, json_file)
-
-with open(root_path + r'\rxjava_dict.json', 'r') as json_file:
-    # inFile = json_file.read()
-    inFile = json.load(json_file)
-
-RMADs = get_rmad_all_benchmarks(inFile)
-# import matplotlib.pyplot as plt
-# rmad_values = [pair[1] for pair in RMADs]
-# sorted_data = sorted(rmad_values)
-# plt.figure(figsize=(8, 6))
-# plt.hist(sorted_data, bins=20, color='skyblue', edgecolor='black')  # Adjust the number of bins as needed
-# plt.title('Distribution of RMAD Values')
-# plt.xlabel('RMAD')
-# plt.ylabel('Frequency')
-# plt.grid(True)
-# plt.show()
-
-with open(root_path + r'\rxjava_newer_RMAD.json', 'w') as json_file:
-    json.dump(RMADs, json_file)
-
-with open(root_path + r'\mockito_RMAD.json', 'r') as json_file:
-    inFile = json_file.read()
-    print(inFile)
+with open(root_path + r'\stubby4j_RMAD.json', 'w') as json_file:
+    json.dump(rmads, json_file)

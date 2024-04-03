@@ -1,0 +1,1895 @@
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.caching.CacheTest._Benchmark.benchmark_shouldBuildNoOpCache
+
+# Run progress: 0.00% complete, ETA 02:10:27
+# Fork: 1 of 5
+# Warmup Iteration   1: 320.402 ns/op
+# Warmup Iteration   2: 305.564 ns/op
+# Warmup Iteration   3: 302.933 ns/op
+# Warmup Iteration   4: 303.819 ns/op
+# Warmup Iteration   5: 303.383 ns/op
+Iteration   1: 304.371 ns/op
+Iteration   2: 309.691 ns/op
+Iteration   3: 306.908 ns/op
+Iteration   4: 308.685 ns/op
+Iteration   5: 311.570 ns/op
+
+# Run progress: 0.65% complete, ETA 02:10:44
+# Fork: 2 of 5
+# Warmup Iteration   1: 325.024 ns/op
+# Warmup Iteration   2: 306.591 ns/op
+# Warmup Iteration   3: 304.951 ns/op
+# Warmup Iteration   4: 304.438 ns/op
+# Warmup Iteration   5: 304.534 ns/op
+Iteration   1: 309.854 ns/op
+Iteration   2: 306.001 ns/op
+Iteration   3: 310.244 ns/op
+Iteration   4: 303.953 ns/op
+Iteration   5: 314.651 ns/op
+
+# Run progress: 1.29% complete, ETA 02:09:45
+# Fork: 3 of 5
+# Warmup Iteration   1: 317.711 ns/op
+# Warmup Iteration   2: 303.826 ns/op
+# Warmup Iteration   3: 302.613 ns/op
+# Warmup Iteration   4: 302.508 ns/op
+# Warmup Iteration   5: 302.950 ns/op
+Iteration   1: 303.910 ns/op
+Iteration   2: 305.986 ns/op
+Iteration   3: 312.135 ns/op
+Iteration   4: 309.639 ns/op
+Iteration   5: 304.729 ns/op
+
+# Run progress: 1.94% complete, ETA 02:08:51
+# Fork: 4 of 5
+# Warmup Iteration   1: 318.718 ns/op
+# Warmup Iteration   2: 303.473 ns/op
+# Warmup Iteration   3: 301.779 ns/op
+# Warmup Iteration   4: 301.237 ns/op
+# Warmup Iteration   5: 300.820 ns/op
+Iteration   1: 302.336 ns/op
+Iteration   2: 306.035 ns/op
+Iteration   3: 301.285 ns/op
+Iteration   4: 310.127 ns/op
+Iteration   5: 306.056 ns/op
+
+# Run progress: 2.58% complete, ETA 02:07:59
+# Fork: 5 of 5
+# Warmup Iteration   1: 319.204 ns/op
+# Warmup Iteration   2: 303.210 ns/op
+# Warmup Iteration   3: 303.278 ns/op
+# Warmup Iteration   4: 303.324 ns/op
+# Warmup Iteration   5: 304.077 ns/op
+Iteration   1: 311.756 ns/op
+Iteration   2: 306.469 ns/op
+Iteration   3: 305.913 ns/op
+Iteration   4: 303.713 ns/op
+Iteration   5: 306.834 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.caching.CacheTest._Benchmark.benchmark_shouldBuildNoOpCache":
+  307.314 ±(99.9%) 2.526 ns/op [Average]
+  (min, avg, max) = (301.285, 307.314, 314.651), stdev = 3.372
+  CI (99.9%): [304.788, 309.840] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.caching.NoOpStubHttpLifecycleCacheTest._Benchmark.benchmark_clearByKey
+
+# Run progress: 3.23% complete, ETA 02:07:08
+# Fork: 1 of 5
+# Warmup Iteration   1: 536.967 ns/op
+# Warmup Iteration   2: 493.110 ns/op
+# Warmup Iteration   3: 492.975 ns/op
+# Warmup Iteration   4: 493.474 ns/op
+# Warmup Iteration   5: 493.574 ns/op
+Iteration   1: 496.043 ns/op
+Iteration   2: 488.010 ns/op
+Iteration   3: 505.712 ns/op
+Iteration   4: 485.941 ns/op
+Iteration   5: 495.199 ns/op
+
+# Run progress: 3.87% complete, ETA 02:06:17
+# Fork: 2 of 5
+# Warmup Iteration   1: 539.148 ns/op
+# Warmup Iteration   2: 496.525 ns/op
+# Warmup Iteration   3: 493.752 ns/op
+# Warmup Iteration   4: 494.986 ns/op
+# Warmup Iteration   5: 494.978 ns/op
+Iteration   1: 499.785 ns/op
+Iteration   2: 496.466 ns/op
+Iteration   3: 494.480 ns/op
+Iteration   4: 509.606 ns/op
+Iteration   5: 507.175 ns/op
+
+# Run progress: 4.52% complete, ETA 02:05:26
+# Fork: 3 of 5
+# Warmup Iteration   1: 540.014 ns/op
+# Warmup Iteration   2: 500.198 ns/op
+# Warmup Iteration   3: 496.929 ns/op
+# Warmup Iteration   4: 497.929 ns/op
+# Warmup Iteration   5: 566.606 ns/op
+Iteration   1: 497.767 ns/op
+Iteration   2: 509.350 ns/op
+Iteration   3: 495.181 ns/op
+Iteration   4: 508.453 ns/op
+Iteration   5: 501.191 ns/op
+
+# Run progress: 5.16% complete, ETA 02:04:34
+# Fork: 4 of 5
+# Warmup Iteration   1: 528.412 ns/op
+# Warmup Iteration   2: 487.695 ns/op
+# Warmup Iteration   3: 488.535 ns/op
+# Warmup Iteration   4: 487.002 ns/op
+# Warmup Iteration   5: 486.474 ns/op
+Iteration   1: 491.931 ns/op
+Iteration   2: 493.502 ns/op
+Iteration   3: 492.860 ns/op
+Iteration   4: 498.430 ns/op
+Iteration   5: 490.089 ns/op
+
+# Run progress: 5.81% complete, ETA 02:03:43
+# Fork: 5 of 5
+# Warmup Iteration   1: 549.176 ns/op
+# Warmup Iteration   2: 496.290 ns/op
+# Warmup Iteration   3: 502.082 ns/op
+# Warmup Iteration   4: 502.184 ns/op
+# Warmup Iteration   5: 502.201 ns/op
+Iteration   1: 502.224 ns/op
+Iteration   2: 513.012 ns/op
+Iteration   3: 506.344 ns/op
+Iteration   4: 506.087 ns/op
+Iteration   5: 526.827 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.caching.NoOpStubHttpLifecycleCacheTest._Benchmark.benchmark_clearByKey":
+  500.467 ±(99.9%) 6.860 ns/op [Average]
+  (min, avg, max) = (485.941, 500.467, 526.827), stdev = 9.158
+  CI (99.9%): [493.607, 507.327] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_shouldBeFalseThatYamlIsNotProvided
+
+# Run progress: 6.45% complete, ETA 02:02:53
+# Fork: 1 of 5
+# Warmup Iteration   1: 481.038 ns/op
+# Warmup Iteration   2: 451.572 ns/op
+# Warmup Iteration   3: 450.244 ns/op
+# Warmup Iteration   4: 450.764 ns/op
+# Warmup Iteration   5: 450.472 ns/op
+Iteration   1: 453.522 ns/op
+Iteration   2: 451.438 ns/op
+Iteration   3: 446.574 ns/op
+Iteration   4: 458.754 ns/op
+Iteration   5: 452.763 ns/op
+
+# Run progress: 7.10% complete, ETA 02:02:01
+# Fork: 2 of 5
+# Warmup Iteration   1: 478.838 ns/op
+# Warmup Iteration   2: 450.017 ns/op
+# Warmup Iteration   3: 446.992 ns/op
+# Warmup Iteration   4: 448.800 ns/op
+# Warmup Iteration   5: 448.060 ns/op
+Iteration   1: 443.956 ns/op
+Iteration   2: 449.831 ns/op
+Iteration   3: 452.724 ns/op
+Iteration   4: 446.538 ns/op
+Iteration   5: 448.492 ns/op
+
+# Run progress: 7.74% complete, ETA 02:01:10
+# Fork: 3 of 5
+# Warmup Iteration   1: 488.663 ns/op
+# Warmup Iteration   2: 460.157 ns/op
+# Warmup Iteration   3: 458.161 ns/op
+# Warmup Iteration   4: 459.790 ns/op
+# Warmup Iteration   5: 460.681 ns/op
+Iteration   1: 472.435 ns/op
+Iteration   2: 455.806 ns/op
+Iteration   3: 474.276 ns/op
+Iteration   4: 461.250 ns/op
+Iteration   5: 468.078 ns/op
+
+# Run progress: 8.39% complete, ETA 02:00:19
+# Fork: 4 of 5
+# Warmup Iteration   1: 480.053 ns/op
+# Warmup Iteration   2: 449.987 ns/op
+# Warmup Iteration   3: 449.468 ns/op
+# Warmup Iteration   4: 449.245 ns/op
+# Warmup Iteration   5: 447.724 ns/op
+Iteration   1: 454.526 ns/op
+Iteration   2: 452.595 ns/op
+Iteration   3: 449.244 ns/op
+Iteration   4: 456.968 ns/op
+Iteration   5: 452.241 ns/op
+
+# Run progress: 9.03% complete, ETA 01:59:28
+# Fork: 5 of 5
+# Warmup Iteration   1: 490.724 ns/op
+# Warmup Iteration   2: 461.852 ns/op
+# Warmup Iteration   3: 460.211 ns/op
+# Warmup Iteration   4: 459.150 ns/op
+# Warmup Iteration   5: 458.949 ns/op
+Iteration   1: 466.896 ns/op
+Iteration   2: 455.453 ns/op
+Iteration   3: 467.775 ns/op
+Iteration   4: 465.048 ns/op
+Iteration   5: 466.062 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.cli.CommandLineInterpreterTest._Benchmark.benchmark_shouldBeFalseThatYamlIsNotProvided":
+  456.930 ±(99.9%) 6.387 ns/op [Average]
+  (min, avg, max) = (443.956, 456.930, 474.276), stdev = 8.527
+  CI (99.9%): [450.543, 463.317] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest._Benchmark.benchmark_shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode307
+
+# Run progress: 22.58% complete, ETA 00:43:57
+# Fork: 1 of 5
+# Warmup Iteration   1: 464.126 ns/op
+# Warmup Iteration   2: 425.762 ns/op
+# Warmup Iteration   3: 423.112 ns/op
+# Warmup Iteration   4: 422.894 ns/op
+# Warmup Iteration   5: 425.237 ns/op
+Iteration   1: 430.796 ns/op
+Iteration   2: 430.529 ns/op
+Iteration   3: 428.215 ns/op
+Iteration   4: 422.757 ns/op
+Iteration   5: 425.408 ns/op
+
+# Run progress: 23.23% complete, ETA 00:45:10
+# Fork: 2 of 5
+# Warmup Iteration   1: 458.473 ns/op
+# Warmup Iteration   2: 419.752 ns/op
+# Warmup Iteration   3: 419.392 ns/op
+# Warmup Iteration   4: 418.884 ns/op
+# Warmup Iteration   5: 419.620 ns/op
+Iteration   1: 421.573 ns/op
+Iteration   2: 422.894 ns/op
+Iteration   3: 425.779 ns/op
+Iteration   4: 416.093 ns/op
+Iteration   5: 419.340 ns/op
+
+# Run progress: 23.87% complete, ETA 00:46:17
+# Fork: 3 of 5
+# Warmup Iteration   1: 473.559 ns/op
+# Warmup Iteration   2: 431.547 ns/op
+# Warmup Iteration   3: 429.410 ns/op
+# Warmup Iteration   4: 429.940 ns/op
+# Warmup Iteration   5: 428.939 ns/op
+Iteration   1: 423.542 ns/op
+Iteration   2: 427.778 ns/op
+Iteration   3: 436.474 ns/op
+Iteration   4: 436.329 ns/op
+Iteration   5: 423.577 ns/op
+
+# Run progress: 24.52% complete, ETA 00:47:17
+# Fork: 4 of 5
+# Warmup Iteration   1: 457.281 ns/op
+# Warmup Iteration   2: 419.647 ns/op
+# Warmup Iteration   3: 417.868 ns/op
+# Warmup Iteration   4: 417.369 ns/op
+# Warmup Iteration   5: 419.719 ns/op
+Iteration   1: 425.637 ns/op
+Iteration   2: 421.642 ns/op
+Iteration   3: 426.739 ns/op
+Iteration   4: 430.732 ns/op
+Iteration   5: 427.513 ns/op
+
+# Run progress: 25.16% complete, ETA 00:48:12
+# Fork: 5 of 5
+# Warmup Iteration   1: 459.621 ns/op
+# Warmup Iteration   2: 419.883 ns/op
+# Warmup Iteration   3: 417.878 ns/op
+# Warmup Iteration   4: 417.162 ns/op
+# Warmup Iteration   5: 416.636 ns/op
+Iteration   1: 418.614 ns/op
+Iteration   2: 419.979 ns/op
+Iteration   3: 418.172 ns/op
+Iteration   4: 416.611 ns/op
+Iteration   5: 425.963 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.handlers.strategy.HandlingStrategyFactoryTest._Benchmark.benchmark_shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode307":
+  424.907 ±(99.9%) 4.095 ns/op [Average]
+  (min, avg, max) = (416.093, 424.907, 436.474), stdev = 5.467
+  CI (99.9%): [420.812, 429.003] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.server.ssl.LanIPv4ValidatorTest._Benchmark.benchmark_isNotPrivateIp
+
+# Run progress: 32.26% complete, ETA 00:35:56
+# Fork: 1 of 5
+# Warmup Iteration   1: 1735.545 ns/op
+# Warmup Iteration   2: 1628.218 ns/op
+# Warmup Iteration   3: 1615.605 ns/op
+# Warmup Iteration   4: 1614.363 ns/op
+# Warmup Iteration   5: 1616.952 ns/op
+Iteration   1: 1610.401 ns/op
+Iteration   2: 1690.395 ns/op
+Iteration   3: 1867.000 ns/op
+Iteration   4: 1609.489 ns/op
+Iteration   5: 1634.748 ns/op
+
+# Run progress: 32.90% complete, ETA 00:36:37
+# Fork: 2 of 5
+# Warmup Iteration   1: 1788.559 ns/op
+# Warmup Iteration   2: 1633.987 ns/op
+# Warmup Iteration   3: 1627.175 ns/op
+# Warmup Iteration   4: 1624.950 ns/op
+# Warmup Iteration   5: 1621.048 ns/op
+Iteration   1: 1620.316 ns/op
+Iteration   2: 1643.765 ns/op
+Iteration   3: 1637.722 ns/op
+Iteration   4: 1631.620 ns/op
+Iteration   5: 1647.696 ns/op
+
+# Run progress: 33.55% complete, ETA 00:37:15
+# Fork: 3 of 5
+# Warmup Iteration   1: 1780.048 ns/op
+# Warmup Iteration   2: 1668.796 ns/op
+# Warmup Iteration   3: 1664.042 ns/op
+# Warmup Iteration   4: 1662.290 ns/op
+# Warmup Iteration   5: 1659.043 ns/op
+Iteration   1: 1704.543 ns/op
+Iteration   2: 1668.843 ns/op
+Iteration   3: 1679.127 ns/op
+Iteration   4: 1669.547 ns/op
+Iteration   5: 1674.665 ns/op
+
+# Run progress: 34.19% complete, ETA 00:37:49
+# Fork: 4 of 5
+# Warmup Iteration   1: 1763.968 ns/op
+# Warmup Iteration   2: 1651.818 ns/op
+# Warmup Iteration   3: 1649.085 ns/op
+# Warmup Iteration   4: 1649.131 ns/op
+# Warmup Iteration   5: 1646.352 ns/op
+Iteration   1: 1665.365 ns/op
+Iteration   2: 1649.074 ns/op
+Iteration   3: 1645.142 ns/op
+Iteration   4: 1670.318 ns/op
+Iteration   5: 1649.585 ns/op
+
+# Run progress: 34.84% complete, ETA 00:38:20
+# Fork: 5 of 5
+# Warmup Iteration   1: 1796.248 ns/op
+# Warmup Iteration   2: 1677.829 ns/op
+# Warmup Iteration   3: 1674.257 ns/op
+# Warmup Iteration   4: 1675.327 ns/op
+# Warmup Iteration   5: 1676.343 ns/op
+Iteration   1: 1674.388 ns/op
+Iteration   2: 1665.674 ns/op
+Iteration   3: 3065.410 ns/op
+Iteration   4: 2917.553 ns/op
+Iteration   5: 2879.546 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.server.ssl.LanIPv4ValidatorTest._Benchmark.benchmark_isNotPrivateIp":
+  1818.877 ±(99.9%) 323.247 ns/op [Average]
+  (min, avg, max) = (1609.489, 1818.877, 3065.410), stdev = 431.525
+  CI (99.9%): [1495.631, 2142.124] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.RegexParserTest._Benchmark.benchmark_shouldMatchSubjectWithMultiline
+
+# Run progress: 38.71% complete, ETA 00:33:50
+# Fork: 1 of 5
+# Warmup Iteration   1: 23663.885 ns/op
+# Warmup Iteration   2: 20163.616 ns/op
+# Warmup Iteration   3: 20062.564 ns/op
+# Warmup Iteration   4: 20076.115 ns/op
+# Warmup Iteration   5: 20055.896 ns/op
+Iteration   1: 20191.695 ns/op
+Iteration   2: 19990.000 ns/op
+Iteration   3: 20286.232 ns/op
+Iteration   4: 19897.538 ns/op
+Iteration   5: 20416.463 ns/op
+
+# Run progress: 39.35% complete, ETA 00:34:14
+# Fork: 2 of 5
+# Warmup Iteration   1: 23463.048 ns/op
+# Warmup Iteration   2: 20434.784 ns/op
+# Warmup Iteration   3: 20238.786 ns/op
+# Warmup Iteration   4: 20264.079 ns/op
+# Warmup Iteration   5: 20247.889 ns/op
+Iteration   1: 20104.179 ns/op
+Iteration   2: 20178.333 ns/op
+Iteration   3: 36425.567 ns/op
+Iteration   4: 35371.721 ns/op
+Iteration   5: 34350.575 ns/op
+
+# Run progress: 40.00% complete, ETA 00:34:36
+# Fork: 3 of 5
+# Warmup Iteration   1: 23189.840 ns/op
+# Warmup Iteration   2: 20200.713 ns/op
+# Warmup Iteration   3: 20284.665 ns/op
+# Warmup Iteration   4: 20300.203 ns/op
+# Warmup Iteration   5: 20517.227 ns/op
+Iteration   1: 20542.670 ns/op
+Iteration   2: 20744.531 ns/op
+Iteration   3: 20295.797 ns/op
+Iteration   4: 20428.601 ns/op
+Iteration   5: 21184.863 ns/op
+
+# Run progress: 40.65% complete, ETA 00:34:55
+# Fork: 4 of 5
+# Warmup Iteration   1: 25129.222 ns/op
+# Warmup Iteration   2: 21619.775 ns/op
+# Warmup Iteration   3: 21803.451 ns/op
+# Warmup Iteration   4: 22470.526 ns/op
+# Warmup Iteration   5: 22137.574 ns/op
+Iteration   1: 21955.192 ns/op
+Iteration   2: 21092.356 ns/op
+Iteration   3: 23462.440 ns/op
+Iteration   4: 23123.164 ns/op
+Iteration   5: 23341.651 ns/op
+
+# Run progress: 41.29% complete, ETA 00:35:12
+# Fork: 5 of 5
+# Warmup Iteration   1: 22733.005 ns/op
+# Warmup Iteration   2: 20013.449 ns/op
+# Warmup Iteration   3: 20019.810 ns/op
+# Warmup Iteration   4: 19949.254 ns/op
+# Warmup Iteration   5: 20009.365 ns/op
+Iteration   1: 20232.711 ns/op
+Iteration   2: 19959.808 ns/op
+Iteration   3: 20133.155 ns/op
+Iteration   4: 20251.090 ns/op
+Iteration   5: 20361.880 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.RegexParserTest._Benchmark.benchmark_shouldMatchSubjectWithMultiline":
+  22572.888 ±(99.9%) 3706.482 ns/op [Average]
+  (min, avg, max) = (19897.538, 22572.888, 36425.567), stdev = 4948.048
+  CI (99.9%): [18866.406, 26279.371] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest._Benchmark.benchmark_shouldReturnDescription_WhenDescription
+
+# Run progress: 41.94% complete, ETA 00:35:27
+# Fork: 1 of 5
+# Warmup Iteration   1: 597.699 ns/op
+# Warmup Iteration   2: 548.115 ns/op
+# Warmup Iteration   3: 547.685 ns/op
+# Warmup Iteration   4: 549.258 ns/op
+# Warmup Iteration   5: 548.178 ns/op
+Iteration   1: 548.097 ns/op
+Iteration   2: 547.007 ns/op
+Iteration   3: 556.583 ns/op
+Iteration   4: 550.970 ns/op
+Iteration   5: 552.272 ns/op
+
+# Run progress: 42.58% complete, ETA 00:35:40
+# Fork: 2 of 5
+# Warmup Iteration   1: 593.983 ns/op
+# Warmup Iteration   2: 546.114 ns/op
+# Warmup Iteration   3: 546.440 ns/op
+# Warmup Iteration   4: 546.897 ns/op
+# Warmup Iteration   5: 546.135 ns/op
+Iteration   1: 547.891 ns/op
+Iteration   2: 546.386 ns/op
+Iteration   3: 548.183 ns/op
+Iteration   4: 553.352 ns/op
+Iteration   5: 544.437 ns/op
+
+# Run progress: 43.23% complete, ETA 00:35:51
+# Fork: 3 of 5
+# Warmup Iteration   1: 601.411 ns/op
+# Warmup Iteration   2: 551.501 ns/op
+# Warmup Iteration   3: 547.659 ns/op
+# Warmup Iteration   4: 548.404 ns/op
+# Warmup Iteration   5: 547.729 ns/op
+Iteration   1: 551.850 ns/op
+Iteration   2: 552.921 ns/op
+Iteration   3: 547.092 ns/op
+Iteration   4: 549.195 ns/op
+Iteration   5: 551.834 ns/op
+
+# Run progress: 43.87% complete, ETA 00:36:01
+# Fork: 4 of 5
+# Warmup Iteration   1: 596.254 ns/op
+# Warmup Iteration   2: 547.971 ns/op
+# Warmup Iteration   3: 546.248 ns/op
+# Warmup Iteration   4: 544.870 ns/op
+# Warmup Iteration   5: 545.698 ns/op
+Iteration   1: 551.609 ns/op
+Iteration   2: 551.279 ns/op
+Iteration   3: 547.906 ns/op
+Iteration   4: 542.219 ns/op
+Iteration   5: 556.520 ns/op
+
+# Run progress: 44.52% complete, ETA 00:36:08
+# Fork: 5 of 5
+# Warmup Iteration   1: 603.554 ns/op
+# Warmup Iteration   2: 551.982 ns/op
+# Warmup Iteration   3: 548.022 ns/op
+# Warmup Iteration   4: 548.936 ns/op
+# Warmup Iteration   5: 549.238 ns/op
+Iteration   1: 551.578 ns/op
+Iteration   2: 548.763 ns/op
+Iteration   3: 560.811 ns/op
+Iteration   4: 560.385 ns/op
+Iteration   5: 554.510 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.StubHttpLifecycleBuilderTest._Benchmark.benchmark_shouldReturnDescription_WhenDescription":
+  550.946 ±(99.9%) 3.377 ns/op [Average]
+  (min, avg, max) = (542.219, 550.946, 560.811), stdev = 4.508
+  CI (99.9%): [547.569, 554.323] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_arraysIntersect_ShouldReturnTrue_WhenTwoArraysHaveTheSameElements
+
+# Run progress: 45.16% complete, ETA 00:36:14
+# Fork: 1 of 5
+# Warmup Iteration   1: 360.773 ns/op
+# Warmup Iteration   2: 342.895 ns/op
+# Warmup Iteration   3: 341.181 ns/op
+# Warmup Iteration   4: 341.104 ns/op
+# Warmup Iteration   5: 341.323 ns/op
+Iteration   1: 343.452 ns/op
+Iteration   2: 342.594 ns/op
+Iteration   3: 344.204 ns/op
+Iteration   4: 344.268 ns/op
+Iteration   5: 351.248 ns/op
+
+# Run progress: 45.81% complete, ETA 00:36:18
+# Fork: 2 of 5
+# Warmup Iteration   1: 369.980 ns/op
+# Warmup Iteration   2: 347.288 ns/op
+# Warmup Iteration   3: 345.333 ns/op
+# Warmup Iteration   4: 345.481 ns/op
+# Warmup Iteration   5: 345.544 ns/op
+Iteration   1: 344.294 ns/op
+Iteration   2: 347.911 ns/op
+Iteration   3: 350.682 ns/op
+Iteration   4: 349.244 ns/op
+Iteration   5: 352.928 ns/op
+
+# Run progress: 46.45% complete, ETA 00:36:21
+# Fork: 3 of 5
+# Warmup Iteration   1: 366.531 ns/op
+# Warmup Iteration   2: 347.098 ns/op
+# Warmup Iteration   3: 345.485 ns/op
+# Warmup Iteration   4: 344.934 ns/op
+# Warmup Iteration   5: 345.161 ns/op
+Iteration   1: 352.023 ns/op
+Iteration   2: 350.731 ns/op
+Iteration   3: 342.752 ns/op
+Iteration   4: 350.040 ns/op
+Iteration   5: 349.119 ns/op
+
+# Run progress: 47.10% complete, ETA 00:36:22
+# Fork: 4 of 5
+# Warmup Iteration   1: 368.270 ns/op
+# Warmup Iteration   2: 348.465 ns/op
+# Warmup Iteration   3: 345.422 ns/op
+# Warmup Iteration   4: 345.614 ns/op
+# Warmup Iteration   5: 345.964 ns/op
+Iteration   1: 348.797 ns/op
+Iteration   2: 349.771 ns/op
+Iteration   3: 347.253 ns/op
+Iteration   4: 344.952 ns/op
+Iteration   5: 352.727 ns/op
+
+# Run progress: 47.74% complete, ETA 00:36:22
+# Fork: 5 of 5
+# Warmup Iteration   1: 371.070 ns/op
+# Warmup Iteration   2: 349.480 ns/op
+# Warmup Iteration   3: 348.611 ns/op
+# Warmup Iteration   4: 347.327 ns/op
+# Warmup Iteration   5: 348.309 ns/op
+Iteration   1: 349.541 ns/op
+Iteration   2: 354.950 ns/op
+Iteration   3: 352.279 ns/op
+Iteration   4: 351.046 ns/op
+Iteration   5: 350.702 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.StubMatcherTest._Benchmark.benchmark_arraysIntersect_ShouldReturnTrue_WhenTwoArraysHaveTheSameElements":
+  348.700 ±(99.9%) 2.655 ns/op [Average]
+  (min, avg, max) = (342.594, 348.700, 354.950), stdev = 3.544
+  CI (99.9%): [346.046, 351.355] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest._Benchmark.benchmark_stubbedProxyConfigAsYaml
+
+# Run progress: 48.39% complete, ETA 00:36:21
+# Fork: 1 of 5
+# Warmup Iteration   1: 682.058 ns/op
+# Warmup Iteration   2: 590.376 ns/op
+# Warmup Iteration   3: 589.785 ns/op
+# Warmup Iteration   4: 588.550 ns/op
+# Warmup Iteration   5: 587.670 ns/op
+Iteration   1: 584.396 ns/op
+Iteration   2: 590.540 ns/op
+Iteration   3: 591.291 ns/op
+Iteration   4: 596.604 ns/op
+Iteration   5: 603.163 ns/op
+
+# Run progress: 49.03% complete, ETA 00:36:18
+# Fork: 2 of 5
+# Warmup Iteration   1: 678.055 ns/op
+# Warmup Iteration   2: 589.306 ns/op
+# Warmup Iteration   3: 591.950 ns/op
+# Warmup Iteration   4: 590.446 ns/op
+# Warmup Iteration   5: 590.349 ns/op
+Iteration   1: 590.671 ns/op
+Iteration   2: 603.280 ns/op
+Iteration   3: 596.328 ns/op
+Iteration   4: 596.497 ns/op
+Iteration   5: 605.690 ns/op
+
+# Run progress: 49.68% complete, ETA 00:36:14
+# Fork: 3 of 5
+# Warmup Iteration   1: 676.781 ns/op
+# Warmup Iteration   2: 591.281 ns/op
+# Warmup Iteration   3: 587.330 ns/op
+# Warmup Iteration   4: 587.338 ns/op
+# Warmup Iteration   5: 587.228 ns/op
+Iteration   1: 589.352 ns/op
+Iteration   2: 596.199 ns/op
+Iteration   3: 595.558 ns/op
+Iteration   4: 590.587 ns/op
+Iteration   5: 600.048 ns/op
+
+# Run progress: 50.32% complete, ETA 00:36:09
+# Fork: 4 of 5
+# Warmup Iteration   1: 675.028 ns/op
+# Warmup Iteration   2: 588.514 ns/op
+# Warmup Iteration   3: 584.291 ns/op
+# Warmup Iteration   4: 583.257 ns/op
+# Warmup Iteration   5: 582.512 ns/op
+Iteration   1: 589.629 ns/op
+Iteration   2: 580.469 ns/op
+Iteration   3: 589.324 ns/op
+Iteration   4: 585.609 ns/op
+Iteration   5: 591.827 ns/op
+
+# Run progress: 50.97% complete, ETA 00:36:02
+# Fork: 5 of 5
+# Warmup Iteration   1: 667.635 ns/op
+# Warmup Iteration   2: 583.097 ns/op
+# Warmup Iteration   3: 579.906 ns/op
+# Warmup Iteration   4: 581.280 ns/op
+# Warmup Iteration   5: 580.038 ns/op
+Iteration   1: 592.505 ns/op
+Iteration   2: 589.256 ns/op
+Iteration   3: 582.008 ns/op
+Iteration   4: 584.489 ns/op
+Iteration   5: 596.101 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.StubProxyConfigBuilderTest._Benchmark.benchmark_stubbedProxyConfigAsYaml":
+  592.457 ±(99.9%) 4.902 ns/op [Average]
+  (min, avg, max) = (580.469, 592.457, 605.690), stdev = 6.545
+  CI (99.9%): [587.554, 597.359] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.StubRepositoryTest._Benchmark.benchmark_shouldFailDeletingDefaultProxyConfigByUuid
+
+# Run progress: 51.61% complete, ETA 00:35:55
+# Fork: 1 of 5
+# Warmup Iteration   1: OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2938966.239 ns/op
+# Warmup Iteration   2: 1408068.762 ns/op
+# Warmup Iteration   3: 1202159.597 ns/op
+# Warmup Iteration   4: 1214299.970 ns/op
+# Warmup Iteration   5: 1394498.192 ns/op
+Iteration   1: 1593028.794 ns/op
+Iteration   2: 1422325.507 ns/op
+Iteration   3: 5785770.375 ns/op
+Iteration   4: 1452891.557 ns/op
+Iteration   5: 1420555.944 ns/op
+
+# Run progress: 52.26% complete, ETA 00:35:48
+# Fork: 2 of 5
+# Warmup Iteration   1: OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+3105326.510 ns/op
+# Warmup Iteration   2: 1407706.066 ns/op
+# Warmup Iteration   3: 1197017.293 ns/op
+# Warmup Iteration   4: 1206318.053 ns/op
+# Warmup Iteration   5: 1372167.886 ns/op
+Iteration   1: 1404337.486 ns/op
+Iteration   2: 1407463.889 ns/op
+Iteration   3: 1421352.676 ns/op
+Iteration   4: 1401513.181 ns/op
+Iteration   5: 3574041.333 ns/op
+
+# Run progress: 52.90% complete, ETA 00:35:41
+# Fork: 3 of 5
+# Warmup Iteration   1: OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+3262039.131 ns/op
+# Warmup Iteration   2: 1510016.803 ns/op
+# Warmup Iteration   3: 1234322.637 ns/op
+# Warmup Iteration   4: 1265851.902 ns/op
+# Warmup Iteration   5: 1391062.980 ns/op
+Iteration   1: 1363605.459 ns/op
+Iteration   2: 1413322.141 ns/op
+Iteration   3: 1376968.315 ns/op
+Iteration   4: 1357598.122 ns/op
+Iteration   5: 1388521.233 ns/op
+
+# Run progress: 53.55% complete, ETA 00:35:32
+# Fork: 4 of 5
+# Warmup Iteration   1: OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+3048341.902 ns/op
+# Warmup Iteration   2: 1401077.524 ns/op
+# Warmup Iteration   3: 1283938.712 ns/op
+# Warmup Iteration   4: 1404692.239 ns/op
+# Warmup Iteration   5: 1346507.132 ns/op
+Iteration   1: 2031940.902 ns/op
+Iteration   2: 5058542.200 ns/op
+Iteration   3: 1788615.220 ns/op
+Iteration   4: 2260381.689 ns/op
+Iteration   5: 2239567.756 ns/op
+
+# Run progress: 54.19% complete, ETA 00:35:23
+# Fork: 5 of 5
+# Warmup Iteration   1: OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+3167903.721 ns/op
+# Warmup Iteration   2: 1479063.082 ns/op
+# Warmup Iteration   3: 1273867.535 ns/op
+# Warmup Iteration   4: 1263327.309 ns/op
+# Warmup Iteration   5: 1418657.216 ns/op
+Iteration   1: 1379931.918 ns/op
+Iteration   2: 1359513.851 ns/op
+Iteration   3: 1354845.932 ns/op
+Iteration   4: 1345107.347 ns/op
+Iteration   5: 1337376.587 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.StubRepositoryTest._Benchmark.benchmark_shouldFailDeletingDefaultProxyConfigByUuid":
+  1917564.777 ±(99.9%) 874392.527 ns/op [Average]
+  (min, avg, max) = (1337376.587, 1917564.777, 5785770.375), stdev = 1167289.007
+  CI (99.9%): [1043172.249, 2791957.304] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestEqualsAssertingRequest_WhenNullUrlStubbed_AndNullUrlSubmitted
+
+# Run progress: 54.84% complete, ETA 00:35:12
+# Fork: 1 of 5
+# Warmup Iteration   1: 73943.012 ns/op
+# Warmup Iteration   2: 62533.511 ns/op
+# Warmup Iteration   3: 67792.691 ns/op
+# Warmup Iteration   4: 68095.220 ns/op
+# Warmup Iteration   5: 67357.819 ns/op
+Iteration   1: 22012.207 ns/op
+Iteration   2: 758388.343 ns/op
+Iteration   3: 20891.148 ns/op
+Iteration   4: 1241791.403 ns/op
+Iteration   5: 21875.515 ns/op
+
+# Run progress: 55.48% complete, ETA 00:34:59
+# Fork: 2 of 5
+# Warmup Iteration   1: 63073.028 ns/op
+# Warmup Iteration   2: 66941.758 ns/op
+# Warmup Iteration   3: 65406.933 ns/op
+# Warmup Iteration   4: 62839.538 ns/op
+# Warmup Iteration   5: 61064.057 ns/op
+Iteration   1: 1273622.741 ns/op
+Iteration   2: 48817.894 ns/op
+Iteration   3: 34794.267 ns/op
+Iteration   4: 187776.810 ns/op
+Iteration   5: 40581.812 ns/op
+
+# Run progress: 56.13% complete, ETA 00:34:46
+# Fork: 3 of 5
+# Warmup Iteration   1: 69760.952 ns/op
+# Warmup Iteration   2: 65495.431 ns/op
+# Warmup Iteration   3: 63158.126 ns/op
+# Warmup Iteration   4: 62410.147 ns/op
+# Warmup Iteration   5: 64111.280 ns/op
+Iteration   1: 20387.322 ns/op
+Iteration   2: 168754.847 ns/op
+Iteration   3: 40972.144 ns/op
+Iteration   4: 26066.933 ns/op
+Iteration   5: 161675.234 ns/op
+
+# Run progress: 56.77% complete, ETA 00:34:32
+# Fork: 4 of 5
+# Warmup Iteration   1: 76345.825 ns/op
+# Warmup Iteration   2: 68877.953 ns/op
+# Warmup Iteration   3: 63979.780 ns/op
+# Warmup Iteration   4: 63373.268 ns/op
+# Warmup Iteration   5: 65886.167 ns/op
+Iteration   1: 39865.739 ns/op
+Iteration   2: 216535.332 ns/op
+Iteration   3: 38743.710 ns/op
+Iteration   4: 549014.700 ns/op
+Iteration   5: 40669.321 ns/op
+
+# Run progress: 57.42% complete, ETA 00:34:17
+# Fork: 5 of 5
+# Warmup Iteration   1: 64999.708 ns/op
+# Warmup Iteration   2: 66048.939 ns/op
+# Warmup Iteration   3: 64625.567 ns/op
+# Warmup Iteration   4: 62274.859 ns/op
+# Warmup Iteration   5: 62742.214 ns/op
+Iteration   1: 43369.859 ns/op
+Iteration   2: 37382.090 ns/op
+Iteration   3: 43244.515 ns/op
+Iteration   4: 387210.240 ns/op
+Iteration   5: 39828.292 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestEqualsAssertingRequest_WhenNullUrlStubbed_AndNullUrlSubmitted":
+  220170.897 ±(99.9%) 270795.165 ns/op [Average]
+  (min, avg, max) = (20387.322, 220170.897, 1273622.741), stdev = 361503.797
+  CI (99.9%): [≈ 0, 490966.061] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest._Benchmark.benchmark_shouldStage_WhenConfigurablePropertyAndFieldValuePresent
+
+# Run progress: 58.06% complete, ETA 00:34:02
+# Fork: 1 of 5
+# Warmup Iteration   1: 436.731 ns/op
+# Warmup Iteration   2: 409.687 ns/op
+# Warmup Iteration   3: 408.455 ns/op
+# Warmup Iteration   4: 406.804 ns/op
+# Warmup Iteration   5: 407.783 ns/op
+Iteration   1: 410.988 ns/op
+Iteration   2: 415.856 ns/op
+Iteration   3: 411.434 ns/op
+Iteration   4: 411.864 ns/op
+Iteration   5: 412.767 ns/op
+
+# Run progress: 58.71% complete, ETA 00:33:44
+# Fork: 2 of 5
+# Warmup Iteration   1: 440.026 ns/op
+# Warmup Iteration   2: 410.006 ns/op
+# Warmup Iteration   3: 407.944 ns/op
+# Warmup Iteration   4: 407.811 ns/op
+# Warmup Iteration   5: 407.640 ns/op
+Iteration   1: 410.861 ns/op
+Iteration   2: 416.282 ns/op
+Iteration   3: 411.563 ns/op
+Iteration   4: 406.838 ns/op
+Iteration   5: 404.752 ns/op
+
+# Run progress: 59.35% complete, ETA 00:33:25
+# Fork: 3 of 5
+# Warmup Iteration   1: 441.798 ns/op
+# Warmup Iteration   2: 411.943 ns/op
+# Warmup Iteration   3: 410.612 ns/op
+# Warmup Iteration   4: 409.545 ns/op
+# Warmup Iteration   5: 410.930 ns/op
+Iteration   1: 410.678 ns/op
+Iteration   2: 415.455 ns/op
+Iteration   3: 411.621 ns/op
+Iteration   4: 411.202 ns/op
+Iteration   5: 410.184 ns/op
+
+# Run progress: 60.00% complete, ETA 00:33:06
+# Fork: 4 of 5
+# Warmup Iteration   1: 440.949 ns/op
+# Warmup Iteration   2: 410.158 ns/op
+# Warmup Iteration   3: 407.381 ns/op
+# Warmup Iteration   4: 407.863 ns/op
+# Warmup Iteration   5: 408.741 ns/op
+Iteration   1: 408.759 ns/op
+Iteration   2: 409.880 ns/op
+Iteration   3: 406.297 ns/op
+Iteration   4: 406.441 ns/op
+Iteration   5: 409.052 ns/op
+
+# Run progress: 60.65% complete, ETA 00:32:46
+# Fork: 5 of 5
+# Warmup Iteration   1: 439.585 ns/op
+# Warmup Iteration   2: 410.681 ns/op
+# Warmup Iteration   3: 408.074 ns/op
+# Warmup Iteration   4: 408.424 ns/op
+# Warmup Iteration   5: 407.386 ns/op
+Iteration   1: 405.983 ns/op
+Iteration   2: 412.239 ns/op
+Iteration   3: 411.939 ns/op
+Iteration   4: 413.242 ns/op
+Iteration   5: 415.922 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.StubResponseBuilderTest._Benchmark.benchmark_shouldStage_WhenConfigurablePropertyAndFieldValuePresent":
+  410.884 ±(99.9%) 2.382 ns/op [Average]
+  (min, avg, max) = (404.752, 410.884, 416.282), stdev = 3.180
+  CI (99.9%): [408.502, 413.266] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequestTest._Benchmark.benchmark_returnsBodyAsExpectedStringWhenOnlyBodyStubbed
+
+# Run progress: 61.29% complete, ETA 00:32:26
+# Fork: 1 of 5
+# Warmup Iteration   1: 429.966 ns/op
+# Warmup Iteration   2: 402.603 ns/op
+# Warmup Iteration   3: 400.288 ns/op
+# Warmup Iteration   4: 399.773 ns/op
+# Warmup Iteration   5: 400.803 ns/op
+Iteration   1: 403.343 ns/op
+Iteration   2: 403.135 ns/op
+Iteration   3: 399.464 ns/op
+Iteration   4: 404.912 ns/op
+Iteration   5: 404.331 ns/op
+
+# Run progress: 61.94% complete, ETA 00:32:05
+# Fork: 2 of 5
+# Warmup Iteration   1: 428.359 ns/op
+# Warmup Iteration   2: 400.545 ns/op
+# Warmup Iteration   3: 396.929 ns/op
+# Warmup Iteration   4: 396.504 ns/op
+# Warmup Iteration   5: 395.752 ns/op
+Iteration   1: 396.061 ns/op
+Iteration   2: 394.356 ns/op
+Iteration   3: 402.936 ns/op
+Iteration   4: 420.199 ns/op
+Iteration   5: 402.516 ns/op
+
+# Run progress: 62.58% complete, ETA 00:31:43
+# Fork: 3 of 5
+# Warmup Iteration   1: 428.327 ns/op
+# Warmup Iteration   2: 398.853 ns/op
+# Warmup Iteration   3: 396.426 ns/op
+# Warmup Iteration   4: 397.621 ns/op
+# Warmup Iteration   5: 396.669 ns/op
+Iteration   1: 397.620 ns/op
+Iteration   2: 400.800 ns/op
+Iteration   3: 396.161 ns/op
+Iteration   4: 395.894 ns/op
+Iteration   5: 395.622 ns/op
+
+# Run progress: 63.23% complete, ETA 00:31:21
+# Fork: 4 of 5
+# Warmup Iteration   1: 435.699 ns/op
+# Warmup Iteration   2: 406.998 ns/op
+# Warmup Iteration   3: 403.312 ns/op
+# Warmup Iteration   4: 403.075 ns/op
+# Warmup Iteration   5: 402.685 ns/op
+Iteration   1: 406.826 ns/op
+Iteration   2: 405.799 ns/op
+Iteration   3: 405.804 ns/op
+Iteration   4: 405.959 ns/op
+Iteration   5: 406.034 ns/op
+
+# Run progress: 63.87% complete, ETA 00:30:58
+# Fork: 5 of 5
+# Warmup Iteration   1: 432.446 ns/op
+# Warmup Iteration   2: 402.416 ns/op
+# Warmup Iteration   3: 402.839 ns/op
+# Warmup Iteration   4: 402.160 ns/op
+# Warmup Iteration   5: 402.683 ns/op
+Iteration   1: 405.088 ns/op
+Iteration   2: 403.385 ns/op
+Iteration   3: 405.194 ns/op
+Iteration   4: 407.255 ns/op
+Iteration   5: 411.522 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketClientRequestTest._Benchmark.benchmark_returnsBodyAsExpectedStringWhenOnlyBodyStubbed":
+  403.209 ±(99.9%) 4.242 ns/op [Average]
+  (min, avg, max) = (394.356, 403.209, 420.199), stdev = 5.663
+  CI (99.9%): [398.966, 407.451] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketMessageTypeTest._Benchmark.benchmark_returnsTrueOnKnownProperties
+
+# Run progress: 64.52% complete, ETA 00:30:35
+# Fork: 1 of 5
+# Warmup Iteration   1: 458.276 ns/op
+# Warmup Iteration   2: 423.620 ns/op
+# Warmup Iteration   3: 421.875 ns/op
+# Warmup Iteration   4: 422.147 ns/op
+# Warmup Iteration   5: 421.713 ns/op
+Iteration   1: 424.917 ns/op
+Iteration   2: 419.959 ns/op
+Iteration   3: 426.649 ns/op
+Iteration   4: 424.635 ns/op
+Iteration   5: 424.066 ns/op
+
+# Run progress: 65.16% complete, ETA 00:30:11
+# Fork: 2 of 5
+# Warmup Iteration   1: 455.926 ns/op
+# Warmup Iteration   2: 421.766 ns/op
+# Warmup Iteration   3: 419.591 ns/op
+# Warmup Iteration   4: 420.239 ns/op
+# Warmup Iteration   5: 420.733 ns/op
+Iteration   1: 421.641 ns/op
+Iteration   2: 421.616 ns/op
+Iteration   3: 422.138 ns/op
+Iteration   4: 423.183 ns/op
+Iteration   5: 424.059 ns/op
+
+# Run progress: 65.81% complete, ETA 00:29:46
+# Fork: 3 of 5
+# Warmup Iteration   1: 446.110 ns/op
+# Warmup Iteration   2: 420.474 ns/op
+# Warmup Iteration   3: 418.991 ns/op
+# Warmup Iteration   4: 419.112 ns/op
+# Warmup Iteration   5: 432.269 ns/op
+Iteration   1: 420.351 ns/op
+Iteration   2: 425.805 ns/op
+Iteration   3: 417.390 ns/op
+Iteration   4: 420.990 ns/op
+Iteration   5: 422.646 ns/op
+
+# Run progress: 66.45% complete, ETA 00:29:21
+# Fork: 4 of 5
+# Warmup Iteration   1: 456.953 ns/op
+# Warmup Iteration   2: 422.062 ns/op
+# Warmup Iteration   3: 420.352 ns/op
+# Warmup Iteration   4: 422.248 ns/op
+# Warmup Iteration   5: 422.173 ns/op
+Iteration   1: 420.009 ns/op
+Iteration   2: 424.430 ns/op
+Iteration   3: 430.119 ns/op
+Iteration   4: 421.098 ns/op
+Iteration   5: 429.395 ns/op
+
+# Run progress: 67.10% complete, ETA 00:28:55
+# Fork: 5 of 5
+# Warmup Iteration   1: 456.800 ns/op
+# Warmup Iteration   2: 422.979 ns/op
+# Warmup Iteration   3: 420.840 ns/op
+# Warmup Iteration   4: 420.677 ns/op
+# Warmup Iteration   5: 419.555 ns/op
+Iteration   1: 420.370 ns/op
+Iteration   2: 420.921 ns/op
+Iteration   3: 418.285 ns/op
+Iteration   4: 433.066 ns/op
+Iteration   5: 426.391 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketMessageTypeTest._Benchmark.benchmark_returnsTrueOnKnownProperties":
+  423.365 ±(99.9%) 2.800 ns/op [Average]
+  (min, avg, max) = (417.390, 423.365, 433.066), stdev = 3.738
+  CI (99.9%): [420.565, 426.165] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponsePolicyTest._Benchmark.benchmark_returnsFalseOnUnknownProperties
+
+# Run progress: 67.74% complete, ETA 00:28:29
+# Fork: 1 of 5
+# Warmup Iteration   1: 419.221 ns/op
+# Warmup Iteration   2: 390.832 ns/op
+# Warmup Iteration   3: 392.502 ns/op
+# Warmup Iteration   4: 391.013 ns/op
+# Warmup Iteration   5: 389.026 ns/op
+Iteration   1: 386.265 ns/op
+Iteration   2: 388.254 ns/op
+Iteration   3: 385.984 ns/op
+Iteration   4: 386.456 ns/op
+Iteration   5: 391.114 ns/op
+
+# Run progress: 68.39% complete, ETA 00:28:03
+# Fork: 2 of 5
+# Warmup Iteration   1: 420.326 ns/op
+# Warmup Iteration   2: 392.051 ns/op
+# Warmup Iteration   3: 389.715 ns/op
+# Warmup Iteration   4: 389.265 ns/op
+# Warmup Iteration   5: 389.187 ns/op
+Iteration   1: 388.769 ns/op
+Iteration   2: 390.579 ns/op
+Iteration   3: 387.075 ns/op
+Iteration   4: 391.725 ns/op
+Iteration   5: 391.375 ns/op
+
+# Run progress: 69.03% complete, ETA 00:27:36
+# Fork: 3 of 5
+# Warmup Iteration   1: 415.199 ns/op
+# Warmup Iteration   2: 391.245 ns/op
+# Warmup Iteration   3: 388.284 ns/op
+# Warmup Iteration   4: 389.701 ns/op
+# Warmup Iteration   5: 387.906 ns/op
+Iteration   1: 390.921 ns/op
+Iteration   2: 395.251 ns/op
+Iteration   3: 393.149 ns/op
+Iteration   4: 389.369 ns/op
+Iteration   5: 393.167 ns/op
+
+# Run progress: 69.68% complete, ETA 00:27:08
+# Fork: 4 of 5
+# Warmup Iteration   1: 420.121 ns/op
+# Warmup Iteration   2: 391.955 ns/op
+# Warmup Iteration   3: 391.530 ns/op
+# Warmup Iteration   4: 390.304 ns/op
+# Warmup Iteration   5: 389.444 ns/op
+Iteration   1: 390.451 ns/op
+Iteration   2: 396.533 ns/op
+Iteration   3: 397.157 ns/op
+Iteration   4: 387.614 ns/op
+Iteration   5: 391.942 ns/op
+
+# Run progress: 70.32% complete, ETA 00:26:41
+# Fork: 5 of 5
+# Warmup Iteration   1: 418.358 ns/op
+# Warmup Iteration   2: 392.513 ns/op
+# Warmup Iteration   3: 390.657 ns/op
+# Warmup Iteration   4: 390.374 ns/op
+# Warmup Iteration   5: 390.539 ns/op
+Iteration   1: 399.102 ns/op
+Iteration   2: 391.526 ns/op
+Iteration   3: 395.455 ns/op
+Iteration   4: 396.994 ns/op
+Iteration   5: 395.032 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponsePolicyTest._Benchmark.benchmark_returnsFalseOnUnknownProperties":
+  391.650 ±(99.9%) 2.801 ns/op [Average]
+  (min, avg, max) = (385.984, 391.650, 399.102), stdev = 3.740
+  CI (99.9%): [388.849, 394.452] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest._Benchmark.benchmark_returnsBodyAsExpectedBytesWhenOnlyFileStubbed
+
+# Run progress: 70.97% complete, ETA 00:26:12
+# Fork: 1 of 5
+# Warmup Iteration   1: 285294.562 ns/op
+# Warmup Iteration   2: 327140.645 ns/op
+# Warmup Iteration   3: 327428.419 ns/op
+# Warmup Iteration   4: 330384.655 ns/op
+# Warmup Iteration   5: 328635.237 ns/op
+Iteration   1: 324984.648 ns/op
+Iteration   2: 320141.791 ns/op
+Iteration   3: 324885.720 ns/op
+Iteration   4: 323771.702 ns/op
+Iteration   5: 323755.091 ns/op
+
+# Run progress: 71.61% complete, ETA 00:25:45
+# Fork: 2 of 5
+# Warmup Iteration   1: 287019.054 ns/op
+# Warmup Iteration   2: 335163.965 ns/op
+# Warmup Iteration   3: 328939.639 ns/op
+# Warmup Iteration   4: 329530.248 ns/op
+# Warmup Iteration   5: 328825.441 ns/op
+Iteration   1: 325776.435 ns/op
+Iteration   2: 319253.842 ns/op
+Iteration   3: 324461.848 ns/op
+Iteration   4: 324587.439 ns/op
+Iteration   5: 323773.040 ns/op
+
+# Run progress: 72.26% complete, ETA 00:25:17
+# Fork: 3 of 5
+# Warmup Iteration   1: 287230.719 ns/op
+# Warmup Iteration   2: 330046.065 ns/op
+# Warmup Iteration   3: 331900.350 ns/op
+# Warmup Iteration   4: 328393.075 ns/op
+# Warmup Iteration   5: 330356.253 ns/op
+Iteration   1: 324873.275 ns/op
+Iteration   2: 320966.762 ns/op
+Iteration   3: 324703.651 ns/op
+Iteration   4: 325669.902 ns/op
+Iteration   5: 324455.823 ns/op
+
+# Run progress: 72.90% complete, ETA 00:24:48
+# Fork: 4 of 5
+# Warmup Iteration   1: 292611.557 ns/op
+# Warmup Iteration   2: 328966.547 ns/op
+# Warmup Iteration   3: 329699.695 ns/op
+# Warmup Iteration   4: 332450.081 ns/op
+# Warmup Iteration   5: 329068.018 ns/op
+Iteration   1: 324692.098 ns/op
+Iteration   2: 320132.622 ns/op
+Iteration   3: 323919.998 ns/op
+Iteration   4: 325316.706 ns/op
+Iteration   5: 405664.401 ns/op
+
+# Run progress: 73.55% complete, ETA 00:24:19
+# Fork: 5 of 5
+# Warmup Iteration   1: 288313.840 ns/op
+# Warmup Iteration   2: 337889.905 ns/op
+# Warmup Iteration   3: 330495.036 ns/op
+# Warmup Iteration   4: 329308.546 ns/op
+# Warmup Iteration   5: 329668.427 ns/op
+Iteration   1: 324398.515 ns/op
+Iteration   2: 321360.397 ns/op
+Iteration   3: 325028.207 ns/op
+Iteration   4: 325372.230 ns/op
+Iteration   5: 291421.554 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.stubs.websocket.StubWebSocketServerResponseTest._Benchmark.benchmark_returnsBodyAsExpectedBytesWhenOnlyFileStubbed":
+  325734.708 ±(99.9%) 13451.266 ns/op [Average]
+  (min, avg, max) = (291421.554, 325734.708, 405664.401), stdev = 17957.055
+  CI (99.9%): [312283.442, 339185.973] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.utils.CollectionUtilsTest._Benchmark.benchmark_chunkifyByteArrayAndQueue
+
+# Run progress: 74.19% complete, ETA 00:23:50
+# Fork: 1 of 5
+# Warmup Iteration   1: 13924.904 ns/op
+# Warmup Iteration   2: 13099.988 ns/op
+# Warmup Iteration   3: 13078.003 ns/op
+# Warmup Iteration   4: 13091.713 ns/op
+# Warmup Iteration   5: 13071.806 ns/op
+Iteration   1: 13112.102 ns/op
+Iteration   2: 13074.322 ns/op
+Iteration   3: 13162.487 ns/op
+Iteration   4: 13128.463 ns/op
+Iteration   5: 13131.699 ns/op
+
+# Run progress: 74.84% complete, ETA 00:23:19
+# Fork: 2 of 5
+# Warmup Iteration   1: 13778.653 ns/op
+# Warmup Iteration   2: 12941.596 ns/op
+# Warmup Iteration   3: 12930.616 ns/op
+# Warmup Iteration   4: 12916.230 ns/op
+# Warmup Iteration   5: 12918.517 ns/op
+Iteration   1: 12936.561 ns/op
+Iteration   2: 12864.157 ns/op
+Iteration   3: 12922.417 ns/op
+Iteration   4: 13037.151 ns/op
+Iteration   5: 13018.216 ns/op
+
+# Run progress: 75.48% complete, ETA 00:22:48
+# Fork: 3 of 5
+# Warmup Iteration   1: 13758.105 ns/op
+# Warmup Iteration   2: 12956.057 ns/op
+# Warmup Iteration   3: 12933.134 ns/op
+# Warmup Iteration   4: 12927.980 ns/op
+# Warmup Iteration   5: 12953.884 ns/op
+Iteration   1: 12994.342 ns/op
+Iteration   2: 12961.314 ns/op
+Iteration   3: 13093.594 ns/op
+Iteration   4: 12960.839 ns/op
+Iteration   5: 13032.000 ns/op
+
+# Run progress: 76.13% complete, ETA 00:22:17
+# Fork: 4 of 5
+# Warmup Iteration   1: 13835.078 ns/op
+# Warmup Iteration   2: 12982.671 ns/op
+# Warmup Iteration   3: 12968.635 ns/op
+# Warmup Iteration   4: 12985.478 ns/op
+# Warmup Iteration   5: 12968.327 ns/op
+Iteration   1: 13083.554 ns/op
+Iteration   2: 12965.567 ns/op
+Iteration   3: 13148.439 ns/op
+Iteration   4: 12969.968 ns/op
+Iteration   5: 13090.402 ns/op
+
+# Run progress: 76.77% complete, ETA 00:21:45
+# Fork: 5 of 5
+# Warmup Iteration   1: 15212.276 ns/op
+# Warmup Iteration   2: 14456.563 ns/op
+# Warmup Iteration   3: 14385.023 ns/op
+# Warmup Iteration   4: 14379.269 ns/op
+# Warmup Iteration   5: 14348.965 ns/op
+Iteration   1: 14572.587 ns/op
+Iteration   2: 14598.633 ns/op
+Iteration   3: 14591.106 ns/op
+Iteration   4: 14503.987 ns/op
+Iteration   5: 14415.252 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.utils.CollectionUtilsTest._Benchmark.benchmark_chunkifyByteArrayAndQueue":
+  13334.766 ±(99.9%) 463.385 ns/op [Average]
+  (min, avg, max) = (12864.157, 13334.766, 14598.633), stdev = 618.606
+  CI (99.9%): [12871.382, 13798.151] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.utils.FileUtilsTest._Benchmark.benchmark_shouldNotConvertFileToBytesWhenBadFilenameGiven
+
+# Run progress: 80.65% complete, ETA 00:17:32
+# Fork: 1 of 5
+# Warmup Iteration   1: 3980.740 ns/op
+# Warmup Iteration   2: 3772.808 ns/op
+# Warmup Iteration   3: 3764.298 ns/op
+# Warmup Iteration   4: 3763.673 ns/op
+# Warmup Iteration   5: 3754.236 ns/op
+Iteration   1: 3780.846 ns/op
+Iteration   2: 3767.157 ns/op
+Iteration   3: 3739.721 ns/op
+Iteration   4: 3801.800 ns/op
+Iteration   5: 3802.405 ns/op
+
+# Run progress: 81.29% complete, ETA 00:17:00
+# Fork: 2 of 5
+# Warmup Iteration   1: 4004.883 ns/op
+# Warmup Iteration   2: 3769.923 ns/op
+# Warmup Iteration   3: 3779.946 ns/op
+# Warmup Iteration   4: 3813.890 ns/op
+# Warmup Iteration   5: 3807.489 ns/op
+Iteration   1: 3883.708 ns/op
+Iteration   2: 3848.743 ns/op
+Iteration   3: 3808.476 ns/op
+Iteration   4: 3808.307 ns/op
+Iteration   5: 3816.564 ns/op
+
+# Run progress: 81.94% complete, ETA 00:16:29
+# Fork: 3 of 5
+# Warmup Iteration   1: 4072.248 ns/op
+# Warmup Iteration   2: 3839.100 ns/op
+# Warmup Iteration   3: 3821.464 ns/op
+# Warmup Iteration   4: 3832.636 ns/op
+# Warmup Iteration   5: 3817.482 ns/op
+Iteration   1: 3792.760 ns/op
+Iteration   2: 3812.686 ns/op
+Iteration   3: 3861.051 ns/op
+Iteration   4: 3820.360 ns/op
+Iteration   5: 3816.374 ns/op
+
+# Run progress: 82.58% complete, ETA 00:15:57
+# Fork: 4 of 5
+# Warmup Iteration   1: 4437.995 ns/op
+# Warmup Iteration   2: 4172.968 ns/op
+# Warmup Iteration   3: 4162.651 ns/op
+# Warmup Iteration   4: 4163.445 ns/op
+# Warmup Iteration   5: 4156.916 ns/op
+Iteration   1: 4184.576 ns/op
+Iteration   2: 4213.914 ns/op
+Iteration   3: 4185.160 ns/op
+Iteration   4: 4176.601 ns/op
+Iteration   5: 4180.681 ns/op
+
+# Run progress: 83.23% complete, ETA 00:15:24
+# Fork: 5 of 5
+# Warmup Iteration   1: 4530.175 ns/op
+# Warmup Iteration   2: 4270.950 ns/op
+# Warmup Iteration   3: 4250.568 ns/op
+# Warmup Iteration   4: 4255.640 ns/op
+# Warmup Iteration   5: 4264.233 ns/op
+Iteration   1: 4260.381 ns/op
+Iteration   2: 4331.266 ns/op
+Iteration   3: 4247.224 ns/op
+Iteration   4: 4245.254 ns/op
+Iteration   5: 4289.078 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.utils.FileUtilsTest._Benchmark.benchmark_shouldNotConvertFileToBytesWhenBadFilenameGiven":
+  3979.004 ±(99.9%) 160.690 ns/op [Average]
+  (min, avg, max) = (3739.721, 3979.004, 4331.266), stdev = 214.517
+  CI (99.9%): [3818.313, 4139.694] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.utils.HandlerUtilsTest._Benchmark.benchmark_shouldEscapeHtmlEntities
+
+# Run progress: 83.87% complete, ETA 00:14:52
+# Fork: 1 of 5
+# Warmup Iteration   1: 1162.268 ns/op
+# Warmup Iteration   2: 1073.882 ns/op
+# Warmup Iteration   3: 1068.159 ns/op
+# Warmup Iteration   4: 1069.838 ns/op
+# Warmup Iteration   5: 1071.247 ns/op
+Iteration   1: 1064.988 ns/op
+Iteration   2: 1156.703 ns/op
+Iteration   3: 1065.565 ns/op
+Iteration   4: 1080.930 ns/op
+Iteration   5: 1067.611 ns/op
+
+# Run progress: 84.52% complete, ETA 00:14:19
+# Fork: 2 of 5
+# Warmup Iteration   1: 1136.183 ns/op
+# Warmup Iteration   2: 1052.259 ns/op
+# Warmup Iteration   3: 1043.070 ns/op
+# Warmup Iteration   4: 1045.969 ns/op
+# Warmup Iteration   5: 1044.759 ns/op
+Iteration   1: 1049.970 ns/op
+Iteration   2: 1037.009 ns/op
+Iteration   3: 1048.814 ns/op
+Iteration   4: 1045.726 ns/op
+Iteration   5: 1039.749 ns/op
+
+# Run progress: 85.16% complete, ETA 00:13:45
+# Fork: 3 of 5
+# Warmup Iteration   1: 1135.410 ns/op
+# Warmup Iteration   2: 1051.137 ns/op
+# Warmup Iteration   3: 1047.699 ns/op
+# Warmup Iteration   4: 1049.476 ns/op
+# Warmup Iteration   5: 1044.711 ns/op
+Iteration   1: 1046.388 ns/op
+Iteration   2: 1055.547 ns/op
+Iteration   3: 1058.953 ns/op
+Iteration   4: 1044.197 ns/op
+Iteration   5: 1055.812 ns/op
+
+# Run progress: 85.81% complete, ETA 00:13:12
+# Fork: 4 of 5
+# Warmup Iteration   1: 1132.347 ns/op
+# Warmup Iteration   2: 1058.850 ns/op
+# Warmup Iteration   3: 1050.980 ns/op
+# Warmup Iteration   4: 1048.586 ns/op
+# Warmup Iteration   5: 1048.738 ns/op
+Iteration   1: 1055.338 ns/op
+Iteration   2: 1057.924 ns/op
+Iteration   3: 1050.241 ns/op
+Iteration   4: 1072.863 ns/op
+Iteration   5: 1050.994 ns/op
+
+# Run progress: 86.45% complete, ETA 00:12:38
+# Fork: 5 of 5
+# Warmup Iteration   1: 1135.496 ns/op
+# Warmup Iteration   2: 1049.607 ns/op
+# Warmup Iteration   3: 1045.907 ns/op
+# Warmup Iteration   4: 1047.588 ns/op
+# Warmup Iteration   5: 1045.099 ns/op
+Iteration   1: 1041.774 ns/op
+Iteration   2: 1068.657 ns/op
+Iteration   3: 1066.387 ns/op
+Iteration   4: 1062.483 ns/op
+Iteration   5: 1057.286 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.utils.HandlerUtilsTest._Benchmark.benchmark_shouldEscapeHtmlEntities":
+  1060.076 ±(99.9%) 17.146 ns/op [Average]
+  (min, avg, max) = (1037.009, 1060.076, 1156.703), stdev = 22.889
+  CI (99.9%): [1042.930, 1077.222] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.utils.ReflectionUtilsTest._Benchmark.benchmark_shouldGetObjectPropertiesAndValues
+
+# Run progress: 87.10% complete, ETA 00:12:04
+# Fork: 1 of 5
+# Warmup Iteration   1: 9168.712 ns/op
+# Warmup Iteration   2: 8329.348 ns/op
+# Warmup Iteration   3: 8295.657 ns/op
+# Warmup Iteration   4: 8295.998 ns/op
+# Warmup Iteration   5: 8289.570 ns/op
+Iteration   1: 8312.468 ns/op
+Iteration   2: 8595.515 ns/op
+Iteration   3: 8382.526 ns/op
+Iteration   4: 8323.138 ns/op
+Iteration   5: 8355.993 ns/op
+
+# Run progress: 87.74% complete, ETA 00:11:30
+# Fork: 2 of 5
+# Warmup Iteration   1: 8752.162 ns/op
+# Warmup Iteration   2: 7989.491 ns/op
+# Warmup Iteration   3: 7897.712 ns/op
+# Warmup Iteration   4: 7885.672 ns/op
+# Warmup Iteration   5: 7887.366 ns/op
+Iteration   1: 7987.155 ns/op
+Iteration   2: 7854.214 ns/op
+Iteration   3: 7981.087 ns/op
+Iteration   4: 7923.669 ns/op
+Iteration   5: 8059.424 ns/op
+
+# Run progress: 88.39% complete, ETA 00:10:56
+# Fork: 3 of 5
+# Warmup Iteration   1: 8988.173 ns/op
+# Warmup Iteration   2: 8208.985 ns/op
+# Warmup Iteration   3: 8037.063 ns/op
+# Warmup Iteration   4: 8019.334 ns/op
+# Warmup Iteration   5: 8058.136 ns/op
+Iteration   1: 8044.885 ns/op
+Iteration   2: 8105.004 ns/op
+Iteration   3: 8062.088 ns/op
+Iteration   4: 8088.632 ns/op
+Iteration   5: 8015.917 ns/op
+
+# Run progress: 89.03% complete, ETA 00:10:21
+# Fork: 4 of 5
+# Warmup Iteration   1: 9174.098 ns/op
+# Warmup Iteration   2: 8460.945 ns/op
+# Warmup Iteration   3: 8264.659 ns/op
+# Warmup Iteration   4: 8253.905 ns/op
+# Warmup Iteration   5: 8246.084 ns/op
+Iteration   1: 8213.506 ns/op
+Iteration   2: 8351.277 ns/op
+Iteration   3: 8520.861 ns/op
+Iteration   4: 8414.163 ns/op
+Iteration   5: 8377.064 ns/op
+
+# Run progress: 89.68% complete, ETA 00:09:46
+# Fork: 5 of 5
+# Warmup Iteration   1: 8899.095 ns/op
+# Warmup Iteration   2: 8045.151 ns/op
+# Warmup Iteration   3: 7979.401 ns/op
+# Warmup Iteration   4: 7989.628 ns/op
+# Warmup Iteration   5: 7967.388 ns/op
+Iteration   1: 7896.856 ns/op
+Iteration   2: 8041.641 ns/op
+Iteration   3: 7932.166 ns/op
+Iteration   4: 8009.847 ns/op
+Iteration   5: 7981.050 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.utils.ReflectionUtilsTest._Benchmark.benchmark_shouldGetObjectPropertiesAndValues":
+  8153.206 ±(99.9%) 158.204 ns/op [Average]
+  (min, avg, max) = (7854.214, 8153.206, 8595.515), stdev = 211.197
+  CI (99.9%): [7995.002, 8311.410] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.utils.StringUtilsTest._Benchmark.benchmark_shouldRemoveEncodedSquareBracketsFromString
+
+# Run progress: 90.32% complete, ETA 00:09:11
+# Fork: 1 of 5
+# Warmup Iteration   1: 1817.821 ns/op
+# Warmup Iteration   2: 1678.854 ns/op
+# Warmup Iteration   3: 1673.878 ns/op
+# Warmup Iteration   4: 1670.394 ns/op
+# Warmup Iteration   5: 1670.996 ns/op
+Iteration   1: 1692.848 ns/op
+Iteration   2: 1691.022 ns/op
+Iteration   3: 1678.516 ns/op
+Iteration   4: 1672.232 ns/op
+Iteration   5: 1675.526 ns/op
+
+# Run progress: 90.97% complete, ETA 00:08:36
+# Fork: 2 of 5
+# Warmup Iteration   1: 1828.863 ns/op
+# Warmup Iteration   2: 1683.104 ns/op
+# Warmup Iteration   3: 1677.341 ns/op
+# Warmup Iteration   4: 1678.324 ns/op
+# Warmup Iteration   5: 1674.308 ns/op
+Iteration   1: 1665.969 ns/op
+Iteration   2: 1669.309 ns/op
+Iteration   3: 1680.500 ns/op
+Iteration   4: 1695.558 ns/op
+Iteration   5: 1677.439 ns/op
+
+# Run progress: 91.61% complete, ETA 00:08:00
+# Fork: 3 of 5
+# Warmup Iteration   1: 1842.195 ns/op
+# Warmup Iteration   2: 1700.943 ns/op
+# Warmup Iteration   3: 1691.467 ns/op
+# Warmup Iteration   4: 1689.944 ns/op
+# Warmup Iteration   5: 1693.355 ns/op
+Iteration   1: 1705.861 ns/op
+Iteration   2: 1710.690 ns/op
+Iteration   3: 1702.320 ns/op
+Iteration   4: 1714.224 ns/op
+Iteration   5: 1721.275 ns/op
+
+# Run progress: 92.26% complete, ETA 00:07:24
+# Fork: 4 of 5
+# Warmup Iteration   1: 1742.496 ns/op
+# Warmup Iteration   2: 1639.266 ns/op
+# Warmup Iteration   3: 1629.351 ns/op
+# Warmup Iteration   4: 1630.813 ns/op
+# Warmup Iteration   5: 1638.096 ns/op
+Iteration   1: 1634.647 ns/op
+Iteration   2: 1660.265 ns/op
+Iteration   3: 1632.907 ns/op
+Iteration   4: 1636.516 ns/op
+Iteration   5: 1634.198 ns/op
+
+# Run progress: 92.90% complete, ETA 00:06:48
+# Fork: 5 of 5
+# Warmup Iteration   1: 1828.903 ns/op
+# Warmup Iteration   2: 1687.734 ns/op
+# Warmup Iteration   3: 1687.893 ns/op
+# Warmup Iteration   4: 1683.923 ns/op
+# Warmup Iteration   5: 1684.313 ns/op
+Iteration   1: 1689.538 ns/op
+Iteration   2: 1696.317 ns/op
+Iteration   3: 1686.084 ns/op
+Iteration   4: 1703.552 ns/op
+Iteration   5: 1693.347 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.utils.StringUtilsTest._Benchmark.benchmark_shouldRemoveEncodedSquareBracketsFromString":
+  1680.827 ±(99.9%) 19.144 ns/op [Average]
+  (min, avg, max) = (1632.907, 1680.827, 1721.275), stdev = 25.557
+  CI (99.9%): [1661.682, 1699.971] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.github.azagniotov.stubby4j.yaml.YamlBuilderTest._Benchmark.benchmark_shouldBuildStubbedResponseWithSequenceResponses
+
+# Run progress: 93.55% complete, ETA 00:06:12
+# Fork: 1 of 5
+# Warmup Iteration   1: 3246.903 ns/op
+# Warmup Iteration   2: 2829.687 ns/op
+# Warmup Iteration   3: 2818.918 ns/op
+# Warmup Iteration   4: 2814.725 ns/op
+# Warmup Iteration   5: 2816.090 ns/op
+Iteration   1: 2809.642 ns/op
+Iteration   2: 2883.300 ns/op
+Iteration   3: 2831.085 ns/op
+Iteration   4: 2857.585 ns/op
+Iteration   5: 2822.174 ns/op
+
+# Run progress: 94.19% complete, ETA 00:05:36
+# Fork: 2 of 5
+# Warmup Iteration   1: 3149.109 ns/op
+# Warmup Iteration   2: 2748.085 ns/op
+# Warmup Iteration   3: 2752.298 ns/op
+# Warmup Iteration   4: 2746.269 ns/op
+# Warmup Iteration   5: 2737.200 ns/op
+Iteration   1: 2731.150 ns/op
+Iteration   2: 2756.035 ns/op
+Iteration   3: 2787.907 ns/op
+Iteration   4: 2722.948 ns/op
+Iteration   5: 2757.800 ns/op
+
+# Run progress: 94.84% complete, ETA 00:04:59
+# Fork: 3 of 5
+# Warmup Iteration   1: 3131.879 ns/op
+# Warmup Iteration   2: 2768.625 ns/op
+# Warmup Iteration   3: 2759.464 ns/op
+# Warmup Iteration   4: 2740.946 ns/op
+# Warmup Iteration   5: 2739.446 ns/op
+Iteration   1: 2725.962 ns/op
+Iteration   2: 2800.150 ns/op
+Iteration   3: 2730.240 ns/op
+Iteration   4: 2821.215 ns/op
+Iteration   5: 2797.084 ns/op
+
+# Run progress: 95.48% complete, ETA 00:04:22
+# Fork: 4 of 5
+# Warmup Iteration   1: 3269.662 ns/op
+# Warmup Iteration   2: 2808.684 ns/op
+# Warmup Iteration   3: 2789.515 ns/op
+# Warmup Iteration   4: 2787.763 ns/op
+# Warmup Iteration   5: 2792.124 ns/op
+Iteration   1: 2842.390 ns/op
+Iteration   2: 2780.208 ns/op
+Iteration   3: 2799.358 ns/op
+Iteration   4: 2772.524 ns/op
+Iteration   5: 2818.556 ns/op
+
+# Run progress: 96.13% complete, ETA 00:03:45
+# Fork: 5 of 5
+# Warmup Iteration   1: 3266.522 ns/op
+# Warmup Iteration   2: 2829.502 ns/op
+# Warmup Iteration   3: 2812.934 ns/op
+# Warmup Iteration   4: 2818.929 ns/op
+# Warmup Iteration   5: 2818.681 ns/op
+Iteration   1: 2825.657 ns/op
+Iteration   2: 2878.995 ns/op
+Iteration   3: 2840.938 ns/op
+Iteration   4: 2839.163 ns/op
+Iteration   5: 2831.295 ns/op
+
+
+Result "io.github.azagniotov.stubby4j.yaml.YamlBuilderTest._Benchmark.benchmark_shouldBuildStubbedResponseWithSequenceResponses":
+  2802.534 ±(99.9%) 34.654 ns/op [Average]
+  (min, avg, max) = (2722.948, 2802.534, 2883.300), stdev = 46.262
+  CI (99.9%): [2767.880, 2837.189] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 17.0.10, OpenJDK 64-Bit Server VM, 17.0.10+7-Ubuntu-120.04.1
+# VM invoker: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Run complete. Total time: 01:38:29
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                                                                                                                            Mode  Cnt        Score        Error  Units
+i.g.a.s.caching.CacheTest._Benchmark.benchmark_shouldBuildNoOpCache                                                                                  avgt   25      307.314 ±      2.526  ns/op
+i.g.a.s.caching.NoOpStubHttpLifecycleCacheTest._Benchmark.benchmark_clearByKey                                                                       avgt   25      500.467 ±      6.860  ns/op
+i.g.a.s.cli.CommandLineInterpreterTest._Benchmark.benchmark_shouldBeFalseThatYamlIsNotProvided                                                       avgt   25      456.930 ±      6.387  ns/op
+i.g.a.s.handlers.strategy.HandlingStrategyFactoryTest._Benchmark.benchmark_shouldIdentifyResponseStrategyForRedirectResponseWithStubResponseCode307  avgt   25      424.907 ±      4.095  ns/op
+i.g.a.s.server.ssl.LanIPv4ValidatorTest._Benchmark.benchmark_isNotPrivateIp                                                                          avgt   25     1818.877 ±    323.247  ns/op
+i.g.a.s.stubs.RegexParserTest._Benchmark.benchmark_shouldMatchSubjectWithMultiline                                                                   avgt   25    22572.888 ±   3706.482  ns/op
+i.g.a.s.stubs.StubHttpLifecycleBuilderTest._Benchmark.benchmark_shouldReturnDescription_WhenDescription                                              avgt   25      550.946 ±      3.377  ns/op
+i.g.a.s.stubs.StubMatcherTest._Benchmark.benchmark_arraysIntersect_ShouldReturnTrue_WhenTwoArraysHaveTheSameElements                                 avgt   25      348.700 ±      2.655  ns/op
+i.g.a.s.stubs.StubProxyConfigBuilderTest._Benchmark.benchmark_stubbedProxyConfigAsYaml                                                               avgt   25      592.457 ±      4.902  ns/op
+i.g.a.s.stubs.StubRepositoryTest._Benchmark.benchmark_shouldFailDeletingDefaultProxyConfigByUuid                                                     avgt   25  1917564.777 ± 874392.527  ns/op
+i.g.a.s.stubs.StubRequestBuilderTest._Benchmark.benchmark_stubbedRequestEqualsAssertingRequest_WhenNullUrlStubbed_AndNullUrlSubmitted                avgt   25   220170.897 ± 270795.165  ns/op
+i.g.a.s.stubs.StubResponseBuilderTest._Benchmark.benchmark_shouldStage_WhenConfigurablePropertyAndFieldValuePresent                                  avgt   25      410.884 ±      2.382  ns/op
+i.g.a.s.stubs.websocket.StubWebSocketClientRequestTest._Benchmark.benchmark_returnsBodyAsExpectedStringWhenOnlyBodyStubbed                           avgt   25      403.209 ±      4.242  ns/op
+i.g.a.s.stubs.websocket.StubWebSocketMessageTypeTest._Benchmark.benchmark_returnsTrueOnKnownProperties                                               avgt   25      423.365 ±      2.800  ns/op
+i.g.a.s.stubs.websocket.StubWebSocketServerResponsePolicyTest._Benchmark.benchmark_returnsFalseOnUnknownProperties                                   avgt   25      391.650 ±      2.801  ns/op
+i.g.a.s.stubs.websocket.StubWebSocketServerResponseTest._Benchmark.benchmark_returnsBodyAsExpectedBytesWhenOnlyFileStubbed                           avgt   25   325734.708 ±  13451.266  ns/op
+i.g.a.s.utils.CollectionUtilsTest._Benchmark.benchmark_chunkifyByteArrayAndQueue                                                                     avgt   25    13334.766 ±    463.385  ns/op
+i.g.a.s.utils.FileUtilsTest._Benchmark.benchmark_shouldNotConvertFileToBytesWhenBadFilenameGiven                                                     avgt   25     3979.004 ±    160.690  ns/op
+i.g.a.s.utils.HandlerUtilsTest._Benchmark.benchmark_shouldEscapeHtmlEntities                                                                         avgt   25     1060.076 ±     17.146  ns/op
+i.g.a.s.utils.ReflectionUtilsTest._Benchmark.benchmark_shouldGetObjectPropertiesAndValues                                                            avgt   25     8153.206 ±    158.204  ns/op
+i.g.a.s.utils.StringUtilsTest._Benchmark.benchmark_shouldRemoveEncodedSquareBracketsFromString                                                       avgt   25     1680.827 ±     19.144  ns/op
+i.g.a.s.yaml.YamlBuilderTest._Benchmark.benchmark_shouldBuildStubbedResponseWithSequenceResponses                                                    avgt   25     2802.534 ±     34.654  ns/op
+i.g.a.s.yaml.YamlParserTest._Benchmark.benchmark_isMainYamlHasIncludesFoundAsTrue                                                                    avgt   25      381.201 ±      2.282  ns/op
