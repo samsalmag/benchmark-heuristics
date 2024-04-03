@@ -36,13 +36,16 @@ dependencies {
     implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.33'
 
     // Our parser
-    implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'
+    // implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'    // Jitpack
+    implementation 'com.samsalek:benchmark-heuristics-parser:0.0.1-SNAPSHOT'                // Maven local
 }
 
 configurations.all {
     // Check for updates every build
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
+
+javadoc.enabled = false
 
 description = 'Mockito mock objects library core API and implementation'
 
@@ -69,6 +72,7 @@ allprojects { proj ->
         mavenCentral()
         google()
         maven { url "https://jitpack.io" }
+        mavenLocal()
     }
     plugins.withId('java') {
         proj.apply from: "$rootDir/gradle/errorprone.gradle"

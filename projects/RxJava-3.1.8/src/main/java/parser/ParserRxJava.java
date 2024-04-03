@@ -7,7 +7,7 @@ public class ParserRxJava {
 
     public static void main(String[] args) {
 
-        MethodParser parser = new MethodParser(Integer.MAX_VALUE,
+        MethodParser parser = new MethodParser(
                 "projects\\RxJava-3.1.8\\src\\main\\java\\",
                 "projects\\RxJava-3.1.8\\src\\main\\java\\",
                 "rxjava");

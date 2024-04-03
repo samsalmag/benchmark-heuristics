@@ -34,6 +34,7 @@ if (releaseTag != null && !releaseTag.isEmpty()) {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven { url "https://jitpack.io" }
 }
 
@@ -51,7 +52,8 @@ dependencies {
     implementation "com.google.guava:guava:$guavaVersion"
 
     // Our parser
-    implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'
+    // implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'    // Jitpack
+    implementation 'com.samsalek:benchmark-heuristics-parser:0.0.1-SNAPSHOT'                // Maven local
 }
 
 configurations.all {
