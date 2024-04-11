@@ -4,17 +4,13 @@ import json
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import sys
+import random
 
-# ADD IN NEW RMAD VALUE TO USE:
-# with open(root_path + r'\rxjava_MAD.json', 'r') as json_file:
-    # rmads_new = json.load(json_file)
-# for key in rxjava_parsed:
-#     for key2 in rmads_new:
-#         substring = '_Benchmark.benchmark_'
-#         index = key2[0].find(substring)
-#         benchmark_name = key2[0][:index] + key2[0][index + len(substring):]
-#         if benchmark_name == key:
-#             rxjava_parsed[key]['RMAD_new'] = key2[1]
+# Reads in a json file from path and returns it
+def read_json_file(file_path):
+    with open(file_path, 'r') as json_file:
+            return json.load(json_file)
 
 categories = {
     'IO': ['java.io', 'java.nio'],  # Example I/O-related packages
@@ -29,27 +25,72 @@ categories = {
 # and categories for how to structure package counts (etc. java.util)
 def plot_correlation(file_path, categories):
     parsed_dict = read_json_file(file_path)
-    # Calculate number of times each package category is used for each benchmark
-    for key, value in parsed_dict.items():
-        category_counts = {category: 0 for category in categories}
-        package_accesses = value.get('packageAccesses', {})
-        sorted_categories = sorted(categories.items(), key=lambda x: len(x[1][0]), reverse=True)
-        for package, count in package_accesses.items():
-            for category, patterns in sorted_categories:
-                if any(package.startswith(pat) for pat in patterns):
-                    category_counts[category] += count
-                    break
-        parsed_dict[key].update(category_counts)
+    stabilityMetricValue = 'RMAD_coefficient'
 
-    sorted_items = sorted(parsed_dict.items(), key=lambda x: x[1]['RMAD'], reverse=True)
+    # Calculate number of times each package category is used for each benchmark
+    downsample_dict = {}
+    thresholdValue = 5
+    badStability = {}
+    goodStability = {}
+
+    # for key, value in parsed_dict.items():
+        # Remove stats dictionary (move up one layer)
+        # stats = parsed_dict[key].pop('stats', {})
+        # Move contents of the stats dictionary to one layer above
+        # parsed_dict[key].update(stats)
+
+        # category_counts = {category: 0 for category in categories}
+        # package_accesses = value.get('packageAccesses', {})
+        # sorted_categories = sorted(categories.items(), key=lambda x: len(x[1][0]), reverse=True)
+        # nrOwnPackages = 0
+        # nrTotalPackages = 0
+        # for package, count in package_accesses.items():
+        #     nrTotalPackages += count
+        #     if package.startswith('io.reactivex'):
+        #         nrOwnPackages += count
+
+        #     for category, patterns in sorted_categories:
+        #         if any(package.startswith(pat) for pat in patterns):
+        #             category_counts[category] += count
+        #             break
+        
+        # Change structure of dictionary, remove and add some keys
+        # parsed_dict[key].update(category_counts)
+        # parsed_dict[key].update({'nrOwnPackages' : nrOwnPackages, 'nrTotalPackages' : nrTotalPackages})
+
+        # parsed_dict[key].pop("methodCalls", None)
+        # parsed_dict[key].pop("objectInstantiations", None)
+        # parsed_dict[key].pop("packageAccesses", None)
+        # if parsed_dict[key]['stabilityMetricValue'] >= thresholdValue:
+        #     badStability[key] = parsed_dict[key]
+        # else:
+        #     goodStability[key] = parsed_dict[key]
+        
+    
+    # random_goodStability = dict(random.sample(list(goodStability.items()), len(badStability)))
+    # downsample_dict = random_goodStability
+    # print(len(badStability))
+    # downsample_dict.update(badStability)
+    # print(len(downsample_dict))
+    # parsed_dict[key].update(category_counts)
+    # parsed_dict[key].update({'nrOwnPackages' : nrOwnPackages, 'nrTotalPackages' : nrTotalPackages})
+
+    # with open(r"benchmarks" + r'\ParsedBenchmarksBest.json', 'w') as json_file:
+    #     json.dump(parsed_dict, json_file)
+    # sys.exit()
+
+    # sorted_items = sorted(downsample_dict.items(), key=lambda x: x[1][stabilityMetricValue], reverse=True)
+    # sorted_items = sorted(parsed_dict.items(), key=lambda x: x[1][stabilityMetricValue], reverse=True)
     # sorted_items = sorted_items[:100] # select how many and which benchmarks should be used (based on RMAD order)
-    parsed_dict = dict(sorted_items)
+    # parsed_dict = dict(parsed_dict)
+    print(len(parsed_dict))
     data = pd.DataFrame.from_dict(parsed_dict, orient='index')
-    columns_to_drop = ['filePath', 'methodName', 'methodCalls', 'objectInstantiations', 'packageAccesses', 'logicalLinesOfCodeJunitTest', 'logicalLinesOfCode']
+    # columns_to_drop = ['filePath', 'methodName', 'methodCalls', 'objectInstantiations', 'packageAccesses', 'logicalLinesOfCodeJunitTest', 'logicalLinesOfCode']
+    columns_to_drop = ['filePath', 'methodName']
     data = data.drop(columns_to_drop, axis=1)
 
     # RENAME COLUMNS
-    data = data.rename(columns={'numConditionals': 'Conditionals', 'numLoops' : 'Loops', 'numNestedLoops' : 'NestedLoops', 'numMethodCalls' : 'MethodCalls', 'recursiveMethodCalls' : 'MethodCalls No Java', 'linesOfCode' : 'LOC', 'linesOfCodeJunitTest' : 'LOC JUnit test', 'IO' : 'java.io', 'concurrency' : 'java.util.concurrent'})
+    data = data.rename(columns={'numConditionals': 'Conditionals', 'numLoops' : 'Loops', 'numNestedLoops' : 'NestedLoops', 'numMethodCalls' : 'MethodCalls', 'numRecursiveMethodCalls' : 'MethodCalls No Java', 'linesOfCode' : 'LOC', 'linesOfCodeJunitTest' : 'LOC JUnit test', 'IO' : 'java.io', 'concurrency' : 'java.util.concurrent'})
     # SWITCH ORDER OF COLUMNS (will be order of the columns shown in plot), STUPID WAY TO DO IT PLEASE FIX:
     cols = list(data.columns)
     MethodCallsNoJava_pos, LOCJUnit_pos, LOC_pos, MethodCalls_pos = cols.index('MethodCalls No Java'), cols.index('LOC JUnit test'), cols.index('LOC'), cols.index('MethodCalls')
@@ -60,15 +101,27 @@ def plot_correlation(file_path, categories):
     cols[MethodCallsNoJava_pos], cols[MethodCalls_pos] = cols[MethodCalls_pos], cols[MethodCallsNoJava_pos]
     data = data[cols]
 
-    corr_to_rmad = data.corr(method='pearson')['RMAD'].drop('RMAD')  # Drop the correlation of RMAD with itself
-    corr_to_rmad_df = corr_to_rmad.to_frame().reset_index().rename(columns={'index': 'Variable', 'RMAD': 'Correlation'})
+    corr_to_rmad = data.corr(method='spearman')[stabilityMetricValue].drop(stabilityMetricValue)  # Drop the correlation of RMAD with itself
+    corr_to_rmad_df = corr_to_rmad.to_frame().reset_index().rename(columns={'index': 'Variable', stabilityMetricValue: 'Correlation'})
     plt.figure(figsize=(10, 6))
     sns.barplot(x='Correlation', y='Variable', data=corr_to_rmad_df, palette='coolwarm')
-    plt.title('RxJava feature correlation with RMAD')
+    plt.title('Downsampled RxJava feature correlation with RMAD')
     plt.xlabel("Pearson's correlation coefficient")
     plt.ylabel('Variables')
     plt.subplots_adjust(left=0.2, right=0.75)
     plt.show()
+
+# plot_correlation(r"benchmarks\results\newRxjava_parsedBenchmarksCOMBINED.json", categories)
+plot_correlation(r"benchmarks\ParsedRMADS_BEST.json", categories)
+
+# paths = [r"benchmarks\results\newRxjava_parsedBenchmarks1.json", r"benchmarks\results\newRxjava_parsedBenchmarks2.json", r"benchmarks\results\newRxjava_parsedBenchmarks3.json"]
+# rxjava_dict = {}
+# for path in paths:
+#     rxjava_dict.update(read_json_file(path))
+
+# root_path = r"benchmarks\results"
+# with open(root_path + r'\newRxjava_parsedBenchmarksCOMBINED.json', 'w') as json_file:
+#     json.dump(rxjava_dict, json_file)
 
 # Plots the distribution of all iterations (is forks * iterations nr of values for each benchmark)
 # takes as input path to a json file containing benchmark forks and iterations
@@ -105,8 +158,3 @@ def plot_RMADs_distribution(file_path):
     plt.ylabel('Frequency')
     plt.grid(True)
     plt.show()
-
-# Reads in a json file from path and returns it
-def read_json_file(file_path):
-    with open(file_path, 'r') as json_file:
-            return json.load(json_file)

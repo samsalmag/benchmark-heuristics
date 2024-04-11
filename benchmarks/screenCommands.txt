@@ -1,0 +1,8 @@
+screen -S name   	- creates a new screen with name 'name' and goes into it
+(run your command)
+CTRL + A then D 	- detaches from screen and goes back into VM
+(can close the VM now)
+
+screen -r		- go back into the screen (resume)
+screen -ls		- lists all screens
+echo $STY		- name the screen you are in

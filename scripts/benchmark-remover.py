@@ -97,9 +97,8 @@ def remove_excessive_blank_lines(lines):
 # Example usage
 #jmh_path = r"projects\RxJava-3.1.8\src\jmh\java\io"
 #java_files = find_java_files(jmh_path)
-#print("HEJ")
 
-path = r"scripts\output\RxJava-3.1.8_BENCHMARKS_240227-11h27m31s.txt"
+path = r"benchmarks\results\stubby4j-output1.txt.txt"
 
 with open(path, "r") as f:
         lines = f.readlines()

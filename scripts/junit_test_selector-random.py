@@ -83,13 +83,13 @@ def get_benchmark_path(unit_test_path):
 
 # Get jmh base command (jmh command without selected junit tests) based on given jmh jar name
 def get_jmh_base_command(jmhjar_name):
-    return f"java -jar \"{jmhjar_name}\" -f 1 -wi 0 -i 1 -r 100ms -foe true"
+    return f"java -jar \"{jmhjar_name}\" -bm avgt -tu ns -f 2 -wi 10 -i 20 -r 1s -w 1s -foe false -o {jmhjar_name.split('.')[0]}-output.txt"
 
 project1_tests_path = r"scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
 project2_tests_path = r"scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
 project3_tests_path = r"scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
 
-num_tests = 30  # Number of junit tests to select from each project
+num_tests = 750  # Number of junit tests to select from each project
 project1_jmhjar_name = "mockito-jmh.jar"
 project2_jmhjar_name = "rxjava-3.0.0-SNAPSHOT-jmh.jar"
 project3_jmhjar_name = "stubby4j-jmh.jar"

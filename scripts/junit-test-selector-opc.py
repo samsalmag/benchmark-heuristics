@@ -33,14 +33,12 @@ def generate_output(project1_input, project2_input, project3_input):
     time_str = str(current_time.hour) + "h" + \
                str(current_time.minute) + "m" + \
                str(current_time.second) + "s"
-               
 
     for project in [project1_input, project2_input, project3_input]:
         project_tests_path, simple_project_name = project
         project_name = extract_project_name(project_tests_path)
         selected_tests = select_random_junit_tests(project_tests_path)
         jmh_command = get_jmh_base_command(simple_project_name)
-
 
         print(f"{project_name}...", end="")
         with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_SELECTED_OPC_{date_str}-{time_str}.txt"), "w") as f:
@@ -62,7 +60,7 @@ def generate_output(project1_input, project2_input, project3_input):
             for class_name in list(dict.fromkeys(class_names)):
                 f.write(f"{class_name}\n")
             
-            create_jmh_commands_txt(3, jmh_command)
+            create_jmh_commands_txt(1, jmh_command)
 
             # Print jmh jar command
             f.write("\n# JMH COMMAND - RUNS SELECTED BENCHMARKS\n" + jmh_command + "\n")
@@ -135,7 +133,7 @@ def get_benchmark_path(unit_test_path):
 
 # Get jmh base command (jmh command without selected junit tests) based on given jmh jar name
 def get_jmh_base_command(project_name):
-    return f"java -jar \"{project_name}-jmh-OPC.jar\" -bm avgt -tu ns -f 5 -wi 5 -i 5 -r 100ms -foe false -o {project_name}-output.txt"
+    return f"java -jar \"{project_name}-jmh-OPC.jar\" -bm avgt -tu ns -f 2 -wi 10 -i 20 -r 1s -w 1s -foe false -o {project_name}-output.txt"
     
 
 project1_tests_path = r"scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
