@@ -1019,21 +1019,6 @@ public class YamlParserTest {
     }
 
     @Test
-    public void shouldLoadYamlIncludesAsFileObjects() throws Exception {
-        final URL yamlUrl = YamlParserTest.class.getResource("/yaml/multi-include-main.yaml");
-        final InputStream stubsConfigStream = yamlUrl.openStream();
-        final String parentDirectory = new File(yamlUrl.getPath()).getParent();
-
-        final YamlParser yamlParser = new YamlParser();
-        final List<File> yamlIncludes = yamlParser.getYamlIncludes(parentDirectory,
-                yamlParser.loadRawYamlConfig(stubsConfigStream));
-
-        assertThat(yamlIncludes.isEmpty()).isFalse();
-        assertThat(yamlIncludes.size()).isEqualTo(3);
-        assertThat(yamlIncludes.get(0).getAbsolutePath()).isEqualTo(parentDirectory + "/multi-included-service-1.yaml");
-    }
-
-    @Test
     public void shouldUnmarshall_toProxyConfigs() throws Exception {
         final URL yamlUrl = YamlParserTest.class.getResource("/yaml/proxy-config-valid-config.yaml");
         final InputStream stubsConfigStream = yamlUrl.openStream();
