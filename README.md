@@ -4,7 +4,7 @@
 <br />
 Main repository for DATX05 Master's Thesis at Chalmers University of Technology.
 
-See [benchmark-heuristics-parser](https://github.com/sam-salek/benchmark-heuristics-parser) for the parser used during the experiment.
+See [benchmark-heuristics-parser](https://github.com/samsalmag/benchmark-heuristics-parser) for the parser used during the experiment.
 <br />
 
 ### FOLDERS
