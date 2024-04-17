@@ -1,0 +1,106 @@
+plugins {
+  id "me.champeau.jmh" version "0.7.2"
+}
+
+sonar {
+  properties {
+    property 'sonar.projectName', "${projectTitle} :: Scanner Engine"
+  }
+}
+
+// Excluding scanner files in order to benefit of incremental build support
+sourceSets.test.resources {
+  exclude '**/.sonar/**'
+}
+
+configurations {
+  testImplementation.extendsFrom(compileOnlyApi)
+}
+
+repositories {
+  mavenLocal()
+}
+
+dependencies {
+  // please keep the list ordered
+
+  api 'ch.qos.logback:logback-classic'
+  api 'ch.qos.logback:logback-core'
+  api 'commons-codec:commons-codec'
+  api 'commons-io:commons-io'
+  api 'org.apache.commons:commons-lang3'
+  implementation 'org.apache.commons:commons-text'
+  api 'com.google.code.gson:gson'
+  api 'org.apache.commons:commons-csv'
+  api 'com.google.protobuf:protobuf-java'
+  api 'com.squareup.okhttp3:okhttp'
+  api 'com.fasterxml.staxmate:staxmate'
+  api 'javax.annotation:javax.annotation-api'
+  api 'org.eclipse.jgit:org.eclipse.jgit'
+  api 'org.tmatesoft.svnkit:svnkit'
+  api 'org.slf4j:jcl-over-slf4j'
+  api 'org.slf4j:jul-to-slf4j'
+  api 'org.slf4j:log4j-over-slf4j'
+  api 'org.slf4j:slf4j-api'
+  api 'org.sonarsource.api.plugin:sonar-plugin-api'
+  api 'org.sonarsource.git.blame:git-files-blame'
+  api 'org.sonarsource.update-center:sonar-update-center-common'
+  api 'org.springframework:spring-context'
+
+
+  api project(':sonar-core')
+  api project(':sonar-scanner-protocol')
+  api project(':sonar-ws')
+  api project(':sonar-duplications')
+  api project(':sonar-plugin-api-impl')
+
+  compileOnlyApi 'com.google.code.findbugs:jsr305'
+
+  testImplementation 'com.squareup.okhttp3:mockwebserver'
+  testImplementation 'com.squareup.okhttp3:okhttp'
+  testImplementation 'com.squareup.okio:okio'
+  testImplementation 'com.tngtech.java:junit-dataprovider'
+  testImplementation 'commons-io:commons-io'
+  testImplementation 'junit:junit'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+  testImplementation 'org.assertj:assertj-core'
+  testImplementation 'com.fasterxml.staxmate:staxmate'
+  testImplementation 'org.hamcrest:hamcrest-core'
+  testImplementation 'org.mockito:mockito-core'
+  testImplementation 'org.mockito:mockito-junit-jupiter'
+  api 'org.sonarsource.api.plugin:sonar-plugin-api-test-fixtures'
+  testImplementation project(':plugins:sonar-xoo-plugin')
+
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
+
+  jmhImplementation 'org.openjdk.jmh:jmh-core:1.35'
+  jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
+
+  implementation 'io.github.samsalmag:benchmark-heuristics-parser:0.0.1-SNAPSHOT'     // Maven local
+}
+
+license {
+  excludes(["**/Fake.java", "**/Fake.groovy", "org/sonar/scanner/cpd/ManyStatements.java", "org/sonar/scm/git/expected-blame/**/*"])
+}
+
+artifactoryPublish.skip = false
+
+// Used by core plugins
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+      if (release) {
+        artifact sourcesJar
+        artifact javadocJar
+      }
+    }
+  }
+}
+
+test {
+  // Enabling the JUnit Platform (see https://github.com/junit-team/junit5-samples/tree/master/junit5-migration-gradle)
+  useJUnitPlatform()
+}

@@ -1,0 +1,19 @@
+dependencies {    
+    bundledPlugin "org.sonarsource.dotnet:sonar-csharp-plugin"
+    bundledPlugin "org.sonarsource.dotnet:sonar-vbnet-plugin"
+    bundledPlugin 'org.sonarsource.flex:sonar-flex-plugin'
+    bundledPlugin 'org.sonarsource.html:sonar-html-plugin'
+    bundledPlugin 'org.sonarsource.java:sonar-java-plugin'
+    bundledPlugin 'org.sonarsource.jacoco:sonar-jacoco-plugin'
+    bundledPlugin (group: 'org.sonarsource.javascript', name: 'sonar-javascript-plugin', classifier:'multi')
+    bundledPlugin 'org.sonarsource.php:sonar-php-plugin'
+    bundledPlugin 'org.sonarsource.plugins.cayc:sonar-cayc-plugin'
+    bundledPlugin 'org.sonarsource.python:sonar-python-plugin'
+    bundledPlugin 'org.sonarsource.slang:sonar-go-plugin'
+    bundledPlugin "org.sonarsource.kotlin:sonar-kotlin-plugin"
+    bundledPlugin "org.sonarsource.slang:sonar-ruby-plugin"
+    bundledPlugin "org.sonarsource.slang:sonar-scala-plugin"
+    bundledPlugin 'org.sonarsource.xml:sonar-xml-plugin'
+    bundledPlugin 'org.sonarsource.iac:sonar-iac-plugin'
+    bundledPlugin 'org.sonarsource.text:sonar-text-plugin'
+}
