@@ -52,13 +52,20 @@ dependencies {
     implementation "com.google.guava:guava:$guavaVersion"
 
     // Our parser
-    // implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'    // Jitpack
-    implementation 'com.samsalek:benchmark-heuristics-parser:0.0.1-SNAPSHOT'                // Maven local
+    implementation 'io.github.samsalmag:benchmark-heuristics-parser:0.0.1-SNAPSHOT'     // Maven local
 }
 
 configurations.all {
     // Check for updates every build
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false   // Disable XML report
+        csv.enabled true    // Enable CSV report
+        csv.destination file("${buildDir}/reports/jacoco/test/report.csv")
+    }
 }
 
 java {

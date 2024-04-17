@@ -1,22 +1,23 @@
 package parser;
 
-import com.samsalek.benchmarkheuristics.parser.BenchmarkParser;
-import com.samsalek.benchmarkheuristics.parser.MethodParser;
+import io.github.samsalmag.benchmarkheuristics.parser.BenchmarkParser;
+import io.github.samsalmag.benchmarkheuristics.parser.Parser;
 
 public class ParserMockito {
 
     public static void main(String[] args) {
 
-        MethodParser parser = new MethodParser(
+        Parser parser = new Parser(
             "projects\\mockito-5.10.0\\src\\main\\java\\",
             "projects\\mockito-5.10.0\\src\\main\\java\\",
             "mockito");
 
-        BenchmarkParser parseAllBenchmarks = new BenchmarkParser("projects\\mockito-5.10.0\\src\\test\\java\\",
+        BenchmarkParser benchmarkParser = new BenchmarkParser("projects\\mockito-5.10.0\\src\\test\\java\\",
                                                             "benchmarks\\results\\mockito_RMAD.json");
 
-        // Mockito has less than 500 benchmarks
-        parseAllBenchmarks.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\mockito_parsedBenchmarks1.json");
-        parseAllBenchmarks.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\mockito_parsedBenchmarks2.json");
+        // Split 750 benchmarks into 3 separate json files
+        benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\mockito_parsedBenchmarks1.json");
+        benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\mockito_parsedBenchmarks2.json");
+        benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\mockito_parsedBenchmarks2.json");
     }
 }

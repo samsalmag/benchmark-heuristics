@@ -54,10 +54,8 @@ repositories {
 }
 
 dependencies {
-
     // Our parser
-    // implementation 'com.github.sam-salek:benchmark-heuristics-parser:master-SNAPSHOT'    // Jitpack
-    implementation 'com.samsalek:benchmark-heuristics-parser:0.0.1-SNAPSHOT'                // Maven local
+    implementation 'io.github.samsalmag:benchmark-heuristics-parser:0.0.1-SNAPSHOT'     // Maven local
 }
 
 configurations.all {
