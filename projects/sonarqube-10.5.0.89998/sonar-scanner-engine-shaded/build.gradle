@@ -13,5 +13,5 @@ repositories {
 dependencies {
   api project(':sonar-scanner-engine')
 
-  implementation 'io.github.samsalmag:benchmark-heuristics-parser:0.0.1-SNAPSHOT'     // Maven local
+  implementation 'io.github.samsalmag:benchmark-heuristics-parser:0.0.1-SNAPSHOT:all'     // Maven local
 }
