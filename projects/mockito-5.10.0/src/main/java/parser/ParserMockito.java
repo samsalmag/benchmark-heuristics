@@ -13,11 +13,11 @@ public class ParserMockito {
             "mockito");
 
         BenchmarkParser benchmarkParser = new BenchmarkParser("projects\\mockito-5.10.0\\src\\test\\java\\",
-                                                            "benchmarks\\results\\mockito_RMAD.json");
+                                                            "benchmarks\\results\\run2\\mockito-random_RMAD.json");
 
         // Split 750 benchmarks into 3 separate json files
-        benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\mockito_parsedBenchmarks1.json");
-        benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\mockito_parsedBenchmarks2.json");
-        benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\mockito_parsedBenchmarks2.json");
+        benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\mockito_parsedBenchmarks1_run2.json");
+        benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\mockito_parsedBenchmarks2_run2.json");
+        benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\mockito_parsedBenchmarks2_run2.json");
     }
 }

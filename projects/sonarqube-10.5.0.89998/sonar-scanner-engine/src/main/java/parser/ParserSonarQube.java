@@ -32,11 +32,11 @@ public class ParserSonarQube {
             "sonar");
 
         BenchmarkParser benchmarkParser = new BenchmarkParser("projects\\sonarqube-10.5.0.89998\\sonar-scanner-engine\\src\\test\\java\\",
-                                                            "?????");
+                                                        "benchmarks\\results\\run2\\sonarqube-random_RMAD.json");
 
         // Split 750 benchmarks into 3 separate json files
-        benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\sonarqube_parsedBenchmarks1.json");
-        benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\sonarqube_parsedBenchmarks1.json");
-        benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\sonarqube_parsedBenchmarks1.json");
+        benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\sonarqube_parsedBenchmarks1_run2.json");
+        benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\sonarqube_parsedBenchmarks1_run2.json");
+        benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\sonarqube_parsedBenchmarks1_run2.json");
     }
 }
