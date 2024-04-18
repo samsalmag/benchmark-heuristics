@@ -19,8 +19,10 @@ public class ParserMockito {
                                                             "benchmarks\\results\\run2\\mockito-random_RMAD.json");
 
         // Split 750 benchmarks into 3 separate json files
-        benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\mockito-random_parsedBenchmarks1.json");
-        benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\mockito-random_parsedBenchmarks2.json");
-        benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\mockito-random_parsedBenchmarks3.json");
+        double successPercentage1 = benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\mockito-random_parsedBenchmarks1.json");
+        double successPercentage2 = benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\mockito-random_parsedBenchmarks2.json");
+        double successPercentage3 = benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\mockito-random_parsedBenchmarks3.json");
+
+        System.out.println("TOTAL SUCCESS RATE: " + ((successPercentage1 + successPercentage2 + successPercentage3) / 3) + "%\n");
     }
 }
