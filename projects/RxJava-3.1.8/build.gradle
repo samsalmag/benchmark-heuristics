@@ -60,6 +60,21 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
+configurations.default.setCanBeResolved(true)
+configurations.implementation.setCanBeResolved(true)
+configurations.testImplementation.setCanBeResolved(true)
+configurations.api.setCanBeResolved(true)
+configurations.compileClasspath.setCanBeResolved(true)
+task copyDependencies(type: Copy) {
+    group = 'benchmark-heuristics'
+    from configurations.default
+    from configurations.implementation
+    from configurations.testImplementation
+    from configurations.api
+    from configurations.compileClasspath
+    into 'dependencies'
+}
+
 jacocoTestReport {
     reports {
         xml.enabled false   // Disable XML report
