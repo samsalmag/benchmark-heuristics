@@ -1,23 +1,28 @@
 package parser;
 
-import com.samsalek.benchmarkheuristics.parser.BenchmarkParser;
-import com.samsalek.benchmarkheuristics.parser.MethodParser;
+import io.github.samsalmag.benchmarkheuristics.parser.BenchmarkParser;
+import io.github.samsalmag.benchmarkheuristics.parser.Parser;
+
+import java.util.Arrays;
 
 public class ParserRxJava {
 
     public static void main(String[] args) {
 
-        MethodParser parser = new MethodParser(
+        Parser parser = new Parser(1000,
                 "projects\\RxJava-3.1.8\\src\\main\\java\\",
-                "projects\\RxJava-3.1.8\\src\\main\\java\\",
-                "rxjava");
+                "projects\\RxJava-3.1.8\\src\\test\\java\\",
+                Arrays.asList("rxjava"),
+                "projects\\RxJava-3.1.8\\dependencies\\");
 
-        BenchmarkParser parseAllBenchmarks = new BenchmarkParser("projects\\RxJava-3.1.8\\src\\test\\java\\",
-                                                            "benchmarks\\results\\rxjava_RMAD.json");
+        BenchmarkParser benchmarkParser = new BenchmarkParser("projects\\RxJava-3.1.8\\src\\test\\java\\",
+                                                            "benchmarks\\results\\run2\\rxjava-random_RMAD.json");
 
-        // RxJava has less than 1000 benchmarks
-        parseAllBenchmarks.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\rxjava_parsedBenchmarks1.json");
-        parseAllBenchmarks.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\rxjava_parsedBenchmarks2.json");
-        parseAllBenchmarks.parseBenchmarks(parser, 500, 1000, "benchmarks\\results\\rxjava_parsedBenchmarks3.json");
+        // Split 750 benchmarks into 3 separate json files
+        double successPercentage1 = benchmarkParser.parseBenchmarks(parser, 0, 249, "benchmarks\\results\\rxjava-random_parsedBenchmarks1.json");
+        double successPercentage2 = benchmarkParser.parseBenchmarks(parser, 250, 499, "benchmarks\\results\\rxjava-random_parsedBenchmarks2.json");
+        double successPercentage3 = benchmarkParser.parseBenchmarks(parser, 500, 750, "benchmarks\\results\\rxjava-random_parsedBenchmarks3.json");
+
+        System.out.println("TOTAL SUCCESS RATE: " + ((successPercentage1 + successPercentage2 + successPercentage3) / 3) + "%\n");
     }
 }

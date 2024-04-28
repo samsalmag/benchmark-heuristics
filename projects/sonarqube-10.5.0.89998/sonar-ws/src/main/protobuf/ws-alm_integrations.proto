@@ -1,0 +1,136 @@
+// SonarQube, open source software quality management tool.
+// Copyright (C) 2008-2016 SonarSource
+// mailto:contact AT sonarsource DOT com
+//
+// SonarQube is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
+//
+// SonarQube is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+syntax = "proto2";
+
+package sonarqube.ws.almsetting;
+
+import "ws-commons.proto";
+
+option java_package = "org.sonarqube.ws";
+option java_outer_classname = "AlmIntegrations";
+option optimize_for = SPEED;
+
+// WS api/alm_integrations/search_bitbucketserver_repos
+message SearchBitbucketserverReposWsResponse {
+  optional bool isLastPage = 1;
+  repeated BBSRepo repositories = 2;
+}
+
+// WS api/alm_integrations/search_bitbucketcloud_repos
+message SearchBitbucketcloudReposWsResponse {
+  optional sonarqube.ws.commons.Paging paging = 1;
+  optional bool isLastPage = 2;
+  repeated BBCRepo repositories = 3;
+}
+
+// WS api/alm_integrations/search_azure_repos
+message SearchAzureReposWsResponse {
+  repeated AzureRepo repositories = 2;
+}
+
+// WS api/alm_integrations/list_bitbucketserver_projects
+message ListBitbucketserverProjectsWsResponse {
+  repeated AlmProject projects = 1;
+}
+
+// WS api/alm_integrations/list_azure_projects
+message ListAzureProjectsWsResponse {
+  repeated AzureProject projects = 1;
+}
+
+message BBSRepo {
+  optional string slug = 1;
+  optional int64 id = 2;
+  optional string name = 3;
+  optional string sqProjectKey = 4;
+  optional string projectKey = 5;
+}
+
+message BBCRepo {
+  optional string slug = 1;
+  optional string uuid = 2;
+  optional string name = 3;
+  optional string sqProjectKey = 4;
+  optional string projectKey = 5;
+  optional string workspace = 6;
+}
+
+message AzureRepo {
+  optional string name = 1;
+  optional string projectName = 2;
+  optional string sqProjectKey = 3;
+  optional string sqProjectName = 4;
+}
+
+message AlmProject {
+  optional string key = 1;
+  optional string name = 2;
+}
+
+message AzureProject {
+  optional string name = 1;
+  optional string description = 2;
+}
+
+// WS api/alm_integrations/get_github_client_id
+message GithubClientIdWsResponse {
+  optional string clientId = 1;
+}
+
+// WS api/alm_integrations/list_github_organizations
+message ListGithubOrganizationsWsResponse {
+  optional sonarqube.ws.commons.Paging paging = 1;
+  repeated GithubOrganization organizations = 2;
+}
+
+message GithubOrganization {
+  optional string key = 1;
+  optional string name = 2;
+}
+
+// WS api/alm_integrations/list_github_repositories
+message ListGithubRepositoriesWsResponse {
+  optional sonarqube.ws.commons.Paging paging = 1;
+  repeated GithubRepository repositories = 2;
+}
+
+message GithubRepository {
+  optional int64 id = 1;
+  optional string key = 2;
+  optional string name = 3;
+  optional string url = 4;
+  optional string sqProjectKey = 5;
+}
+
+// WS api/alm_integrations/search_gitlab_repos
+message SearchGitlabReposWsResponse {
+  optional sonarqube.ws.commons.Paging paging = 1;
+  repeated GitlabRepository repositories = 2;
+}
+
+message GitlabRepository {
+  optional int64 id = 1;
+  optional string name = 2;
+  optional string pathName = 3;
+  optional string slug = 4;
+  optional string pathSlug = 5;
+  optional string url = 6;
+  optional string sqProjectKey = 7;
+  optional string sqProjectName = 8;
+}

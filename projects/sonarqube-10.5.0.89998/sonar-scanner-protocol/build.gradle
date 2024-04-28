@@ -1,0 +1,48 @@
+sonar {
+  properties {
+    property 'sonar.projectName', "${projectTitle} :: Scanner :: Protocol"
+    property 'sonar.exclusions', 'src/main/java/org/sonar/scanner/protocol/viewer/**'
+  }
+}
+
+dependencies {
+  // please keep the list ordered
+  api 'com.google.code.gson:gson'
+  api 'com.google.protobuf:protobuf-java'
+  api 'commons-io:commons-io'
+  api 'org.apache.commons:commons-lang3'
+  api project(':sonar-core')
+
+  compileOnlyApi 'com.google.code.findbugs:jsr305'
+
+  testImplementation 'com.google.guava:guava'
+  testImplementation 'junit:junit'
+  testImplementation 'org.assertj:assertj-core'
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+  manifest {
+    attributes 'Main-Class': 'org.sonar.scanner.protocol.viewer.ScannerReportViewerApp'
+  }
+  archiveBaseName = project.name + '-all'
+  from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+build.dependsOn fatJar
+
+// Used by sonar-db-core to run DB Unit Tests
+artifactoryPublish.skip = false
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+      if (release) {
+        artifact sourcesJar
+        artifact javadocJar
+      }
+    }
+  }
+}

@@ -1,0 +1,312 @@
+// SonarQube, open source software quality management tool.
+// Copyright (C) 2008-2016 SonarSource
+// mailto:contact AT sonarsource DOT com
+//
+// SonarQube is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
+//
+// SonarQube is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+syntax = "proto2";
+
+package sonarqube.ws.issues;
+
+import "ws-commons.proto";
+
+option java_package = "org.sonarqube.ws";
+option java_outer_classname = "Issues";
+option optimize_for = SPEED;
+
+// Response of GET api/issues/search
+message SearchWsResponse {
+  reserved 5;
+  optional int64 total = 1 [deprecated=true];
+  optional int64 p = 2 [deprecated=true];
+  optional int32 ps = 3 [deprecated=true];
+  optional sonarqube.ws.commons.Paging paging = 4;
+
+  // Total amount of effort, only when the facet "total" is enabled
+  optional int64 effortTotal = 13;
+
+  repeated Issue issues = 6;
+  repeated Component components = 7;
+  optional sonarqube.ws.commons.Rules rules = 8;
+  optional Users users = 9;
+
+  // Deprecated since 5.5, action plan has been removed
+  optional ActionPlans unusedActionPlans = 10;
+  optional Languages languages = 11;
+  optional sonarqube.ws.commons.Facets facets = 12;
+}
+
+message Operation {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message AddCommentResponse {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message AssignResponse {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message DeleteCommentResponse {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message DoTransitionResponse {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message SetSeverityResponse {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message SetTagsResponse {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message SetTypeResponse {
+  optional Issue issue = 1;
+  repeated Component components = 2;
+  repeated sonarqube.ws.commons.Rule rules = 3;
+  repeated sonarqube.ws.commons.User users = 4;
+}
+message TagsResponse {
+  repeated string tags = 1;
+}
+
+message Issue {
+  reserved 29; //drop organization
+
+  optional string key = 1;
+  optional string rule = 2;
+  optional sonarqube.ws.commons.Severity severity = 3;
+  optional string component = 4;
+  optional int64 unusedComponentId = 5;
+  optional string project = 6;
+  reserved 7; // drop subProject
+  optional int32 line = 8;
+  optional string hash = 31;
+  optional sonarqube.ws.commons.TextRange textRange = 9;
+  repeated sonarqube.ws.commons.Flow flows = 10;
+  optional string resolution = 11;
+  optional string status = 12;
+  optional string message = 13;
+
+  optional string effort = 28;
+  // Deprecated since 5.5, replaced by effort
+  optional string debt = 14;
+
+  optional string assignee = 15;
+
+  // Unused since 5.5, manual issues feature has been removed
+  optional string unusedReporter = 16;
+
+  // SCM login of the committer who introduced the issue
+  optional string author = 17;
+
+  // Deprecated since 5.5, action plan has been removed
+  optional string actionPlan = 18;
+
+  repeated string tags = 19;
+
+  // the transitions allowed for the requesting user.
+  optional Transitions transitions = 20;
+
+  // the actions allowed for the requesting user.
+  optional Actions actions = 21;
+
+  optional Comments comments = 22;
+  optional string creationDate = 23;
+  optional string updateDate = 24;
+  optional string fUpdateAge = 25;
+  optional string closeDate = 26;
+
+  optional sonarqube.ws.commons.RuleType type = 27;
+
+
+  optional string branch = 30;
+  optional string pullRequest = 32;
+
+  optional string externalRuleEngine = 33;
+  reserved 34; //drop fromHotspot
+  optional string scope = 35;
+
+  optional bool quickFixAvailable = 36;
+  optional string ruleDescriptionContextKey = 37;
+
+  repeated sonarqube.ws.commons.MessageFormatting messageFormattings = 38;
+
+  repeated string codeVariants = 39;
+  optional sonarqube.ws.commons.CleanCodeAttribute cleanCodeAttribute = 40;
+  optional sonarqube.ws.commons.CleanCodeAttributeCategory cleanCodeAttributeCategory = 41;
+  repeated sonarqube.ws.commons.Impact impacts = 42;
+  optional string issueStatus = 43;
+}
+
+message Transitions {
+  repeated string transitions = 1;
+}
+
+message Actions {
+  repeated string actions = 1;
+}
+
+message Comments {
+  repeated sonarqube.ws.commons.Comment comments = 1;
+}
+
+// Deprecated since 5.5
+message ActionPlan {
+  optional string key = 1;
+  optional string name = 2;
+
+  // TODO define enum
+  optional string status = 3;
+  optional string deadLine = 4;
+  // TODO to be renamed, is it id or key ?
+  optional string project = 5;
+}
+
+// Deprecated since 5.5
+message ActionPlans {
+  repeated ActionPlan actionPlans = 1;
+}
+
+message Language {
+  optional string key = 1;
+  optional string name = 2;
+}
+
+message Languages {
+  repeated Language languages = 1;
+}
+
+message Component {
+  reserved 3, 11; //drop organization
+  optional int64 deprecatedId = 1;
+  optional string key = 2;
+  optional bool enabled = 4;
+  optional string qualifier = 5;
+  optional string name = 6;
+  optional string longName = 7;
+  optional string path = 8;
+  optional int64 unusedProjectId = 9;
+  optional int64 unusedSubProjectId = 10;
+  optional string branch = 12;
+  optional string pullRequest = 13;
+}
+
+// Response of GET api/issues/changelog
+message ChangelogWsResponse {
+  repeated sonarqube.ws.commons.Changelog changelog = 1;
+}
+
+// Response of POST api/issues/bulk_change
+message BulkChangeWsResponse {
+  optional int64 total = 1;
+  optional int64 success = 2;
+  optional int64 ignored = 3;
+  optional int64 failures = 4;
+}
+
+message Users {
+  repeated sonarqube.ws.commons.User users = 1;
+}
+
+// Response of GET api/issues/authors
+message AuthorsResponse {
+  repeated string authors = 1;
+}
+
+// Response of GET api/issues/pull
+message IssuesPullQueryTimestamp {
+  required int64 queryTimestamp = 1;
+}
+
+message TextRange {
+  optional int32 startLine = 1;
+  optional int32 startLineOffset = 2;
+  optional int32 endLine = 3;
+  optional int32 endLineOffset = 4;
+  optional string hash = 5;
+}
+
+message Location {
+  optional string filePath = 1;
+  optional string message = 2;
+  optional TextRange textRange = 3;
+  repeated sonarqube.ws.commons.MessageFormatting messageFormattings = 4;
+}
+
+message IssueLite {
+  required string key = 1;
+  optional int64 creationDate = 2;
+  optional bool resolved = 3;
+  optional string ruleKey = 4;
+  optional sonarqube.ws.commons.Severity userSeverity = 5;
+  optional sonarqube.ws.commons.RuleType type = 6;
+  optional Location mainLocation = 7;
+  optional bool closed = 8;
+}
+
+
+// Response of GET api/issues/pull_taint
+message TaintVulnerabilityPullQueryTimestamp {
+  required int64 queryTimestamp = 1;
+}
+
+message TaintVulnerabilityLite {
+  required string key = 1;
+  optional int64 creationDate = 2;
+  optional bool resolved = 3;
+  optional string ruleKey = 4;
+  optional sonarqube.ws.commons.Severity severity = 5;
+  optional sonarqube.ws.commons.RuleType type = 6;
+  optional Location mainLocation = 7;
+  optional bool closed = 8;
+  repeated Flow flows = 9;
+  optional bool assignedToSubscribedUser = 10;
+  optional string ruleDescriptionContextKey = 11;
+  optional sonarqube.ws.commons.CleanCodeAttribute cleanCodeAttribute = 12;
+  optional sonarqube.ws.commons.CleanCodeAttributeCategory cleanCodeAttributeCategory = 13;
+  repeated sonarqube.ws.commons.Impact impacts = 14;
+}
+
+message Flow {
+  repeated Location locations = 1;
+  optional string description = 2;
+  optional sonarqube.ws.commons.FlowType type = 3;
+}
+
+// Response of GET api/issues/list
+message ListWsResponse {
+  optional sonarqube.ws.commons.Paging paging = 1;
+  repeated Issue issues = 2;
+  repeated Component components = 3;
+}

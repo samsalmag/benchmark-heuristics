@@ -1,0 +1,50 @@
+// SonarQube, open source software quality management tool.
+// Copyright (C) 2008-2019 SonarSource
+// mailto:contact AT sonarsource DOT com
+//
+// SonarQube is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
+//
+// SonarQube is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+syntax = "proto3";
+
+package sonarqube.ws.batch;
+
+option java_package = "org.sonarqube.ws";
+option java_outer_classname = "NewCodePeriods";
+option optimize_for = SPEED;
+
+// WS api/new_code_periods/show
+message ShowWSResponse {
+    string projectKey = 1;
+    string branchKey = 2;
+    NewCodePeriodType type = 3;
+    string value = 4;
+    bool inherited = 5;
+    string effectiveValue = 6;
+    string previousNonCompliantValue = 7;
+    int64 updatedAt = 8;
+}
+
+// WS api/new_code_periods/list
+message ListWSResponse {
+    repeated ShowWSResponse newCodePeriods = 1;
+}
+
+enum NewCodePeriodType {
+    UNKNOWN = 0;
+    PREVIOUS_VERSION = 1;
+    NUMBER_OF_DAYS = 2;
+    SPECIFIC_ANALYSIS = 3;
+    REFERENCE_BRANCH = 4;
+}

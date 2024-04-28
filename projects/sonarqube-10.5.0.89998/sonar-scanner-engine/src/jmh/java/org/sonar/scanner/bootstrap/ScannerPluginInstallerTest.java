@@ -1,0 +1,194 @@
+/*
+ * SonarQube
+ * Copyright (C) 2009-2024 SonarSource SA
+ * mailto:info AT sonarsource DOT com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+package org.sonar.scanner.bootstrap;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.jar.Attributes;
+import java.util.jar.JarOutputStream;
+import java.util.jar.Manifest;
+import org.apache.commons.io.FileUtils;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.sonar.scanner.WsTestUtil;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+
+public class ScannerPluginInstallerTest {
+
+    @Rule
+    public TemporaryFolder temp = new TemporaryFolder();
+
+    private PluginFiles pluginFiles = mock(PluginFiles.class);
+
+    private DefaultScannerWsClient wsClient = mock(DefaultScannerWsClient.class);
+
+    private ScannerPluginInstaller underTest = new ScannerPluginInstaller(pluginFiles, wsClient);
+
+    @Test
+    public void download_installed_plugins() throws IOException {
+        WsTestUtil.mockReader(wsClient, "api/plugins/installed", new InputStreamReader(getClass().getResourceAsStream("ScannerPluginInstallerTest/installed-plugins-ws.json")));
+        enqueueDownload("scmgit", "abc");
+        enqueueDownload("java", "def");
+        Map<String, ScannerPlugin> result = underTest.installRequiredPlugins();
+        assertThat(result.keySet()).containsExactlyInAnyOrder("scmgit");
+        ScannerPlugin gitPlugin = result.get("scmgit");
+        assertThat(gitPlugin.getKey()).isEqualTo("scmgit");
+        assertThat(gitPlugin.getInfo().getNonNullJarFile()).exists().isFile();
+        assertThat(gitPlugin.getUpdatedAt()).isEqualTo(100L);
+        Map<String, ScannerPlugin> result2 = underTest.installPluginsForLanguages(new HashSet<>(List.of("java")));
+        assertThat(result2.keySet()).containsExactlyInAnyOrder("java");
+        ScannerPlugin javaPlugin = result2.get("java");
+        assertThat(javaPlugin.getKey()).isEqualTo("java");
+        assertThat(javaPlugin.getInfo().getNonNullJarFile()).exists().isFile();
+        assertThat(javaPlugin.getUpdatedAt()).isEqualTo(200L);
+    }
+
+    @Test
+    public void download_all_plugins() throws IOException {
+        WsTestUtil.mockReader(wsClient, "api/plugins/installed", new InputStreamReader(getClass().getResourceAsStream("ScannerPluginInstallerTest/installed-plugins-ws.json")));
+        enqueueDownload("scmgit", "abc");
+        enqueueDownload("java", "def");
+        Map<String, ScannerPlugin> result = underTest.installAllPlugins();
+        assertThat(result.keySet()).containsExactlyInAnyOrder("scmgit", "java");
+        ScannerPlugin gitPlugin = result.get("scmgit");
+        assertThat(gitPlugin.getKey()).isEqualTo("scmgit");
+        assertThat(gitPlugin.getInfo().getNonNullJarFile()).exists().isFile();
+        assertThat(gitPlugin.getUpdatedAt()).isEqualTo(100L);
+        ScannerPlugin javaPlugin = result.get("java");
+        assertThat(javaPlugin.getKey()).isEqualTo("java");
+        assertThat(javaPlugin.getInfo().getNonNullJarFile()).exists().isFile();
+        assertThat(javaPlugin.getUpdatedAt()).isEqualTo(200L);
+    }
+
+    @Test
+    public void fail_if_json_of_installed_plugins_is_not_valid() {
+        WsTestUtil.mockReader(wsClient, "api/plugins/installed", new StringReader("not json"));
+        assertThatThrownBy(() -> underTest.installRequiredPlugins()).isInstanceOf(IllegalStateException.class).hasMessage("Fail to parse response of api/plugins/installed");
+    }
+
+    @Test
+    public void reload_list_if_plugin_uninstalled_during_blue_green_switch() throws IOException {
+        WsTestUtil.mockReader(wsClient, "api/plugins/installed", new InputStreamReader(getClass().getResourceAsStream("ScannerPluginInstallerTest/blue-installed.json")), new InputStreamReader(getClass().getResourceAsStream("ScannerPluginInstallerTest/green-installed.json")));
+        enqueueNotFoundDownload("scmgit", "abc");
+        enqueueDownload("java", "def");
+        enqueueDownload("cobol", "ghi");
+        Map<String, ScannerPlugin> result = underTest.installRequiredPlugins();
+        assertThat(result.keySet()).containsExactlyInAnyOrder("java", "cobol");
+    }
+
+    @Test
+    public void fail_if_plugin_not_found_two_times() throws IOException {
+        WsTestUtil.mockReader(wsClient, "api/plugins/installed", new InputStreamReader(getClass().getResourceAsStream("ScannerPluginInstallerTest/blue-installed.json")), new InputStreamReader(getClass().getResourceAsStream("ScannerPluginInstallerTest/green-installed.json")));
+        enqueueDownload("scmgit", "abc");
+        enqueueDownload("cobol", "ghi");
+        enqueueNotFoundDownload("java", "def");
+        assertThatThrownBy(() -> underTest.installRequiredPlugins()).isInstanceOf(IllegalStateException.class).hasMessage("Fail to download plugin [java]. Not found.");
+    }
+
+    @Test
+    public void installLocals_always_returns_empty() {
+        // this method is used only by medium tests
+        assertThat(underTest.installLocals()).isEmpty();
+    }
+
+    private void enqueueDownload(String pluginKey, String pluginHash) throws IOException {
+        File jar = temp.newFile();
+        Manifest manifest = new Manifest();
+        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        manifest.getMainAttributes().putValue("Plugin-Key", pluginKey);
+        try (JarOutputStream output = new JarOutputStream(FileUtils.openOutputStream(jar), manifest)) {
+        }
+        doReturn(Optional.of(jar)).when(pluginFiles).get(argThat(p -> pluginKey.equals(p.key) && pluginHash.equals(p.hash)));
+    }
+
+    private void enqueueNotFoundDownload(String pluginKey, String pluginHash) {
+        doReturn(Optional.empty()).when(pluginFiles).get(argThat(p -> pluginKey.equals(p.key) && pluginHash.equals(p.hash)));
+    }
+
+    @org.openjdk.jmh.annotations.State(org.openjdk.jmh.annotations.Scope.Thread)
+    public static class _Benchmark extends se.chalmers.ju2jmh.api.JU2JmhBenchmark {
+
+        @org.openjdk.jmh.annotations.Benchmark
+        public void benchmark_download_installed_plugins() throws java.lang.Throwable {
+            this.createImplementation();
+            this.runBenchmark(this.implementation()::download_installed_plugins, this.description("download_installed_plugins"));
+        }
+
+        @org.openjdk.jmh.annotations.Benchmark
+        public void benchmark_download_all_plugins() throws java.lang.Throwable {
+            this.createImplementation();
+            this.runBenchmark(this.implementation()::download_all_plugins, this.description("download_all_plugins"));
+        }
+
+        @org.openjdk.jmh.annotations.Benchmark
+        public void benchmark_fail_if_json_of_installed_plugins_is_not_valid() throws java.lang.Throwable {
+            this.createImplementation();
+            this.runBenchmark(this.implementation()::fail_if_json_of_installed_plugins_is_not_valid, this.description("fail_if_json_of_installed_plugins_is_not_valid"));
+        }
+
+        @org.openjdk.jmh.annotations.Benchmark
+        public void benchmark_reload_list_if_plugin_uninstalled_during_blue_green_switch() throws java.lang.Throwable {
+            this.createImplementation();
+            this.runBenchmark(this.implementation()::reload_list_if_plugin_uninstalled_during_blue_green_switch, this.description("reload_list_if_plugin_uninstalled_during_blue_green_switch"));
+        }
+
+        @org.openjdk.jmh.annotations.Benchmark
+        public void benchmark_fail_if_plugin_not_found_two_times() throws java.lang.Throwable {
+            this.createImplementation();
+            this.runBenchmark(this.implementation()::fail_if_plugin_not_found_two_times, this.description("fail_if_plugin_not_found_two_times"));
+        }
+
+        @org.openjdk.jmh.annotations.Benchmark
+        public void benchmark_installLocals_always_returns_empty() throws java.lang.Throwable {
+            this.createImplementation();
+            this.runBenchmark(this.implementation()::installLocals_always_returns_empty, this.description("installLocals_always_returns_empty"));
+        }
+
+        @java.lang.Override
+        public org.junit.runners.model.Statement applyRuleFields(org.junit.runners.model.Statement statement, org.junit.runner.Description description) {
+            statement = this.applyRule(this.implementation().temp, statement, description);
+            statement = super.applyRuleFields(statement, description);
+            return statement;
+        }
+
+        private ScannerPluginInstallerTest implementation;
+
+        @java.lang.Override
+        public void createImplementation() throws java.lang.Throwable {
+            this.implementation = new ScannerPluginInstallerTest();
+        }
+
+        @java.lang.Override
+        public ScannerPluginInstallerTest implementation() {
+            return this.implementation;
+        }
+    }
+}

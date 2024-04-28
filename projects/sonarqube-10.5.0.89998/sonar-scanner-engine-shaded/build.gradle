@@ -1,0 +1,17 @@
+sonar {
+  properties {
+    property 'sonar.projectName', "${projectTitle} :: Scanner Engine Shaded"
+  }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+  mavenLocal()
+}
+
+dependencies {
+  api project(':sonar-scanner-engine')
+
+  implementation 'io.github.samsalmag:benchmark-heuristics-parser:0.0.1-SNAPSHOT:all'     // Maven local
+}

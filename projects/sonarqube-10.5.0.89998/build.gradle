@@ -1,0 +1,833 @@
+import groovy.json.JsonOutput
+import groovy.text.SimpleTemplateEngine
+import org.sonar.build.BlackBoxTest
+
+import static org.gradle.api.JavaVersion.VERSION_17
+
+plugins {
+  // Ordered alphabetically
+  id 'com.github.hierynomus.license' version '0.16.1'
+  id "com.github.hierynomus.license-report" version "0.16.1" apply false
+  id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+  id 'com.google.protobuf' version '0.8.19' apply false
+  id 'com.jfrog.artifactory' version '5.1.10'
+  id "de.undercouch.download" version "5.5.0" apply false
+  id 'io.spring.dependency-management' version '1.1.4'
+  id "org.cyclonedx.bom" version "1.7.4" apply false
+  id 'org.sonarqube' version '5.0.0.4638'
+}
+
+if (!JavaVersion.current().isCompatibleWith(VERSION_17)) {
+  throw new GradleException("JDK 17+ is required to perform this build. It's currently " + System.getProperty("java.home") + ".")
+}
+
+/**
+ * The BOM related tasks are disabled by default, activated by:
+ * - running in the CI and being on a main branch or a nightly build,
+ * - or using '-Dbom' project property
+ * - or by explicit call to 'cyclonedxBom' Gradle task
+ */
+def bomTasks = "cyclonedxBom"
+def ghBranch = System.getenv()["GITHUB_BRANCH"]
+def isMainBranch = ghBranch in ['master'] || ghBranch ==~ 'branch-[\\d.]+'
+def isNightlyBuild = ghBranch == "branch-nightly-build"
+boolean enableBom = System.getenv('CI') == "true" && (isMainBranch || isNightlyBuild) ||
+        System.getProperty("bom") != null ||
+        gradle.startParameter.taskNames.findAll({ it.matches(".*:($bomTasks)") })
+
+allprojects {
+  apply plugin: 'com.jfrog.artifactory'
+  apply plugin: 'maven-publish'
+
+  ext.versionInSources = version
+  ext.buildNumber = System.getProperty("buildNumber")
+  // when no buildNumber is provided, then project version must end with '-SNAPSHOT'
+  if (ext.buildNumber == null) {
+      version = "${version}-SNAPSHOT".toString()
+      ext.versionWithoutBuildNumber = version
+  } else {
+      ext.versionWithoutBuildNumber = version
+      version = (version.toString().count('.') == 1 ? "${version}.0.${ext.buildNumber}" : "${version}.${ext.buildNumber}").toString()
+  }
+
+  task cacheDependencies {
+    doLast {
+      configurations.each { conf ->
+        if (conf.isCanBeResolved()) {
+          if (conf.getName() != 'appZip')
+            conf.resolve()
+        }
+      }
+    }
+  }
+
+  ext {
+    release = project.hasProperty('release') && project.getProperty('release')
+    official = project.hasProperty('official') && project.getProperty('official')
+    testMonitoringEnabled = project.hasProperty('withTestMonitoring')
+  }
+
+  ext.enableBom = enableBom
+  if (!enableBom) {
+    tasks.matching { it.name.matches(bomTasks) }.all({
+      logger.info("{} disabled", it.name);
+      it.enabled = false
+    })
+  }
+
+  repositories {
+    def repository = project.hasProperty('qa') ? 'sonarsource-qa' : 'sonarsource'
+    // The environment variables ARTIFACTORY_PRIVATE_USERNAME and ARTIFACTORY_PRIVATE_PASSWORD are used on QA env (Jenkins)
+    // On local box, please add artifactoryUsername and artifactoryPassword to ~/.gradle/gradle.properties
+    def artifactoryUsername = System.env.'ARTIFACTORY_PRIVATE_USERNAME' ?: (project.hasProperty('artifactoryUsername') ? project.getProperty('artifactoryUsername') : '')
+    def artifactoryPassword = System.env.'ARTIFACTORY_PRIVATE_PASSWORD' ?: (project.hasProperty('artifactoryPassword') ? project.getProperty('artifactoryPassword') : '')
+    def artifactoryUrl = System.getenv('ARTIFACTORY_URL') ?: (project.hasProperty('artifactoryUrl') ? project.getProperty('artifactoryUrl') : '')
+
+    if (artifactoryPassword) {
+      if (artifactoryUrl == '') {
+        throw new GradleException('Invalid artifactoryUrl')
+      }
+      maven {
+        authentication {
+          header(HttpHeaderAuthentication)
+        }
+        credentials(HttpHeaderCredentials) {
+          name = "Authorization"
+          value = "Bearer $artifactoryPassword"
+        }
+        url "${artifactoryUrl}/${repository}"
+      }
+    } else {
+      mavenCentral()
+      maven {
+        url 'https://jitpack.io'
+      }
+      maven {
+        url 'https://maven.codelibs.org/'
+      }
+    }
+    ivy {
+          if (artifactoryUsername && artifactoryPassword) {
+              url "${artifactoryUrl}/sonarsource-bucket"
+              authentication {
+                header(HttpHeaderAuthentication)
+              }
+              credentials(HttpHeaderCredentials) {
+                name = "Authorization"
+                value = "Bearer $artifactoryPassword"
+              }
+
+              patternLayout {
+                artifact '/[organisation]/[module]/[module]-[revision].[ext]'
+              }
+          } else {
+              // For public build
+              url "https://artifacts.elastic.co/downloads/"
+
+              patternLayout {
+                artifact '/[organisation]/[module]-[revision].[ext]'
+              }
+          }
+
+          metadataSources { artifact() }
+    }
+  }
+
+  task allDependencies {
+    dependsOn 'dependencies'
+  }
+
+  artifactory {
+    clientConfig.setIncludeEnvVars(true)
+    clientConfig.setEnvVarsExcludePatterns('*pass*,*psw*,*secret*,*MAVEN_CMD_LINE_ARGS*,sun.java.command,*token*,*login*,*key*,*signing*,*auth*,*pwd*')
+    contextUrl = System.getenv('ARTIFACTORY_URL')
+    publish {
+      repository {
+        repoKey = System.getenv('ARTIFACTORY_DEPLOY_REPO')
+        username = System.getenv('ARTIFACTORY_DEPLOY_USERNAME') ?: project.properties.artifactoryUsername
+        password = System.getenv('ARTIFACTORY_DEPLOY_PASSWORD') ?: project.properties.artifactoryPaswword
+      }
+      defaults {
+        properties = [
+            'build.name': 'sonar-enterprise',
+            'build.number': System.getenv('BUILD_NUMBER'),
+            'pr.branch.target': System.getenv('GITHUB_BASE_BRANCH'),
+            'pr.number': System.getenv('PULL_REQUEST'),
+            'vcs.branch': ghBranch,
+            'vcs.revision': System.getenv('GIT_SHA1'),
+            'version': version
+        ]
+        publications('mavenJava')
+        publishPom = true
+        publishIvy = false
+      }
+    }
+    clientConfig.info.setBuildName('sonar-enterprise')
+    clientConfig.info.setBuildNumber(System.getenv('BUILD_NUMBER'))
+    // Define the artifacts to be deployed to https://binaries.sonarsource.com on releases
+    clientConfig.info.addEnvironmentProperty('ARTIFACTS_TO_PUBLISH',
+        "${project.group}:sonar-application:zip," +
+            "com.sonarsource.sonarqube:sonarqube-developer:zip," +
+            "com.sonarsource.sonarqube:sonarqube-datacenter:zip," +
+            "com.sonarsource.sonarqube:sonarqube-enterprise:zip")
+    // The name of this variable is important because it's used by the delivery process when extracting version from Artifactory build info.
+    clientConfig.info.addEnvironmentProperty('PROJECT_VERSION', "${version}")
+  }
+}
+
+apply plugin: 'org.sonarqube'
+sonar {
+    properties {
+        property 'sonar.projectName', projectTitle
+        property 'sonar.projectVersion', "${versionInSources}-SNAPSHOT"
+        property 'sonar.buildString', version
+    }
+}
+
+tasks.named('wrapper') {
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+subprojects {
+  apply plugin: 'com.github.hierynomus.license'
+  apply plugin: 'io.spring.dependency-management'
+  apply plugin: 'jacoco'
+  apply plugin: 'java-library'
+  apply plugin: 'idea'
+  apply plugin: 'signing'
+
+  // do not deploy to Artifactory by default
+  artifactoryPublish.skip = true
+
+  compileJava.options.encoding = "UTF-8"
+  compileTestJava.options.encoding = "UTF-8"
+
+  def testFixtureSrc = 'src/testFixtures'
+  if (file(testFixtureSrc).exists()) {
+    apply plugin: 'java-test-fixtures'
+  }
+
+  ext {
+    protobufVersion = '3.24.2'
+    springVersion = '5.3.31'
+    elasticSearchVersion = '7.17.17'
+  }
+
+  sonar {
+    properties {
+      property 'sonar.moduleKey', project.group + ':' + project.name
+    }
+  }
+
+  sourceSets {
+    test {
+      resources {
+        srcDirs += ['src/it/resources']
+      }
+      java {
+        srcDirs += ['src/it/java']
+      }
+    }
+
+    bbt {
+      resources {
+        srcDirs = ['src/bbt/resources']
+      }
+      java {
+        srcDirs = ['src/bbt/java']
+      }
+    }
+  }
+
+  // Central place for definition dependency versions and exclusions.
+  dependencyManagement {
+    dependencies {
+      // bundled plugin list -- keep it alphabetically ordered
+      dependency 'com.sonarsource.abap:sonar-abap-plugin:3.14.0.5470'
+      dependency 'com.sonarsource.cobol:sonar-cobol-plugin:5.6.0.7604'
+      dependency 'com.sonarsource.cpp:sonar-cfamily-plugin:6.54.0.69031'
+      dependency 'com.sonarsource.dbd:sonar-dbd-plugin:1.25.0.8311'
+      dependency 'com.sonarsource.dbd:sonar-dbd-java-frontend-plugin:1.25.0.8311'
+      dependency 'com.sonarsource.dbd:sonar-dbd-python-frontend-plugin:1.25.0.8311'
+      dependency 'com.sonarsource.pli:sonar-pli-plugin:1.15.0.4810'
+      dependency 'com.sonarsource.plsql:sonar-plsql-plugin:3.12.0.6513'
+      dependency 'com.sonarsource.plugins.vb:sonar-vb-plugin:2.12.0.4860'
+      dependency 'com.sonarsource.rpg:sonar-rpg-plugin:3.8.0.4662'
+      dependency 'com.sonarsource.security:sonar-security-csharp-frontend-plugin:10.5.0.30668'
+      dependency 'com.sonarsource.security:sonar-security-java-frontend-plugin:10.5.0.30668'
+      dependency 'com.sonarsource.security:sonar-security-php-frontend-plugin:10.5.0.30668'
+      dependency 'com.sonarsource.security:sonar-security-plugin:10.5.0.30668'
+      dependency 'com.sonarsource.security:sonar-security-python-frontend-plugin:10.5.0.30668'
+      dependency 'com.sonarsource.security:sonar-security-js-frontend-plugin:10.5.0.30668'
+      dependency 'com.sonarsource.slang:sonar-apex-plugin:1.15.0.4655'
+      dependency 'org.sonarsource.slang:sonar-go-plugin:1.15.0.4655'
+      dependency 'org.sonarsource.slang:sonar-ruby-plugin:1.15.0.4655'
+      dependency 'org.sonarsource.slang:sonar-scala-plugin:1.15.0.4655'
+      dependency 'com.sonarsource.swift:sonar-swift-plugin:4.12.0.7262'
+      dependency 'com.sonarsource.tsql:sonar-tsql-plugin:1.12.0.7020'
+      dependency 'org.sonarsource.dotnet:sonar-csharp-plugin:9.23.2.88755'
+      dependency 'org.sonarsource.dotnet:sonar-vbnet-plugin:9.23.2.88755'
+      dependency 'org.sonarsource.flex:sonar-flex-plugin:2.12.0.4568'
+      dependency 'org.sonarsource.html:sonar-html-plugin:3.15.0.5107'
+      dependency 'org.sonarsource.jacoco:sonar-jacoco-plugin:1.3.0.1538'
+      dependency 'org.sonarsource.java:sonar-java-plugin:7.33.0.35775'
+      dependency 'org.sonarsource.javascript:sonar-javascript-plugin:10.13.2.25981'
+      dependency 'org.sonarsource.php:sonar-php-plugin:3.35.0.11659'
+      dependency 'org.sonarsource.plugins.cayc:sonar-cayc-plugin:2.3.0.1782'
+      dependency 'org.sonarsource.python:sonar-python-plugin:4.17.0.14845'
+      dependency 'org.sonarsource.kotlin:sonar-kotlin-plugin:2.20.0.4382'
+      dependency "org.sonarsource.api.plugin:sonar-plugin-api:$pluginApiVersion"
+      dependency "org.sonarsource.api.plugin:sonar-plugin-api-test-fixtures:$pluginApiVersion"
+      dependency 'org.sonarsource.xml:sonar-xml-plugin:2.10.0.4108'
+      dependency 'org.sonarsource.iac:sonar-iac-plugin:1.27.0.9518'
+      dependency 'org.sonarsource.text:sonar-text-plugin:2.10.0.2188'
+      dependency 'com.sonarsource.text:sonar-text-enterprise-plugin:2.10.0.2188'
+      dependency 'com.sonarsource.jcl:sonar-jcl-plugin:1.1.0.855'
+
+      // please keep this list alphabetically ordered
+      dependencySet(group: 'ch.qos.logback', version: '1.5.3') {
+        entry 'logback-classic'
+        entry 'logback-core'
+      }
+      // TODO switch to dependency 'ch.qos.logback.access:tomcat:2.0.1' when upgrading to Tomcat 10+
+      dependency 'ch.qos.logback:logback-access:1.3.14'
+      dependency('commons-beanutils:commons-beanutils:1.9.4') {
+        exclude 'commons-logging:commons-logging'
+      }
+      dependency 'commons-codec:commons-codec:1.16.0'
+      dependency 'commons-dbutils:commons-dbutils:1.8.1'
+      dependency 'commons-io:commons-io:2.15.1'
+      imports { mavenBom 'com.fasterxml.jackson:jackson-bom:2.16.1' }
+      dependency 'com.eclipsesource.minimal-json:minimal-json:0.9.5'
+      dependencySet(group: 'com.github.scribejava', version: '8.3.3') {
+        entry 'scribejava-apis'
+        entry 'scribejava-core'
+      }
+      dependency('com.github.erosb:json-sKema:0.13.0') {
+        // this version of json-sKema does not make use of commons-collections, so we can exclude it safely
+        exclude 'commons-collections:commons-collections'
+      }
+      // This project is no longer maintained and was forked
+      // by https://github.com/java-diff-utils/java-diff-utils
+      // (io.github.java-diff-utils:java-diff-utils).
+      dependency 'com.googlecode.java-diff-utils:diffutils:1.3.0'
+      dependency('com.googlecode.json-simple:json-simple:1.1.1') {
+        exclude 'junit:junit'
+      }
+      dependency 'com.squareup.okio:okio:3.7.0'
+      dependency 'io.prometheus:simpleclient:0.16.0'
+      dependency 'io.prometheus:simpleclient_common:0.16.0'
+      dependency 'io.prometheus:simpleclient_servlet:0.16.0'
+      dependency 'com.google.code.findbugs:jsr305:3.0.2'
+      dependency 'com.google.code.gson:gson:2.10.1'
+      dependency('com.google.guava:guava:33.0.0-jre') {
+        exclude 'com.google.errorprone:error_prone_annotations'
+        exclude 'com.google.guava:listenablefuture'
+        exclude 'com.google.j2objc:j2objc-annotations'
+        exclude 'org.checkerframework:checker-qual'
+        exclude 'org.codehaus.mojo:animal-sniffer-annotations'
+      }
+      dependency "com.google.protobuf:protobuf-java:${protobufVersion}"
+      dependency 'com.h2database:h2:2.2.224'
+      dependencySet(group: 'com.hazelcast', version: '5.3.6') {
+        entry 'hazelcast'
+      }
+      // Documentation must be updated if mssql-jdbc is updated: https://github.com/SonarSource/sonarqube/commit/03e4773ebf6cba854cdcf57a600095f65f4f53e7
+      dependency('com.microsoft.sqlserver:mssql-jdbc:12.6.0.jre11') {
+        exclude 'com.fasterxml.jackson.core:jackson-databind'
+      }
+      dependency 'com.onelogin:java-saml:2.9.0'
+      dependency 'com.oracle.database.jdbc:ojdbc11:23.3.0.23.09'
+      dependency 'com.datadoghq:dd-java-agent:1.30.1'
+      dependency 'org.aspectj:aspectjtools:1.9.21'
+      // If this gets updated the dependency on okio 3.5.0 should be reviewed
+      dependencySet(group: 'com.squareup.okhttp3', version: '4.12.0') {
+        entry 'okhttp'
+        entry 'mockwebserver'
+        entry 'okhttp-tls'
+      }
+      dependency 'org.json:json:20231013'
+      // To be removed after migration to JUnit5 is finished
+      dependency 'com.tngtech.java:junit-dataprovider:1.13.1'
+      dependency 'com.tngtech.junit.dataprovider:junit-jupiter-params-dataprovider:2.10'
+      dependencySet(group: 'io.jsonwebtoken', version: '0.12.5') {
+        entry 'jjwt-api'
+        entry 'jjwt-impl'
+        entry 'jjwt-jackson'
+      }
+      dependency 'com.auth0:java-jwt:4.4.0'
+      dependency 'io.netty:netty-all:4.1.106.Final'
+      dependency 'com.sun.mail:javax.mail:1.6.2'
+      dependency 'javax.annotation:javax.annotation-api:1.3.2'
+      dependency 'javax.inject:javax.inject:1'
+      dependency 'javax.servlet:javax.servlet-api:4.0.1'
+      dependency 'javax.xml.bind:jaxb-api:2.3.1'
+      dependency 'junit:junit:4.13.2'
+      // JUnit 5
+      dependencySet(group: 'org.junit.jupiter', version: '5.10.2') {
+        entry 'junit-jupiter-api'
+        entry 'junit-jupiter-engine'
+        entry 'junit-jupiter-params'
+        entry 'junit-vintage-engine'
+      }
+      dependency 'org.xmlunit:xmlunit-core:2.9.1'
+      dependency 'org.xmlunit:xmlunit-matchers:2.9.1'
+      dependency 'org.lz4:lz4-java:1.8.0'
+      dependency 'net.lightbody.bmp:littleproxy:1.1.0-beta-bmp-17'
+      dependency 'org.awaitility:awaitility:4.2.0'
+      dependency 'org.apache.commons:commons-collections4:4.4'
+      dependency 'org.apache.commons:commons-csv:1.10.0'
+      dependency 'org.apache.commons:commons-lang3:3.14.0'
+      dependency 'org.apache.commons:commons-email:1.6.0'
+      dependency 'org.apache.commons:commons-text:1.11.0'
+      dependency 'com.zaxxer:HikariCP:5.1.0'
+      dependency('org.apache.httpcomponents:httpclient:4.5.14') {
+        exclude 'commons-logging:commons-logging'
+      }
+      // Be aware that Log4j is used by Elasticsearch client
+      dependencySet(group: 'org.apache.logging.log4j', version: '2.22.1') {
+        entry 'log4j-core'
+        entry 'log4j-api'
+        entry 'log4j-to-slf4j'
+      }
+      dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.87') {
+        entry 'tomcat-embed-core'
+        entry('tomcat-embed-jasper') {
+          exclude 'org.eclipse.jdt.core.compiler:ecj'
+        }
+      }
+      //transitive dependency of SVNKit, to be re-assessed when updating SVNKit
+      dependency 'org.apache.sshd:sshd-core:2.12.0'
+      dependency 'org.assertj:assertj-core:3.25.3'
+      dependency 'org.assertj:assertj-guava:3.25.3'
+      dependency('org.codehaus.sonar:sonar-channel:4.2') {
+        exclude 'org.slf4j:slf4j-api'
+      }
+      dependency 'com.fasterxml.staxmate:staxmate:2.4.1'
+      dependencySet(group: 'org.eclipse.jetty', version: '9.4.6.v20170531') {
+        entry 'jetty-proxy'
+        entry 'jetty-server'
+        entry 'jetty-servlet'
+      }
+      dependency("org.elasticsearch.client:elasticsearch-rest-high-level-client:${elasticSearchVersion}") {
+        exclude 'org.apache.logging.log4j:log4j-core'
+      }
+      dependency "org.elasticsearch.plugin:transport-netty4-client:${elasticSearchVersion}"
+      dependency 'org.elasticsearch:mocksocket:1.2'
+      dependency "org.codelibs.elasticsearch.module:analysis-common:${elasticSearchVersion}"
+      dependency "org.codelibs.elasticsearch.module:reindex:${elasticSearchVersion}"
+      dependency 'org.eclipse.jgit:org.eclipse.jgit:6.9.0.202403050737-r'
+      dependency 'org.tmatesoft.svnkit:svnkit:1.10.11'
+      dependency 'org.hamcrest:hamcrest-all:1.3'
+      dependency 'org.jsoup:jsoup:1.17.2'
+      dependency 'org.mindrot:jbcrypt:0.4'
+      dependency('org.mockito:mockito-core:5.10.0') {
+        exclude 'org.hamcrest:hamcrest-core'
+      }
+      dependency('org.mockito:mockito-junit-jupiter:5.10.0') {
+        exclude 'org.junit.jupiter:junit-jupiter-api'
+      }
+      dependency "org.springframework:spring-test:${springVersion}"
+      dependency 'org.mybatis:mybatis:3.5.15'
+      dependencySet(group: 'org.slf4j', version: '2.0.11') {
+        entry 'jcl-over-slf4j'
+        entry 'jul-to-slf4j'
+        entry 'log4j-over-slf4j'
+        entry 'slf4j-api'
+      }
+      dependency 'org.postgresql:postgresql:42.7.1'
+      dependency 'org.reflections:reflections:0.10.2'
+      dependency 'org.simpleframework:simple:5.1.6'
+      dependency 'org.sonarsource.git.blame:git-files-blame:1.0.2.275'
+      dependency('org.sonarsource.orchestrator:sonar-orchestrator-junit4:4.8.0.1898') {
+        exclude 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+      }
+      dependency('org.sonarsource.orchestrator:sonar-orchestrator-junit5:4.8.0.1898') {
+        exclude 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+      }
+      dependency 'org.junit.platform:junit-platform-suite-api:1.10.2'
+      dependency 'org.junit.platform:junit-platform-suite-engine:1.10.2'
+      dependency 'org.sonarsource.update-center:sonar-update-center-common:1.32.0.2441'
+      dependency("org.springframework:spring-context:${springVersion}") {
+        exclude 'commons-logging:commons-logging'
+      }
+      dependency ("org.springframework:spring-webmvc:${springVersion}") {
+          exclude 'commons-logging:commons-logging'
+      }
+      dependency 'org.springdoc:springdoc-openapi-webmvc-core:1.7.0'
+      dependency 'org.subethamail:subethasmtp:3.1.7'
+      dependency 'org.yaml:snakeyaml:2.2'
+      dependency 'org.hibernate:hibernate-validator:6.2.5.Final'
+      dependency 'javax.el:javax.el-api:3.0.0'
+      dependency 'org.glassfish:jakarta.el:3.0.4'
+      dependency 'org.kohsuke:github-api:1.318'
+
+      // please keep this list alphabetically ordered
+    }
+  }
+
+  configurations {
+    bbtCompile.extendsFrom testCompile
+    bbtRuntime.extendsFrom testRuntime
+    bbtImplementation.extendsFrom testImplementation
+
+    // global exclusions
+    all {
+      // do not conflict with com.sun.mail:javax.mail
+      exclude group: 'javax.mail', module: 'mail'
+    }
+  }
+
+  tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.encoding = 'UTF-8'
+    title = project.name + ' ' + versionWithoutBuildNumber
+  }
+
+  task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+  }
+
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+  }
+
+  // generate code before opening project in IDE (Eclipse or Intellij)
+  task ide() {
+    // empty by default. Dependencies are added to the task
+    // when needed (see protobuf modules for example)
+  }
+
+  task generatePackageInfo {
+    doLast {
+      def allPathsContainingJavaFiles = [] as Set
+
+      fileTree('src/main/java/').matching() {
+        include "*/**/*.java"
+        exclude "*/**/package-info.java"
+      }.forEach {
+        allPathsContainingJavaFiles << it.toPath().toFile().getParent();
+      }
+
+      allPathsContainingJavaFiles.each {
+        String packageInfoPath = it + "/package-info.java"
+        File packageInfoFile = new File (packageInfoPath)
+        if (!packageInfoFile.exists()) {
+            logger.info("Creating file: " + packageInfoPath)
+            def packageName = packageInfoFile.getParent().replaceAll("[\\\\ /]", ".").takeAfter("src.main.java.");
+            String packageInfoContent = applyPackageInfoTemplate(packageName)
+            packageInfoFile << packageInfoContent
+        }
+      }
+
+      def allPackageInfoFiles = [] as Set
+
+      fileTree('src/main/java/').matching() {
+        include "*/**/package-info.java"
+      }.forEach {
+        allPackageInfoFiles << it.toPath().toFile();
+      }
+
+      allPackageInfoFiles.forEach {
+        File packageInfoFile = it;
+        if (!allPathsContainingJavaFiles.contains(packageInfoFile.getParent())) {
+          logger.warn("Deleting package info file: " + packageInfoFile)
+          packageInfoFile.delete();
+        }
+      }
+
+    }
+  }
+  build.dependsOn(generatePackageInfo)
+  generatePackageInfo.finalizedBy(licenseFormat)
+
+  jacocoTestReport {
+    reports {
+      xml.required = true
+      csv.required = false
+      html.required = false
+    }
+  }
+
+  normalization {
+    runtimeClasspath {
+      // Following classpath resources contain volatile data that changes in each CI build (build number, commit id, time),
+      // so we exclude them from calculation of build cache key of test tasks:
+      ignore 'META-INF/MANIFEST.MF'
+      ignore 'sonar-api-version.txt'
+      ignore 'sq-version.txt'
+    }
+  }
+
+
+  ext.failedTests = []
+  test {
+    jvmArgs '-Dfile.encoding=UTF8'
+    maxHeapSize = '1500m'
+    systemProperty 'java.awt.headless', true
+    // Some tests are asserting on localized messages or dates
+    systemProperty 'user.language', 'en'
+    systemProperty 'user.country', 'US'
+    environment 'LANGUAGE', 'en_US'
+    testLogging {
+      events "skipped", "failed" // verbose log for failed and skipped tests (by default the name of the tests are not logged)
+      exceptionFormat 'full' // log the full stack trace (default is the 1st line of the stack trace)
+    }
+    jacoco {
+      enabled = true // do not disable recording of code coverage, so that remote Gradle cache entry can be used locally
+      includes = ['com.sonar.*', 'com.sonarsource.*', 'org.sonar.*', 'org.sonarqube.*', 'org.sonarsource.*']
+    }
+    if (project.hasProperty('maxParallelTests')) {
+      maxParallelForks = project.maxParallelTests as int
+    }
+    if (project.hasProperty('parallelTests')) {
+      // See https://guides.gradle.org/performance/#parallel_test_execution
+      maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
+     afterTest { descriptor, result ->
+        if (result.resultType == TestResult.ResultType.FAILURE) {
+            String failedTest = "  ${descriptor.className} > ${descriptor.name}"
+            failedTests << failedTest
+        }
+    }
+  }
+
+
+  gradle.buildFinished {
+    if (!failedTests.empty) {
+      println "\nFailed tests:"
+      failedTests.each { failedTest ->
+        println failedTest
+      }
+      println ""
+    }
+  }
+
+  def protoMainSrc = 'src/main/protobuf'
+  def protoTestSrc = 'src/test/protobuf'
+  if (file(protoMainSrc).exists() || file(protoTestSrc).exists()) {
+    // protobuf must be applied after java
+    apply plugin: 'com.google.protobuf'
+
+    sourceSets.main.proto.srcDir protoMainSrc  // in addition to the default 'src/main/proto'
+    sourceSets.test.proto.srcDir protoTestSrc  // in addition to the default 'src/test/proto'
+    protobuf {
+      protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+      }
+    }
+    jar {
+      exclude('**/*.proto')
+    }
+    idea {
+      module {
+        sourceDirs += file("${protobuf.generatedFilesBaseDir}/main/java")
+        testSourceDirs += file("${protobuf.generatedFilesBaseDir}/test/java")
+        generatedSourceDirs += file("${protobuf.generatedFilesBaseDir}/main/java")
+        generatedSourceDirs += file("${protobuf.generatedFilesBaseDir}/test/java")
+      }
+    }
+    ide.dependsOn(['generateProto', 'generateTestProto'])
+  }
+
+  if (official) {
+    jar {
+      // do not break incremental build on non official versions
+      manifest {
+        attributes(
+          'Version': "${version}",
+          'Implementation-Build': System.getenv('GIT_SHA1'),
+          'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        )
+      }
+    }
+  }
+
+  license {
+    header = rootProject.file('HEADER')
+    ignoreFailures = project.hasProperty('ignoreLicenseFailures') ? project.getProperty('ignoreLicenseFailures').toBoolean() : true
+    strictCheck true
+    encoding = 'UTF-8'
+    mapping {
+      java = 'SLASHSTAR_STYLE'
+      js = 'SLASHSTAR_STYLE'
+      ts = 'SLASHSTAR_STYLE'
+      tsx = 'SLASHSTAR_STYLE'
+      css = 'SLASHSTAR_STYLE'
+    }
+    includes(['**/*.java', '**/*.js', '**/*.ts', '**/*.tsx', '**/*.css'])
+  }
+
+  tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+  }
+
+  publishing {
+    publications {
+      mavenJava(MavenPublication) {
+        pom {
+          name = 'SonarQube'
+          description = project.description
+          url = 'https://www.sonarsource.com/products/sonarqube'
+          organization {
+            name = 'SonarSource'
+            url = 'https://www.sonarsource.com'
+          }
+          licenses {
+            license {
+              name = 'GNU LGPL 3'
+              url = 'http://www.gnu.org/licenses/lgpl.txt'
+              distribution = 'repo'
+            }
+          }
+          scm {
+            url = 'https://github.com/SonarSource/sonarqube'
+          }
+          developers {
+            developer {
+              id = 'sonarsource-team'
+              name = 'SonarSource Team'
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  tasks.withType(Test) {
+    configurations {
+      utMonitoring
+      testMonitoring
+      ddAgent
+    }
+
+    dependencies {
+      testImplementation project(":ut-monitoring")
+      testImplementation project(":test-monitoring")
+
+      utMonitoring 'org.aspectj:aspectjweaver:1.9.21'
+      testMonitoring 'org.aspectj:aspectjweaver:1.9.21'
+      ddAgent 'com.datadoghq:dd-java-agent'
+    }
+
+    if (System.getenv('CI') == "true") {
+      doFirst {
+        ext {
+          ddJavaAgent = configurations.ddAgent.resolvedConfiguration.resolvedArtifacts.find { it.name == 'dd-java-agent' }
+        }
+        jvmArgs "-javaagent:${ddJavaAgent.file}"
+        jvmArgs "-Ddatadog.slf4j.simpleLogger.logFile=${project.projectDir}/build/datadog.log"
+      }
+    }
+  }
+
+  tasks.withType(BlackBoxTest) {
+    jacoco.enabled = false
+    testClassesDirs = sourceSets.bbt.output.classesDirs
+    classpath = sourceSets.bbt.runtimeClasspath
+
+    configurations {
+      includeInTestResources
+    }
+
+    dependencies {
+      bbtRuntimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+      bbtRuntimeOnly 'com.oracle.database.jdbc:ojdbc11'
+      bbtRuntimeOnly 'org.postgresql:postgresql'
+      bbtRuntimeOnly project(':plugins:sonar-xoo-plugin')
+
+      bbtImplementation 'org.sonarsource.orchestrator:sonar-orchestrator-junit4'
+      bbtImplementation project(":sonar-testing-harness")
+      bbtImplementation project(":private:it-common")
+      bbtImplementation testFixtures(project(":sonar-ws"))
+    }
+  }
+
+  if (isNightlyBuild) {
+    tasks.withType(Test) {
+      doFirst {
+        ext {
+          aspectJWeaver = configurations.utMonitoring.resolvedConfiguration.resolvedArtifacts.find { it.name == 'aspectjweaver' }
+        }
+        jvmArgs "-javaagent:${aspectJWeaver.file}"
+      }
+    }
+  }
+
+  if (ext.testMonitoringEnabled) {
+    tasks.withType(Test) {
+      doFirst {
+        ext {
+          aspectJWeaver = configurations.testMonitoring.resolvedConfiguration.resolvedArtifacts.find { it.name == 'aspectjweaver' }
+        }
+        jvmArgs "-javaagent:${aspectJWeaver.file}"
+      }
+    }
+  }
+
+
+  signing {
+    def signingKeyId = findProperty("signingKeyId")
+    def signingKey = findProperty("signingKey")
+    def signingPassword = findProperty("signingPassword")
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+    required {
+      return isMainBranch && gradle.taskGraph.hasTask(":artifactoryPublish")
+    }
+    sign publishing.publications
+  }
+
+  tasks.withType(Sign) {
+    onlyIf {
+      return !artifactoryPublish.skip && isMainBranch && gradle.taskGraph.hasTask(":artifactoryPublish")
+    }
+  }
+}
+
+static def applyPackageInfoTemplate(packageName) {
+  def engine = new SimpleTemplateEngine()
+  def templateText = "@ParametersAreNonnullByDefault\n" +
+          "package $packageName;\n" +
+          "\n" +
+          "import javax.annotation.ParametersAreNonnullByDefault;\n"
+  def templateParams = ["packageName": packageName]
+  engine.createTemplate(templateText).make(templateParams).toString()
+}
+
+gradle.projectsEvaluated { gradle ->
+  // yarn_run tasks can't all run in parallel without random issues
+  // this script ensure all yarn_run tasks run sequentially
+  def yarnRunTasks = allprojects.findResults { it -> it.tasks.findByName('yarn_run') }
+  yarnRunTasks.drop(1).eachWithIndex { it, i -> it.mustRunAfter(yarnRunTasks[0..i]) }
+}
+
+ext.osAdaptiveCommand = { commands ->
+  def newCommands = []
+
+  if (System.properties['os.name'].toLowerCase().contains('windows')) {
+    newCommands = ['cmd', '/c']
+  }
+
+  newCommands.addAll(commands)
+
+  return newCommands
+}
+
+tasks.named('sonarqube') {
+  onlyIf {
+    System.getenv('CI') == "true"
+  }
+  long taskStart
+  doFirst {
+    taskStart = System.currentTimeMillis()
+  }
+  doLast {
+    long taskDuration = System.currentTimeMillis() - taskStart
+    File outputFile = new File("/tmp/analysis-monitoring.log")
+    outputFile.append(JsonOutput.toJson([category: "Analysis", suite: "Standalone", operation: "total", duration: taskDuration]) + '\n')
+  }
+}

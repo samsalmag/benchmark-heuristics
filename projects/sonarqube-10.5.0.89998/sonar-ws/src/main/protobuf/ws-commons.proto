@@ -1,0 +1,241 @@
+// SonarQube, open source software quality management tool.
+// Copyright (C) 2008-2016 SonarSource
+// mailto:contact AT sonarsource DOT com
+//
+// SonarQube is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
+//
+// SonarQube is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+syntax = "proto2";
+
+package sonarqube.ws.commons;
+
+option java_package = "org.sonarqube.ws";
+option java_outer_classname = "Common";
+option optimize_for = SPEED;
+
+message Paging {
+  optional int32 pageIndex = 1;
+  optional int32 pageSize = 2;
+  optional int32 total = 3;
+}
+
+message Facet {
+  // kind of key
+  optional string property = 1;
+  repeated FacetValue values = 2;
+}
+
+message Facets {
+  repeated Facet facets = 1;
+}
+
+message FacetValue {
+  optional string val = 1;
+  optional int64 count = 2;
+}
+
+enum Severity {
+  INFO = 0;
+  MINOR = 1;
+  MAJOR = 2;
+  CRITICAL = 3;
+  BLOCKER = 4;
+}
+
+message Rule {
+  optional string key = 1;
+  optional string name = 2;
+  optional string lang = 3;
+  optional RuleStatus status = 4;
+  optional string langName = 5;
+}
+
+message Rules {
+  repeated Rule rules = 1;
+}
+
+enum RuleStatus {
+  BETA = 0;
+  DEPRECATED = 1;
+  READY = 2;
+  REMOVED = 3;
+}
+
+enum RuleScope {
+  MAIN = 0;
+  TEST = 1;
+  ALL = 2;
+}
+
+enum CleanCodeAttribute {
+  UNKNOWN_ATTRIBUTE = 0;
+  CONVENTIONAL = 1;
+  FORMATTED = 2;
+  IDENTIFIABLE = 3;
+  CLEAR = 4;
+  COMPLETE = 5;
+  EFFICIENT = 6;
+  LOGICAL = 7;
+  DISTINCT = 8;
+  FOCUSED = 9;
+  MODULAR = 10;
+  TESTED = 11;
+  LAWFUL = 12;
+  RESPECTFUL = 13;
+  TRUSTWORTHY = 14;
+}
+
+enum CleanCodeAttributeCategory {
+  UNKNOWN_CATEGORY = 0;
+  ADAPTABLE = 1;
+  CONSISTENT = 2;
+  INTENTIONAL = 3;
+  RESPONSIBLE = 4;
+}
+
+message Impact {
+  required SoftwareQuality softwareQuality = 1;
+  required ImpactSeverity severity = 2;
+}
+
+enum SoftwareQuality {
+  UNKNOWN_IMPACT_QUALITY = 0;
+  MAINTAINABILITY = 1;
+  RELIABILITY = 2;
+  SECURITY = 3;
+}
+
+enum ImpactSeverity {
+  UNKNOWN_IMPACT_SEVERITY = 0;
+  LOW = 1;
+  MEDIUM = 2;
+  HIGH = 3;
+}
+
+// Lines start at 1 and line offsets start at 0
+message TextRange {
+  // Start line. Should never be absent
+  optional int32 startLine = 1;
+
+  // End line (inclusive). Absent means it is same as start line
+  optional int32 endLine = 2;
+
+  // If absent it means range starts at the first offset of start line
+  optional int32 startOffset = 3;
+
+  // If absent it means range ends at the last offset of end line
+  optional int32 endOffset = 4;
+}
+
+message Flow {
+  repeated Location locations = 1;
+  optional string description = 2;
+  optional FlowType type = 3;
+}
+
+enum FlowType {
+  UNDEFINED = 0;
+  DATA = 1;
+  EXECUTION = 2;
+}
+
+message Location {
+  optional string component = 4;
+  optional string unusedComponentId = 1;
+  // Only when component is a file. Can be empty for a file if this is an issue global to the file.
+  optional sonarqube.ws.commons.TextRange textRange = 2;
+  optional string msg = 3;
+  repeated MessageFormatting msgFormattings = 5;
+}
+
+message User {
+  optional string login = 1;
+  optional string name = 2;
+  optional string avatar = 3;
+  optional bool active = 4;
+}
+
+message Changelog {
+  optional string user = 1;
+  optional string userName = 2;
+  // Email is no more returned since 6.3
+  optional string deprecatedEmail = 3;
+  optional string creationDate = 4;
+  repeated Diff diffs = 5;
+  optional string avatar = 6;
+  optional bool isUserActive = 7;
+  optional string externalUser = 8;
+  optional string webhookSource = 9;
+
+  message Diff {
+    optional string key = 1;
+    optional string newValue = 2;
+    optional string oldValue = 3;
+  }
+}
+
+message Comment {
+  optional string key = 1;
+  optional string login = 2;
+  optional string htmlText = 5;
+  optional string markdown = 6;
+  optional bool updatable = 7;
+  optional string createdAt = 8;
+}
+
+message Metric {
+  optional string key = 1;
+  optional string name = 2;
+  optional string description = 3;
+  optional string domain = 4;
+  optional string type = 5;
+  optional bool higherValuesAreBetter = 6;
+  optional bool qualitative = 7;
+  optional bool hidden = 8;
+  optional bool custom = 9;
+  optional int32 decimalScale = 10;
+  optional string bestValue = 11;
+  optional string worstValue = 12;
+}
+
+enum RuleType {
+  // Zero is required in order to not get MAINTAINABILITY as default value
+  // See http://androiddevblog.com/protocol-buffers-pitfall-adding-enum-values/
+  UNKNOWN = 0;
+
+  // same name as in Java enum IssueType,
+  // same index values as in database (see column ISSUES.ISSUE_TYPE)
+  CODE_SMELL = 1;
+  BUG = 2;
+  VULNERABILITY = 3;
+  SECURITY_HOTSPOT = 4;
+}
+
+enum BranchType {
+  reserved 1, 2;
+
+  UNKNOWN_BRANCH_TYPE = 0;
+  PULL_REQUEST = 3;
+  BRANCH = 4;
+}
+
+message MessageFormatting {
+  required int32 start = 1;
+  required int32 end = 2;
+  required MessageFormattingType type = 3;
+}
+
+enum MessageFormattingType {
+  CODE = 0;
+}
