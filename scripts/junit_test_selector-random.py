@@ -1,6 +1,8 @@
 import os
 import random
 from datetime import datetime
+from utils import read_json_file
+import sys
 
 # Randomly selects 'num_tests' amount of junit tests from a file containing all a project's tests
 def select_random_junit_tests(project_tests_path, num_tests):
@@ -10,7 +12,20 @@ def select_random_junit_tests(project_tests_path, num_tests):
     lines = [line.strip() for line in lines]            # Remove newline characters from the end of each line
     enumerated_lines = list(enumerate(lines, start=1))  # Create a list of tuples containing (row_number, line_content)
     random.shuffle(enumerated_lines)                    # Shuffle the lines randomly
-    return enumerated_lines[:num_tests]                 # Take the first 'num_tests' lines and return it
+
+
+    # TEMP: skip certain benchmarks
+    benchmarksToRemove = []
+    with open(r"benchmarks\results\onlyRxJava\skipBenchmarks.txt", "r") as f:
+        benchmarksToRemove = f.readlines()
+
+    newList = []
+    for line in enumerated_lines:
+        if line[1] not in benchmarksToRemove:
+            newList.append(line)
+
+    return newList[:num_tests]                 # Take the first 'num_tests' lines and return it
+    # return enumerated_lines[:num_tests]                 # Take the first 'num_tests' lines and return it
 
 # Creates a txt file containing all selected unit tests from a given project, 
 # the test class paths, and a command to run the benchmarks generated from the unit tests
@@ -25,7 +40,8 @@ def generate_output(project1_input, project2_input, project3_input):
                str(current_time.second) + "s"
                
 
-    for project in [project1_input, project2_input, project3_input]:
+    # for project in [project1_input, project2_input, project3_input]:
+    for project in [project1_input]:
         project_tests_path, num_tests, jmhjar_name = project
         project_name = extract_project_name(project_tests_path)
         selected_tests = select_random_junit_tests(project_tests_path, num_tests)
@@ -33,7 +49,7 @@ def generate_output(project1_input, project2_input, project3_input):
 
 
         print(f"{project_name}...", end="")
-        with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_SELECTED_RAND_{date_str}-{time_str}.txt"), "w") as f:
+        with open(os.path.join(os.path.dirname(__file__), "output", f"{project_name}_NEW123SELECTED_RAND_{date_str}-{time_str}.txt"), "w") as f:
             f.write(f"# {project_name} | SELECTED {num_tests} TESTS \n# ROW IN 'ALL TESTS' FILE | TEST NR. | TEST METHOD PATH \n")
             i = 1
             for row_number, row_content in selected_tests:
@@ -87,13 +103,26 @@ def get_jmh_base_command(jmhjar_name):
 
 project1_tests_path = r"scripts\output\mockito-5.10.0_ALL.txt"               # Path to txt with ALL Mockito tests
 project2_tests_path = r"scripts\output\RxJava-3.1.8_ALL.txt"                 # Path to txt with ALL RxJava tests
-project3_tests_path = r"scripts\output\stubby4j-7.6.0_ALL.txt"               # Path to txt with ALL stubby4j tests
+project3_tests_path = r"scripts\output\sonarqube_ALL.txt"               # Path to txt with ALL stubby4j tests
 
-num_tests = 750  # Number of junit tests to select from each project
+num_tests = 6000  # Number of junit tests to select from each project
 project1_jmhjar_name = "mockito-jmh.jar"
-project2_jmhjar_name = "rxjava-3.0.0-SNAPSHOT-jmh.jar"
+project2_jmhjar_name = "rxjava-jmh-OPC.jar"
 project3_jmhjar_name = "stubby4j-jmh.jar"
 
-generate_output((project1_tests_path, num_tests, project1_jmhjar_name), 
-                (project2_tests_path, num_tests, project2_jmhjar_name), 
+root_path = r"benchmarks\results\onlyRxJava"
+path = root_path + r"\dontInclude.txt"
+lines = []
+with open(path, "r") as f:
+    lines = f.readlines()
+# for line in lines:
+    # print(line)
+
+with open(os.path.join(root_path, f"skipBenchmarks.txt"), "w") as f:
+    for line in lines:
+        lineToWrite = line.split(' ')[-1]
+        f.write(f"{lineToWrite}")
+
+generate_output((project2_tests_path, num_tests, project2_jmhjar_name), 
+                (project1_tests_path, num_tests, project1_jmhjar_name),
                 (project3_tests_path, num_tests, project3_jmhjar_name))

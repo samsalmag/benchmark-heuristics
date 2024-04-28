@@ -21,19 +21,18 @@ def remove_errors_txt(file_path):
         in_summary = False  # Flag to indicate if the summary section has started
 
         # -------- remove thread text, if present ----------------
-        # thread_pattern = r"^Thread\[.*?\n(?:  at .*\n)*(?:\r?\n)?"
-        # file_contents = infile.read()
-        # cleaned_text = re.sub(thread_pattern, "", file_contents, flags=re.MULTILINE)
-        # outfile.writelines(cleaned_text)
+        thread_pattern = r"^Thread\[.*?\n(?:  at .*\n)*(?:\r?\n)?"
+        file_contents = infile.read()
+        cleaned_thread_text = re.sub(thread_pattern, "", file_contents, flags=re.MULTILINE)
 
         # -------- remove jdk warning text, if present ----------------
-        # jdk_warning_text = "OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended"
-        # pattern = re.escape(jdk_warning_text) + r"\s*"
-        # file_contents = infile.read()
-        # cleaned_text = re.sub(pattern, "", file_contents)
-        # outfile.writelines(cleaned_text)
+        jdk_warning_text = "OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended"
+        pattern = re.escape(jdk_warning_text) + r"\s*"
+        cleaned_jdk_text = re.sub(pattern, "", cleaned_thread_text)
 
-        for line in infile:
+        # -------- remove benchmark errors, if present ----------------
+        # for line in infile:
+        for line in cleaned_jdk_text.splitlines(keepends=True):
             # Check if the summary starts
             if line.startswith('# Run complete. Total time:'):
                 in_summary = True
@@ -142,8 +141,6 @@ def get_rmad_all_benchmarks(benchmark_dict):
     rmad_benchmarks = []
     for benchmark, forks in benchmark_dict.items():
         rmad_benchmarks.append((benchmark, calculate_rmad_benchmark(forks, "RMAD_coefficient")))
-        rmad_benchmarks.append((benchmark, calculate_rmad_benchmark(forks, "RMAD_coefficientOneFork"))) 
-        rmad_benchmarks.append((benchmark, calculate_rmad_benchmark(forks, "RMAD_normal")))
     
     sorted_rmad = sorted(rmad_benchmarks, key=lambda pair: pair[1])
     return sorted_rmad
@@ -190,53 +187,31 @@ def read_results_summary(file_path, benchmark_dict):
     return result_dict
         
 
-paths = [r"benchmarks\RMADS_LOCAL.json", r"benchmarks\ParsedBenchmarksBest.json"]
-rxjava_dict = {}
-rmads = read_json_file(paths[0])
-parsed = read_json_file(paths[1])
+# Merging two dictionaries:
+# paths = [r"benchmarks\RMADS_LOCAL.json", r"benchmarks\ParsedBenchmarksBest.json"]
+# rxjava_dict = {}
+# rmads = read_json_file(paths[0])
+# parsed = read_json_file(paths[1])
+# merged_dict = {}
 
-merged_dict = {}
-
-# print(rmads['io.reactivex.rxjava3.internal.functions.ObjectHelperTest.verifyPositiveIntFail'])
-
-# Iterate through the keys in the first dictionary
-for key in rmads:
-    oldKey = key
-    key = key.replace('_Benchmark.benchmark_', "")
-    # Check if the key is also in the second dictionary
-    if key in parsed:
-        # merged_dict[key] = parsed[key] + rmads[oldKey]  # Or use dict2[key], or a combination
-        merged_dict[key] = parsed[key].copy()  # Start with a copy of the first dictionary
-        merged_dict[key].update(rmads[oldKey])
-print(len(merged_dict))
-
-with open(r"benchmarks" + r'\ParsedRMADS_BEST.json', 'w') as json_file:
-    json.dump(merged_dict, json_file)
-sys.exit()
+# for key in rmads:
+#     oldKey = key
+#     key = key.replace('_Benchmark.benchmark_', "")
+#     # Check if the key is also in the second dictionary
+#     if key in parsed:
+#         # merged_dict[key] = parsed[key] + rmads[oldKey]  # Or use dict2[key], or a combination
+#         merged_dict[key] = parsed[key].copy()  # Start with a copy of the first dictionary
+#         merged_dict[key].update(rmads[oldKey])
 
 
 root_path = r"benchmarks\results"
-with open(root_path + r'\newRxjava_parsedBenchmarksCOMBINED.json', 'w') as json_file:
-    json.dump(rxjava_dict, json_file)
-
-# root_path = r"benchmarks\results\run2"
-root_path = r"benchmarks"
-# file_paths_mockito = [root_path + r"\mockito-output1.txt", root_path + r"\mockito-output2.txt"]
-file_paths_rxjava = [root_path + r"\rxjava-output1.txt", root_path + r"\rxjava-output2.txt", root_path + r"\rxjava-output3.txt", root_path + r"\rxjava-output4.txt", root_path + r"\rxjava-output5.txt"]
-# file_paths_stubby = [root_path + r"\rxjava-outputNEW.txt"]
-file_path_local = root_path + r"\rxjava-outputLocal1.txt"
-# results = []
-# for path in file_paths_rxjava:
-#     remove_errors_txt(path)
-#     path_no_error_file = path.split(".")[0] +"_removed_errors.txt"
-#     results.append(read_results(path_no_error_file))
-
+file_path_local = root_path + r"\stubby4j-jmh-random-output.txt"
 remove_errors_txt(file_path_local)
 path_no_error_file = file_path_local.split(".")[0] +"_removed_errors.txt"
 results = read_results(path_no_error_file)
-rmads = read_results_summary(path_no_error_file, results)
-print(rmads)
-with open(root_path + r'\RMADS_LOCAL.json', 'w') as json_file:
+rmads = get_rmad_all_benchmarks(results)
+print(len(rmads))
+with open(rf'{file_path_local.split(".")[0]}_RMAD.txt', 'w') as json_file:
     json.dump(rmads, json_file)
 
 

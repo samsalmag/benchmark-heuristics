@@ -67,23 +67,28 @@ path_2 = (r"projects\RxJava-3.1.8\src\test\java\io\reactivex\rxjava3",)         
 path_3 = (r"projects\stubby4j-7.6.0\src\test\java\io\github\azagniotov\stubby4j",)                  # stubby4j test
 path_4 = (r"projects\stubby4j-7.6.0\src\functional-test\java\io\github\azagniotov\stubby4j",)       # stubby4j functional-test
 path_5 = (r"projects\stubby4j-7.6.0\src\integration-test\java\io\github\azagniotov\stubby4j",)      # stubby4j integration-test
-path_6 = (r"projects\stubby4j-7.6.0\src\load-test\java\io\github\azagniotov\stubby4j",)             # stubby4j load-test                                   
+# path_6 = (r"projects\spring-framework-6.0.3\spring-core\src",)      # Spring-framework
+# path_6 = (r"projects\sonarqube-10.5.0.89998\sonar-core\src\test\java\org",)      # sonarqube-core
+path_7 = (r"projects\sonarqube-10.5.0.89998\sonar-scanner-engine\src\test\java\org",)      # sonarqube-scanner
+# path_7 = (r"projects\sonarqube-10.5.0.89998\sonar-duplications\src\test\java\org",)      # sonarqube-duplications
+# path_6 = (r"projects\stubby4j-7.6.0\src\load-test\java\io\github\azagniotov\stubby4j",)             # stubby4j load-test                                   
 
 # Mockito
 print("Exporting Mockito junit tests...", end="")
-export_junit_tests(path_1, "mockito-5.10.0")  
+# export_junit_tests(path_1, "mockito-5.10.0")  
 print("done!")
 
 # RxJava
 print("Exporting RxJava junit tests...", end="")
-export_junit_tests(path_2, "RxJava-3.1.8")  
+# export_junit_tests(path_2, "RxJava-3.1.8")  
 print("done!")
 
 # stubby4j
-print("Exporting stubby4j junit tests...", end="")
-export_junit_tests(path_3, "stubby4j-7.6.0")
-# export_junit_tests(path_4, "stubby4j-7.6.0-functional-test") 
-# export_junit_tests(path_5, "stubby4j-7.6.0-integration-test") 
+print("Exporting spring junit tests...", end="")
+export_junit_tests(path_7, "sonarqube")
+# export_junit_tests(path_3, "stubby4j")
+# export_junit_tests(path_4, "stubby4j-functional-test")
+# export_junit_tests(path_5, "stubby4j-integration-test")
 # export_junit_tests(path_6, "stubby4j-7.6.0-load-test") 
 print("done!")
 

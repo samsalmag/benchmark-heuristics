@@ -1,0 +1,509 @@
+# JMH version: 1.21
+# VM version: JDK 17.0.1, Java HotSpot(TM) 64-Bit Server VM, 17.0.1+12-LTS-39
+# VM invoker: C:\Program Files\Java\jdk-17.0.1\bin\java.exe
+# VM options: <none>
+# Warmup: 10 iterations, 1 s each
+# Measurement: 40 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.reactivex.rxjava3.internal.operators.flowable.FlowableDoFinallyTest._Benchmark.benchmark_eventOrdering
+
+# Run progress: 0,00% complete, ETA 00:06:40
+# Fork: 1 of 2
+# Warmup Iteration   1: 1631,136 ns/op
+# Warmup Iteration   2: 1197,191 ns/op
+# Warmup Iteration   3: 1170,505 ns/op
+# Warmup Iteration   4: 1159,012 ns/op
+# Warmup Iteration   5: 1199,787 ns/op
+# Warmup Iteration   6: 1158,487 ns/op
+# Warmup Iteration   7: 1147,997 ns/op
+# Warmup Iteration   8: 1152,217 ns/op
+# Warmup Iteration   9: 1154,122 ns/op
+# Warmup Iteration  10: 1158,345 ns/op
+Iteration   1: 1153,077 ns/op
+Iteration   2: 1150,921 ns/op
+Iteration   3: 1155,594 ns/op
+Iteration   4: 1154,239 ns/op
+Iteration   5: 1151,687 ns/op
+Iteration   6: 1160,184 ns/op
+Iteration   7: 1116,008 ns/op
+Iteration   8: 1113,228 ns/op
+Iteration   9: 1109,381 ns/op
+Iteration  10: 1113,691 ns/op
+Iteration  11: 1114,095 ns/op
+Iteration  12: 1130,870 ns/op
+Iteration  13: 1113,053 ns/op
+Iteration  14: 1123,269 ns/op
+Iteration  15: 1098,906 ns/op
+Iteration  16: 1093,426 ns/op
+Iteration  17: 1126,713 ns/op
+Iteration  18: 1196,374 ns/op
+Iteration  19: 1149,690 ns/op
+Iteration  20: 1135,302 ns/op
+Iteration  21: 1112,935 ns/op
+Iteration  22: 1097,398 ns/op
+Iteration  23: 1104,113 ns/op
+Iteration  24: 1094,636 ns/op
+Iteration  25: 1094,129 ns/op
+Iteration  26: 1097,287 ns/op
+Iteration  27: 1089,800 ns/op
+Iteration  28: 1095,274 ns/op
+Iteration  29: 1097,856 ns/op
+Iteration  30: 1099,086 ns/op
+Iteration  31: 1098,302 ns/op
+Iteration  32: 1100,436 ns/op
+Iteration  33: 1089,422 ns/op
+Iteration  34: 1089,970 ns/op
+Iteration  35: 1092,539 ns/op
+Iteration  36: 1091,813 ns/op
+Iteration  37: 1103,049 ns/op
+Iteration  38: 1091,421 ns/op
+Iteration  39: 1096,446 ns/op
+Iteration  40: 1088,448 ns/op
+
+# Run progress: 12,50% complete, ETA 00:05:54
+# Fork: 2 of 2
+# Warmup Iteration   1: 1512,798 ns/op
+# Warmup Iteration   2: 1182,817 ns/op
+# Warmup Iteration   3: 1166,284 ns/op
+# Warmup Iteration   4: 1167,008 ns/op
+# Warmup Iteration   5: 1158,281 ns/op
+# Warmup Iteration   6: 1160,151 ns/op
+# Warmup Iteration   7: 1160,120 ns/op
+# Warmup Iteration   8: 1192,940 ns/op
+# Warmup Iteration   9: 1176,995 ns/op
+# Warmup Iteration  10: 1162,930 ns/op
+Iteration   1: 1163,844 ns/op
+Iteration   2: 1160,839 ns/op
+Iteration   3: 1159,694 ns/op
+Iteration   4: 1160,551 ns/op
+Iteration   5: 1159,433 ns/op
+Iteration   6: 1161,888 ns/op
+Iteration   7: 1109,409 ns/op
+Iteration   8: 1111,167 ns/op
+Iteration   9: 1112,528 ns/op
+Iteration  10: 1119,362 ns/op
+Iteration  11: 1104,568 ns/op
+Iteration  12: 1104,961 ns/op
+Iteration  13: 1117,518 ns/op
+Iteration  14: 1132,801 ns/op
+Iteration  15: 1146,028 ns/op
+Iteration  16: 1123,808 ns/op
+Iteration  17: 1112,117 ns/op
+Iteration  18: 1104,101 ns/op
+Iteration  19: 1110,331 ns/op
+Iteration  20: 1108,527 ns/op
+Iteration  21: 1110,676 ns/op
+Iteration  22: 1114,622 ns/op
+Iteration  23: 1120,830 ns/op
+Iteration  24: 1112,001 ns/op
+Iteration  25: 1115,999 ns/op
+Iteration  26: 1108,018 ns/op
+Iteration  27: 1108,451 ns/op
+Iteration  28: 1115,372 ns/op
+Iteration  29: 1121,329 ns/op
+Iteration  30: 1114,474 ns/op
+Iteration  31: 1109,787 ns/op
+Iteration  32: 1115,782 ns/op
+Iteration  33: 1110,449 ns/op
+Iteration  34: 1106,254 ns/op
+Iteration  35: 1104,488 ns/op
+Iteration  36: 1108,874 ns/op
+Iteration  37: 1113,870 ns/op
+Iteration  38: 1114,229 ns/op
+Iteration  39: 1127,191 ns/op
+Iteration  40: 1106,963 ns/op
+
+
+Result "io.reactivex.rxjava3.internal.operators.flowable.FlowableDoFinallyTest._Benchmark.benchmark_eventOrdering":
+  1117,840 ±(99.9%) 8,717 ns/op [Average]
+  (min, avg, max) = (1088,448, 1117,840, 1196,374), stdev = 22,812
+  CI (99.9%): [1109,123, 1126,558] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 17.0.1, Java HotSpot(TM) 64-Bit Server VM, 17.0.1+12-LTS-39
+# VM invoker: C:\Program Files\Java\jdk-17.0.1\bin\java.exe
+# VM options: <none>
+# Warmup: 10 iterations, 1 s each
+# Measurement: 40 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.reactivex.rxjava3.internal.operators.flowable.FlowableFlatMapSingleTest._Benchmark.benchmark_undeliverableUponCancelDelayError
+
+# Run progress: 25,00% complete, ETA 00:05:03
+# Fork: 1 of 2
+# Warmup Iteration   1: 4752,724 ns/op
+# Warmup Iteration   2: 3410,359 ns/op
+# Warmup Iteration   3: 3261,346 ns/op
+# Warmup Iteration   4: 3263,329 ns/op
+# Warmup Iteration   5: 3245,942 ns/op
+# Warmup Iteration   6: 3289,607 ns/op
+# Warmup Iteration   7: 3261,636 ns/op
+# Warmup Iteration   8: 3293,359 ns/op
+# Warmup Iteration   9: 3324,482 ns/op
+# Warmup Iteration  10: 3257,754 ns/op
+Iteration   1: 3319,998 ns/op
+Iteration   2: 3380,642 ns/op
+Iteration   3: 3279,489 ns/op
+Iteration   4: 3236,621 ns/op
+Iteration   5: 3210,435 ns/op
+Iteration   6: 3208,642 ns/op
+Iteration   7: 3147,251 ns/op
+Iteration   8: 3161,857 ns/op
+Iteration   9: 3105,285 ns/op
+Iteration  10: 3135,146 ns/op
+Iteration  11: 3199,038 ns/op
+Iteration  12: 3136,557 ns/op
+Iteration  13: 3133,061 ns/op
+Iteration  14: 3088,921 ns/op
+Iteration  15: 3114,143 ns/op
+Iteration  16: 3105,424 ns/op
+Iteration  17: 3159,253 ns/op
+Iteration  18: 3137,557 ns/op
+Iteration  19: 3254,540 ns/op
+Iteration  20: 3160,546 ns/op
+Iteration  21: 3160,096 ns/op
+Iteration  22: 3121,091 ns/op
+Iteration  23: 3129,929 ns/op
+Iteration  24: 3191,687 ns/op
+Iteration  25: 3171,446 ns/op
+Iteration  26: 3180,475 ns/op
+Iteration  27: 3279,181 ns/op
+Iteration  28: 3189,653 ns/op
+Iteration  29: 3169,955 ns/op
+Iteration  30: 3076,514 ns/op
+Iteration  31: 3079,986 ns/op
+Iteration  32: 3087,384 ns/op
+Iteration  33: 3093,783 ns/op
+Iteration  34: 3078,346 ns/op
+Iteration  35: 3160,240 ns/op
+Iteration  36: 3071,270 ns/op
+Iteration  37: 3081,713 ns/op
+Iteration  38: 3114,611 ns/op
+Iteration  39: 3075,746 ns/op
+Iteration  40: 3082,359 ns/op
+
+# Run progress: 37,50% complete, ETA 00:04:13
+# Fork: 2 of 2
+# Warmup Iteration   1: 4713,125 ns/op
+# Warmup Iteration   2: 3377,023 ns/op
+# Warmup Iteration   3: 3422,997 ns/op
+# Warmup Iteration   4: 3430,303 ns/op
+# Warmup Iteration   5: 3389,056 ns/op
+# Warmup Iteration   6: 3392,094 ns/op
+# Warmup Iteration   7: 3585,179 ns/op
+# Warmup Iteration   8: 3362,777 ns/op
+# Warmup Iteration   9: 3292,259 ns/op
+# Warmup Iteration  10: 3304,139 ns/op
+Iteration   1: 3315,166 ns/op
+Iteration   2: 3316,804 ns/op
+Iteration   3: 3631,496 ns/op
+Iteration   4: 3364,790 ns/op
+Iteration   5: 3329,611 ns/op
+Iteration   6: 3292,979 ns/op
+Iteration   7: 3128,629 ns/op
+Iteration   8: 3158,177 ns/op
+Iteration   9: 3166,150 ns/op
+Iteration  10: 3131,571 ns/op
+Iteration  11: 3143,860 ns/op
+Iteration  12: 3154,147 ns/op
+Iteration  13: 3145,546 ns/op
+Iteration  14: 3173,343 ns/op
+Iteration  15: 3146,872 ns/op
+Iteration  16: 3142,352 ns/op
+Iteration  17: 3134,276 ns/op
+Iteration  18: 3326,023 ns/op
+Iteration  19: 3261,669 ns/op
+Iteration  20: 3269,033 ns/op
+Iteration  21: 3310,343 ns/op
+Iteration  22: 3140,156 ns/op
+Iteration  23: 3122,915 ns/op
+Iteration  24: 3152,129 ns/op
+Iteration  25: 3153,836 ns/op
+Iteration  26: 3140,222 ns/op
+Iteration  27: 3149,228 ns/op
+Iteration  28: 3153,860 ns/op
+Iteration  29: 3133,479 ns/op
+Iteration  30: 3161,663 ns/op
+Iteration  31: 3170,339 ns/op
+Iteration  32: 3231,012 ns/op
+Iteration  33: 3320,787 ns/op
+Iteration  34: 3133,655 ns/op
+Iteration  35: 3193,926 ns/op
+Iteration  36: 3137,268 ns/op
+Iteration  37: 3153,924 ns/op
+Iteration  38: 3154,337 ns/op
+Iteration  39: 3227,668 ns/op
+Iteration  40: 3145,655 ns/op
+
+
+Result "io.reactivex.rxjava3.internal.operators.flowable.FlowableFlatMapSingleTest._Benchmark.benchmark_undeliverableUponCancelDelayError":
+  3181,110 ±(99.9%) 34,520 ns/op [Average]
+  (min, avg, max) = (3071,270, 3181,110, 3631,496), stdev = 90,333
+  CI (99.9%): [3146,590, 3215,630] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 17.0.1, Java HotSpot(TM) 64-Bit Server VM, 17.0.1+12-LTS-39
+# VM invoker: C:\Program Files\Java\jdk-17.0.1\bin\java.exe
+# VM options: <none>
+# Warmup: 10 iterations, 1 s each
+# Measurement: 40 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.reactivex.rxjava3.internal.operators.flowable.FlowableFromIterableTest._Benchmark.benchmark_hasNextCancelsAndCompletesSlowPath
+
+# Run progress: 50,00% complete, ETA 00:03:22
+# Fork: 1 of 2
+# Warmup Iteration   1: 341,037 ns/op
+# Warmup Iteration   2: 237,187 ns/op
+# Warmup Iteration   3: 233,439 ns/op
+# Warmup Iteration   4: 233,549 ns/op
+# Warmup Iteration   5: 233,602 ns/op
+# Warmup Iteration   6: 234,327 ns/op
+# Warmup Iteration   7: 244,170 ns/op
+# Warmup Iteration   8: 236,164 ns/op
+# Warmup Iteration   9: 236,846 ns/op
+# Warmup Iteration  10: 232,128 ns/op
+Iteration   1: 235,838 ns/op
+Iteration   2: 235,684 ns/op
+Iteration   3: 241,276 ns/op
+Iteration   4: 231,576 ns/op
+Iteration   5: 233,496 ns/op
+Iteration   6: 233,438 ns/op
+Iteration   7: 233,411 ns/op
+Iteration   8: 233,510 ns/op
+Iteration   9: 234,304 ns/op
+Iteration  10: 232,474 ns/op
+Iteration  11: 232,376 ns/op
+Iteration  12: 235,631 ns/op
+Iteration  13: 233,185 ns/op
+Iteration  14: 232,915 ns/op
+Iteration  15: 234,234 ns/op
+Iteration  16: 240,240 ns/op
+Iteration  17: 239,533 ns/op
+Iteration  18: 235,177 ns/op
+Iteration  19: 237,725 ns/op
+Iteration  20: 235,135 ns/op
+Iteration  21: 238,848 ns/op
+Iteration  22: 235,413 ns/op
+Iteration  23: 242,141 ns/op
+Iteration  24: 238,490 ns/op
+Iteration  25: 233,654 ns/op
+Iteration  26: 248,446 ns/op
+Iteration  27: 258,243 ns/op
+Iteration  28: 250,218 ns/op
+Iteration  29: 250,248 ns/op
+Iteration  30: 251,979 ns/op
+Iteration  31: 246,042 ns/op
+Iteration  32: 242,648 ns/op
+Iteration  33: 237,773 ns/op
+Iteration  34: 237,632 ns/op
+Iteration  35: 248,452 ns/op
+Iteration  36: 246,068 ns/op
+Iteration  37: 239,457 ns/op
+Iteration  38: 240,266 ns/op
+Iteration  39: 241,573 ns/op
+Iteration  40: 236,986 ns/op
+
+# Run progress: 62,50% complete, ETA 00:02:31
+# Fork: 2 of 2
+# Warmup Iteration   1: 392,842 ns/op
+# Warmup Iteration   2: 259,302 ns/op
+# Warmup Iteration   3: 252,210 ns/op
+# Warmup Iteration   4: 252,888 ns/op
+# Warmup Iteration   5: 247,535 ns/op
+# Warmup Iteration   6: 241,419 ns/op
+# Warmup Iteration   7: 240,582 ns/op
+# Warmup Iteration   8: 238,536 ns/op
+# Warmup Iteration   9: 234,404 ns/op
+# Warmup Iteration  10: 236,462 ns/op
+Iteration   1: 235,012 ns/op
+Iteration   2: 242,105 ns/op
+Iteration   3: 237,481 ns/op
+Iteration   4: 235,664 ns/op
+Iteration   5: 246,143 ns/op
+Iteration   6: 248,044 ns/op
+Iteration   7: 239,856 ns/op
+Iteration   8: 244,454 ns/op
+Iteration   9: 238,558 ns/op
+Iteration  10: 236,714 ns/op
+Iteration  11: 241,112 ns/op
+Iteration  12: 244,869 ns/op
+Iteration  13: 246,574 ns/op
+Iteration  14: 240,200 ns/op
+Iteration  15: 249,046 ns/op
+Iteration  16: 243,428 ns/op
+Iteration  17: 241,781 ns/op
+Iteration  18: 238,130 ns/op
+Iteration  19: 238,189 ns/op
+Iteration  20: 237,877 ns/op
+Iteration  21: 239,163 ns/op
+Iteration  22: 236,833 ns/op
+Iteration  23: 235,987 ns/op
+Iteration  24: 236,343 ns/op
+Iteration  25: 237,459 ns/op
+Iteration  26: 236,405 ns/op
+Iteration  27: 238,426 ns/op
+Iteration  28: 239,625 ns/op
+Iteration  29: 234,073 ns/op
+Iteration  30: 237,615 ns/op
+Iteration  31: 243,875 ns/op
+Iteration  32: 247,170 ns/op
+Iteration  33: 238,948 ns/op
+Iteration  34: 243,415 ns/op
+Iteration  35: 238,854 ns/op
+Iteration  36: 245,300 ns/op
+Iteration  37: 245,943 ns/op
+Iteration  38: 244,270 ns/op
+Iteration  39: 242,100 ns/op
+Iteration  40: 240,507 ns/op
+
+
+Result "io.reactivex.rxjava3.internal.operators.flowable.FlowableFromIterableTest._Benchmark.benchmark_hasNextCancelsAndCompletesSlowPath":
+  239,916 ±(99.9%) 2,046 ns/op [Average]
+  (min, avg, max) = (231,576, 239,916, 258,243), stdev = 5,353
+  CI (99.9%): [237,870, 241,962] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 17.0.1, Java HotSpot(TM) 64-Bit Server VM, 17.0.1+12-LTS-39
+# VM invoker: C:\Program Files\Java\jdk-17.0.1\bin\java.exe
+# VM options: <none>
+# Warmup: 10 iterations, 1 s each
+# Measurement: 40 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: io.reactivex.rxjava3.maybe.MaybeTest._Benchmark.benchmark_concat4
+
+# Run progress: 75,00% complete, ETA 00:01:41
+# Fork: 1 of 2
+# Warmup Iteration   1: 561,494 ns/op
+# Warmup Iteration   2: 332,795 ns/op
+# Warmup Iteration   3: 332,137 ns/op
+# Warmup Iteration   4: 331,188 ns/op
+# Warmup Iteration   5: 320,990 ns/op
+# Warmup Iteration   6: 322,045 ns/op
+# Warmup Iteration   7: 324,333 ns/op
+# Warmup Iteration   8: 321,921 ns/op
+# Warmup Iteration   9: 311,121 ns/op
+# Warmup Iteration  10: 309,779 ns/op
+Iteration   1: 312,701 ns/op
+Iteration   2: 313,546 ns/op
+Iteration   3: 310,282 ns/op
+Iteration   4: 309,723 ns/op
+Iteration   5: 313,198 ns/op
+Iteration   6: 310,231 ns/op
+Iteration   7: 311,894 ns/op
+Iteration   8: 310,343 ns/op
+Iteration   9: 310,998 ns/op
+Iteration  10: 311,676 ns/op
+Iteration  11: 311,590 ns/op
+Iteration  12: 312,465 ns/op
+Iteration  13: 310,752 ns/op
+Iteration  14: 311,131 ns/op
+Iteration  15: 311,137 ns/op
+Iteration  16: 311,991 ns/op
+Iteration  17: 311,204 ns/op
+Iteration  18: 311,497 ns/op
+Iteration  19: 311,557 ns/op
+Iteration  20: 311,256 ns/op
+Iteration  21: 313,606 ns/op
+Iteration  22: 312,795 ns/op
+Iteration  23: 311,205 ns/op
+Iteration  24: 308,641 ns/op
+Iteration  25: 310,860 ns/op
+Iteration  26: 315,188 ns/op
+Iteration  27: 315,326 ns/op
+Iteration  28: 332,826 ns/op
+Iteration  29: 314,304 ns/op
+Iteration  30: 316,935 ns/op
+Iteration  31: 312,911 ns/op
+Iteration  32: 315,078 ns/op
+Iteration  33: 310,149 ns/op
+Iteration  34: 312,665 ns/op
+Iteration  35: 311,229 ns/op
+Iteration  36: 319,486 ns/op
+Iteration  37: 313,474 ns/op
+Iteration  38: 316,656 ns/op
+Iteration  39: 312,490 ns/op
+Iteration  40: 314,694 ns/op
+
+# Run progress: 87,50% complete, ETA 00:00:50
+# Fork: 2 of 2
+# Warmup Iteration   1: 490,337 ns/op
+# Warmup Iteration   2: 331,412 ns/op
+# Warmup Iteration   3: 347,473 ns/op
+# Warmup Iteration   4: 338,658 ns/op
+# Warmup Iteration   5: 330,950 ns/op
+# Warmup Iteration   6: 328,880 ns/op
+# Warmup Iteration   7: 324,204 ns/op
+# Warmup Iteration   8: 323,465 ns/op
+# Warmup Iteration   9: 319,684 ns/op
+# Warmup Iteration  10: 317,237 ns/op
+Iteration   1: 318,836 ns/op
+Iteration   2: 318,940 ns/op
+Iteration   3: 315,883 ns/op
+Iteration   4: 317,425 ns/op
+Iteration   5: 319,460 ns/op
+Iteration   6: 315,186 ns/op
+Iteration   7: 319,592 ns/op
+Iteration   8: 321,449 ns/op
+Iteration   9: 322,937 ns/op
+Iteration  10: 321,176 ns/op
+Iteration  11: 337,607 ns/op
+Iteration  12: 317,112 ns/op
+Iteration  13: 318,364 ns/op
+Iteration  14: 320,543 ns/op
+Iteration  15: 328,048 ns/op
+Iteration  16: 332,559 ns/op
+Iteration  17: 330,851 ns/op
+Iteration  18: 327,887 ns/op
+Iteration  19: 317,018 ns/op
+Iteration  20: 322,988 ns/op
+Iteration  21: 316,682 ns/op
+Iteration  22: 318,589 ns/op
+Iteration  23: 321,645 ns/op
+Iteration  24: 321,811 ns/op
+Iteration  25: 323,075 ns/op
+Iteration  26: 317,271 ns/op
+Iteration  27: 316,930 ns/op
+Iteration  28: 317,606 ns/op
+Iteration  29: 316,781 ns/op
+Iteration  30: 324,140 ns/op
+Iteration  31: 336,275 ns/op
+Iteration  32: 320,235 ns/op
+Iteration  33: 320,406 ns/op
+Iteration  34: 318,483 ns/op
+Iteration  35: 322,468 ns/op
+Iteration  36: 317,101 ns/op
+Iteration  37: 328,021 ns/op
+Iteration  38: 323,627 ns/op
+Iteration  39: 319,921 ns/op
+Iteration  40: 319,925 ns/op
+
+
+Result "io.reactivex.rxjava3.maybe.MaybeTest._Benchmark.benchmark_concat4":
+  317,307 ±(99.9%) 2,437 ns/op [Average]
+  (min, avg, max) = (308,641, 317,307, 337,607), stdev = 6,378
+  CI (99.9%): [314,869, 319,744] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:06:45
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                                                                                           Mode  Cnt     Score    Error  Units
+i.r.r.internal.operators.flowable.FlowableDoFinallyTest._Benchmark.benchmark_eventOrdering                          avgt   80  1117,840 ±  8,717  ns/op
+i.r.r.internal.operators.flowable.FlowableFlatMapSingleTest._Benchmark.benchmark_undeliverableUponCancelDelayError  avgt   80  3181,110 ± 34,520  ns/op
+i.r.r.internal.operators.flowable.FlowableFromIterableTest._Benchmark.benchmark_hasNextCancelsAndCompletesSlowPath  avgt   80   239,916 ±  2,046  ns/op
+i.r.r.maybe.MaybeTest._Benchmark.benchmark_concat4                                                                  avgt   80   317,307 ±  2,437  ns/op

@@ -43,5 +43,7 @@ def create_jmh_commands_txt(nrCommands, file_path):
             f.write(f"{command}")
 
 # rxjava_path = r"test-selections\RxJava-3.1.8_SELECTED_OPC_240228-10h34m41s.txt"
+root_path = r"benchmarks\results\onlyRxJava"
+rxjava_path = root_path + r"\RxJava_SELECTED_10000.txt"
 stubby_path = r"benchmarks\results\testStubby.txt"
-create_jmh_commands_txt(3, stubby_path)
+create_jmh_commands_txt(5, rxjava_path)
